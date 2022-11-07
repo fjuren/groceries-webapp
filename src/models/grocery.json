@@ -1,0 +1,10 @@
+{
+    "_id": "ObjectID",
+    "shopping_list": {
+        "checked": "Boolean",
+        "item": "String"
+    },
+    "recipe_list": {
+        "recipe_items_id": "ObjectID"
+    }
+}

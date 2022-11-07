@@ -1,0 +1,19 @@
+{
+    "_id": "ObjectID",
+    "account??": "Varchar",
+    "first_name": "String",
+    "last_name": "String",
+    "email": "String",
+    "my_grocery": {
+        "grocery_id": "ObjectID"
+    },
+    "my_recipes": {
+        "recipe_id": "ObjectID"
+    },
+    "my_favourites": {
+        "favourites_id": "ObjectID"
+    },
+    "comments": {
+        "comments_id": "ObjectID"
+    }
+}

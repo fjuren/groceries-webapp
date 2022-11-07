@@ -1,0 +1,16 @@
+{
+    "_id": "ObjectID",
+    "title": "String",
+    "description": "String",
+    "tags": "Array",
+    "recipe_items": {
+        "_id": "ObjectID",
+        "checked": "Boolean",
+        "item": "String"
+    },
+    "user_id": "ObjectID",
+    "votes": "Number",
+    "comments": {
+        "comments_id": "ObjectID"
+    }
+}
