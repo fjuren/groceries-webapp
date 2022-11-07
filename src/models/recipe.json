@@ -1,16 +1,23 @@
 {
     "_id": "ObjectID",
+    "user_id": "ObjectID",
+    "user_lists": {
+        "user_id": "ObjectID"
+    },
+    "user_favourites": {
+        "user_id": "ObjectID"
+    },
     "title": "String",
     "description": "String",
     "tags": "Array",
     "recipe_items": {
         "_id": "ObjectID",
-        "checked": "Boolean",
+        "checked": "ObjectID",
         "item": "String"
     },
-    "user_id": "ObjectID",
     "votes": "Number",
     "comments": {
         "comments_id": "ObjectID"
-    }
+    },
+    "creation_date": "Datetime"
 }

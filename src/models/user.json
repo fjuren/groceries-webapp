@@ -1,12 +1,10 @@
 {
     "_id": "ObjectID",
-    "account??": "Varchar",
+    "google_account_id": "ObjectID",
     "first_name": "String",
     "last_name": "String",
     "email": "String",
-    "my_grocery": {
-        "grocery_id": "ObjectID"
-    },
+    "grocery_id": "ObjectID",
     "my_recipes": {
         "recipe_id": "ObjectID"
     },
@@ -15,5 +13,6 @@
     },
     "comments": {
         "comments_id": "ObjectID"
-    }
+    },
+    "creation_date": "Datetime"
 }
