@@ -1,7 +1,6 @@
 import React from 'react';
 import './login.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Box } from '@mui/system';
 import { Stack } from '@mui/material';
 import { TextField, Link, Divider } from '@mui/material';
 import { Button, Checkbox } from '@mui/material';
@@ -42,58 +41,58 @@ const Login = () => {
   return (
     <div id="login-page">
       <ThemeProvider theme={theme}>
-        <div className="starting">
-          <Box
-            sx={{
-              border: '1px solid grey',
-              width: 500,
-              height: 300
-            }}>
-            <div id="login">
-              <h1>Log in</h1>
-            </div>
-            <div id="login-options">
-              <form id="loginform" onSubmit={handleSubmit}>
-                <Stack spacing={2}>
-                  <TextField
-                    id="email-field"
-                    label="Email"
-                    placeholder="Type your email"
-                    variant="outlined"
-                    onChange={(e) => handleChange(e)}
-                  />
-                  <TextField
-                    id="password-field"
-                    label="Password"
-                    type="password"
-                    placeholder="Type your password"
-                    variant="outlined"
-                  />
-                </Stack>
-                <Checkbox onChange={handleCheckbox} label="Keep me signed in" />
-                <Link href="#">Forgot Password?</Link>
+        <div id="login">
+          <div id="login-title">
+            <h1>Log in</h1>
+          </div>
+          <div id="login-options">
+            <form id="login-form" onSubmit={handleSubmit}>
+              <Stack spacing={2}>
+                <TextField
+                  id="email-field"
+                  label="Email"
+                  placeholder="Type your email"
+                  variant="outlined"
+                  onChange={(e) => handleChange(e)}
+                />
+                <TextField
+                  id="password-field"
+                  label="Password"
+                  type="password"
+                  placeholder="Type your password"
+                  variant="outlined"
+                />
+              </Stack>
+              <div id="signin-forgotpw-container">
+                <div>
+                  <Checkbox onChange={handleCheckbox} />
+                  <label htmlFor="Keep me signed in">Keep me signed in</label>
+                </div>
+                <div>
+                  <Link href="#">Forgot Password?</Link>
+                </div>
+              </div>
+              <div>
                 <Button sx={{ bgcolor: 'primary.main' }} type="submit" variant="contained">
                   Log in
                 </Button>
-              </form>
-              <span>
-                <div>
-                  <Divider> or </Divider>
-                </div>
-              </span>
-              <div id="google-login">
-                <GoogleButton
-                  label="Log in with Google"
-                  onClick={() => {
-                    handleGoogleLogin();
-                  }}></GoogleButton>
               </div>
+            </form>
+            <div>
+              <Divider> or </Divider>
             </div>
-            <div id="alt-signup">
-              <span>Don&apos;t have an account?</span>
-              <Link href="#">Sign up</Link>
+            <div id="google-login">
+              <GoogleButton
+                label="Log in with Google"
+                onClick={() => {
+                  handleGoogleLogin();
+                }}></GoogleButton>
             </div>
-          </Box>
+          </div>
+          <div id="alt-signup">
+            <span>Don&apos;t have an account?</span>
+            <Link href="#">Sign up</Link>
+          </div>
         </div>
       </ThemeProvider>
     </div>

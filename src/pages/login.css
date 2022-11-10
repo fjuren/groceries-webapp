@@ -1,2 +1,29 @@
 #login-page {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+#login {
+    width: 464px;
+}
+
+#login-form > div {
+    display: flex;
+}
+
+#signin-forgotpw-container {
+    display: flex;
+}
+
+#google-login:first-child {
+    width: 100%;
+}
+
+button {
+    width: 100%;
+}
+
+@media screen {
+    
 }
