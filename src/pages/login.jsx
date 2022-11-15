@@ -4,7 +4,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Stack } from '@mui/material';
 import { TextField, Link, Divider } from '@mui/material';
 import { Button, Checkbox } from '@mui/material';
-import GoogleButton from 'react-google-button';
 
 // import { auth } from '../firebase.config';
 // import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
@@ -39,7 +38,7 @@ const Login = () => {
   const handleGoogleLogin = () => {};
 
   return (
-    <div id="login-page">
+    <div id="container-login-page">
       <ThemeProvider theme={theme}>
         <div id="login">
           <div id="login-title">
@@ -63,9 +62,11 @@ const Login = () => {
                   variant="outlined"
                 />
               </Stack>
-              <div id="signin-forgotpw-container">
+              <div id="container-login-selections">
                 <div>
                   <Checkbox onChange={handleCheckbox} />
+                </div>
+                <div>
                   <label htmlFor="Keep me signed in">Keep me signed in</label>
                 </div>
                 <div>
@@ -73,7 +74,10 @@ const Login = () => {
                 </div>
               </div>
               <div>
-                <Button sx={{ bgcolor: 'primary.main' }} type="submit" variant="contained">
+                <Button
+                  sx={{ bgcolor: 'primary.main', height: '50px' }}
+                  type="submit"
+                  variant="contained">
                   Log in
                 </Button>
               </div>
@@ -81,12 +85,14 @@ const Login = () => {
             <div>
               <Divider> or </Divider>
             </div>
-            <div id="google-login">
-              <GoogleButton
-                label="Log in with Google"
+            <div>
+              <button
+                id="google-button"
                 onClick={() => {
                   handleGoogleLogin();
-                }}></GoogleButton>
+                }}>
+                Log in with Google
+              </button>
             </div>
           </div>
           <div id="alt-signup">
