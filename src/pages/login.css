@@ -7,6 +7,7 @@ body{
     display: flex;
     justify-content: center;
     text-align: center;
+    padding-top:10rem;
 }
 
 #login {
@@ -16,21 +17,28 @@ body{
 #container-login-selections {
     display: flex;
     align-items: center;
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
 }
 
 #container-login-selections div:nth-child(3) {
     margin-left: auto;
 }
 
-#google-login:first-child {
-    /* width: 100%; */
-}
-
 button {
     width: 100%;
 }
 
-/* GOOGLE BUTTOn */
+#divider {
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
+}
+
+#alt-signup {
+    margin-top: 1.2rem
+}
+
+/* GOOGLE BUTTON */
 #google-button {
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s;
@@ -49,6 +57,7 @@ button {
   }
   #google-button:hover {
     box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
+    background-color: rgb(251, 251, 251);
   }
   #google-button:active {
     background-color: #eeeeee;

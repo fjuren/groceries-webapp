@@ -1,26 +1,13 @@
 import React from 'react';
 import './login.css';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '../theme';
 import { Stack } from '@mui/material';
 import { TextField, Link, Divider } from '@mui/material';
 import { Button, Checkbox } from '@mui/material';
 
 // import { auth } from '../firebase.config';
 // import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#067A46'
-    },
-    // secondary: {
-    //   // main: '#067A46'
-    // },
-    error: {
-      main: '#067A46'
-    }
-  }
-});
 
 const Login = () => {
   const handleCheckbox = () => {};
@@ -64,7 +51,7 @@ const Login = () => {
               </Stack>
               <div id="container-login-selections">
                 <div>
-                  <Checkbox onChange={handleCheckbox} />
+                  <Checkbox onChange={handleCheckbox} sx={{ padding: 0 }} />
                 </div>
                 <div>
                   <label htmlFor="Keep me signed in">Keep me signed in</label>
@@ -82,7 +69,7 @@ const Login = () => {
                 </Button>
               </div>
             </form>
-            <div>
+            <div id="divider">
               <Divider> or </Divider>
             </div>
             <div>
