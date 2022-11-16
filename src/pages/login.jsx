@@ -2,21 +2,19 @@ import React from 'react';
 import './login.css';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../theme';
-import { Stack } from '@mui/material';
-import { TextField, Link, Divider } from '@mui/material';
-import { Button, Checkbox } from '@mui/material';
+import { Stack, TextField, Link, Divider, Button, Checkbox } from '@mui/material';
 
 // import { auth } from '../firebase.config';
-// import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-
+// import { signInWithEmailAndPassword } from 'firebase/auth';
+// GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 const Login = () => {
   const handleCheckbox = () => {};
 
-  const handleChange = (e) => {
-    console.log(e.target.value);
-  };
+  // const handleChange = (e) => {
+  //   console.log(e.target.value);
+  // };
 
-  const handleSubmit = (e) => {
+  const handleRegularLogin = (e) => {
     e.preventDefault();
     console.log(e.target[0].value);
     console.log(e.target[2].value);
@@ -32,14 +30,14 @@ const Login = () => {
             <h1>Log in</h1>
           </div>
           <div id="login-options">
-            <form id="login-form" onSubmit={handleSubmit}>
+            <form id="login-form" onSubmit={handleRegularLogin}>
               <Stack spacing={2}>
                 <TextField
                   id="email-field"
                   label="Email"
                   placeholder="Type your email"
                   variant="outlined"
-                  onChange={(e) => handleChange(e)}
+                  // onChange={(e) => handleChange(e)}
                 />
                 <TextField
                   id="password-field"
@@ -84,7 +82,7 @@ const Login = () => {
           </div>
           <div id="alt-signup">
             <span>Don&apos;t have an account?</span>
-            <Link href="#">Sign up</Link>
+            <Link href="/signup">Sign up</Link>
           </div>
         </div>
       </ThemeProvider>
