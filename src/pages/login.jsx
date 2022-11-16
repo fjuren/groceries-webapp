@@ -3,24 +3,82 @@ import './login.css';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../theme';
 import { Stack, TextField, Link, Divider, Button, Checkbox } from '@mui/material';
+import { auth } from '../firebase.config';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
-// import { auth } from '../firebase.config';
-// import { signInWithEmailAndPassword } from 'firebase/auth';
-// GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+const provider = new GoogleAuthProvider();
+
 const Login = () => {
   const handleCheckbox = () => {};
 
   // const handleChange = (e) => {
   //   console.log(e.target.value);
   // };
+  let navigation = useNavigate();
 
   const handleRegularLogin = (e) => {
     e.preventDefault();
-    console.log(e.target[0].value);
-    console.log(e.target[2].value);
+    // console.log(e.target[0].value);
+    // console.log(e.target[2].value);
+    const userLogin = document.getElementById('login-form');
+    const email = userLogin['email-field'];
+    const password = userLogin['password-field'];
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+        // authStatus(true);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        console.log('error code: ' + errorCode);
+        console.log('error message: ' + errorMessage);
+
+        // document.getElementById('errorCode').textContent = `${errorCode}`;
+        // document.getElementById('errorMessage').textContent = `${errorMessage}`;
+        // console.log(errorCode);
+        // console.log(errorMessage);
+      });
   };
 
-  const handleGoogleLogin = () => {};
+  const handleGoogleLogin = (e) => {
+    e.preventDefault();
+
+    provider.setCustomParameters({
+      prompt: 'select_account'
+    });
+
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        // const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        console.log(provider);
+        console.log(user);
+        // authStatus(true);
+        navigation('/');
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+        // document.getElementById('errorGCode').textContent = `${errorCode}`;
+        // document.getElementById('errorGMessage').textContent = `${errorMessage}`;
+        // The email of the user's account used.
+        // const email = error.customData.email;
+        // The AuthCredential type that was used.
+        // const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
 
   return (
     <div id="container-login-page">
@@ -73,15 +131,15 @@ const Login = () => {
             <div>
               <button
                 id="google-button"
-                onClick={() => {
-                  handleGoogleLogin();
+                onClick={(e) => {
+                  handleGoogleLogin(e);
                 }}>
                 Log in with Google
               </button>
             </div>
           </div>
           <div id="alt-signup">
-            <span>Don&apos;t have an account?</span>
+            <span>Don&apos;t have an account? </span>
             <Link href="/signup">Sign up</Link>
           </div>
         </div>
