@@ -3,8 +3,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from '../theme';
 import { Stack, TextField, Link, Button, Checkbox } from '@mui/material';
 import { auth } from '../firebase.config';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+// import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const handleCheckbox = () => {};
@@ -12,24 +12,38 @@ const Signup = () => {
   // const handleChange = (e) => {
   //   console.log(e.target.value);
   // };
-  let navigation = useNavigate();
+  //   let navigation = useNavigate();
 
   const handleRegularSignup = (e) => {
     e.preventDefault();
     // console.log(e.target[0].value);
     // console.log(e.target[2].value);
     const userLogin = document.getElementById('signup-form');
+    const fname = userLogin['fname-field'].value;
+    const lname = userLogin['lname-field'].value;
     const email = userLogin['email-field'].value;
     const password = userLogin['password-field'].value;
-    console.log(userLogin);
-    console.log(email);
-    console.log(password);
+    console.log(fname);
+    console.log(lname);
+    // console.log(email);
+    // console.log(password);
 
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
         console.log(user);
-        navigation('/');
+
+        await updateProfile(auth.currentUser, {
+          displayName: fname + ' ' + lname
+        })
+          .then(() => {
+            console.log('Name added!');
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+        // navigation('/');
         // authStatus(true);
       })
       .catch((error) => {
@@ -44,8 +58,18 @@ const Signup = () => {
         // console.log(errorCode);
         // console.log(errorMessage);
       });
-  };
+    console.log(auth.currentUser);
 
+    // updateProfile(auth.currentUser, {
+    //   displayName: fname + lname
+    // })
+    //   .then(() => {
+    //     console.log('profile name added');
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+  };
   return (
     <div id="container-signup-page">
       <ThemeProvider theme={theme}>
@@ -56,6 +80,20 @@ const Signup = () => {
           <div id="signup-options">
             <form id="signup-form">
               <Stack spacing={2}>
+                <TextField
+                  id="fname-field"
+                  label="First name"
+                  placeholder="Type your first name"
+                  variant="outlined"
+                  // onChange={(e) => handleChange(e)}
+                />
+                <TextField
+                  id="lname-field"
+                  label="Last name"
+                  placeholder="Type your last name"
+                  variant="outlined"
+                  // onChange={(e) => handleChange(e)}
+                />
                 <TextField
                   id="email-field"
                   label="Email"
@@ -89,13 +127,6 @@ const Signup = () => {
                   }}>
                   Create account
                 </Button>
-                <button
-                  id="google-button"
-                  onClick={(e) => {
-                    handleRegularSignup(e);
-                  }}>
-                  Fake signup
-                </button>
               </div>
             </form>
           </div>
