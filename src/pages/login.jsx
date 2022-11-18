@@ -8,9 +8,10 @@ import { Link } from '@mui/material';
 import { Divider } from '@mui/material';
 import { Button } from '@mui/material';
 import { Checkbox } from '@mui/material';
-import { auth } from '../firebase.config';
+import { auth, db } from '../firebase.config';
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 
 const provider = new GoogleAuthProvider();
 
@@ -51,39 +52,47 @@ const Login = ({ authStatus }) => {
       });
   };
 
-  const handleGoogleLogin = (e) => {
+  const handleGoogleLogin = async (e) => {
     e.preventDefault();
 
     provider.setCustomParameters({
       prompt: 'select_account'
     });
 
-    signInWithPopup(auth, provider)
-      .then((result) => {
+    try {
+      signInWithPopup(auth, provider).then(async (result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         // const credential = GoogleAuthProvider.credentialFromResult(result);
         // const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        console.log(provider);
-        console.log(user);
+        const nameSplit = user.displayName.split(/(\s+)/).filter(function (e) {
+          return e.trim().length > 0;
+        });
+
+        await setDoc(doc(db, 'users', user.uid), {
+          first_name: nameSplit[0],
+          last_name: nameSplit[1],
+          email: user.email,
+          account_created: serverTimestamp()
+        });
         authStatus(true);
         navigation('/');
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
-        // document.getElementById('errorGCode').textContent = `${errorCode}`;
-        // document.getElementById('errorGMessage').textContent = `${errorMessage}`;
-        // The email of the user's account used.
-        // const email = error.customData.email;
-        // The AuthCredential type that was used.
-        // const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
       });
+    } catch (error) {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode);
+      console.log(errorMessage);
+      // document.getElementById('errorGCode').textContent = `${errorCode}`;
+      // document.getElementById('errorGMessage').textContent = `${errorMessage}`;
+      // The email of the user's account used.
+      // const email = error.customData.email;
+      // The AuthCredential type that was used.
+      // const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    }
   };
 
   return (
