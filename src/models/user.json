@@ -14,5 +14,5 @@
     "comments": {
         "comments_id": "ObjectID"
     },
-    "creation_date": "Datetime"
+    "account_created": "Datetime"
 }

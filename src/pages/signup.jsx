@@ -2,9 +2,10 @@ import React from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../theme';
 import { Stack, TextField, Link, Button, Checkbox } from '@mui/material';
-import { auth } from '../firebase.config';
+import { auth, db } from '../firebase.config';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 
 const Signup = ({ authStatus }) => {
   const handleCheckbox = () => {};
@@ -14,7 +15,7 @@ const Signup = ({ authStatus }) => {
   // };
   let navigation = useNavigate();
 
-  const handleRegularSignup = (e) => {
+  const handleRegularSignup = async (e) => {
     e.preventDefault();
 
     const userLogin = document.getElementById('signup-form');
@@ -23,8 +24,8 @@ const Signup = ({ authStatus }) => {
     const email = userLogin['email-field'].value;
     const password = userLogin['password-field'].value;
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(async (userCredential) => {
+    try {
+      createUserWithEmailAndPassword(auth, email, password).then(async (userCredential) => {
         const user = userCredential.user;
         console.log(user);
 
@@ -39,16 +40,23 @@ const Signup = ({ authStatus }) => {
             console.log(error);
           });
 
+        await setDoc(doc(db, 'users', user.uid), {
+          first_name: fname,
+          last_name: lname,
+          email: email,
+          account_created: serverTimestamp()
+        });
+
         authStatus(true);
         navigation('/');
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-
-        console.log('error code: ' + errorCode);
-        console.log('error message: ' + errorMessage);
       });
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      console.log('error code: ' + errorCode);
+      console.log('error message: ' + errorMessage);
+    }
   };
   return (
     <div id="container-signup-page">
