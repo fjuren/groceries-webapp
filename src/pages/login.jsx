@@ -34,7 +34,8 @@ const Login = ({ authStatus }) => {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
-        // authStatus(true);
+        authStatus(true);
+        navigation('/');
       })
       .catch((error) => {
         const errorCode = error.code;

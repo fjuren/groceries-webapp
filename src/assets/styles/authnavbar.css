@@ -1,0 +1,15 @@
+#navbar {
+    display:flex;
+    background-color: white;
+    align-items: center;
+    -webkit-box-shadow: 0 4px 6px -6px #222;
+    -moz-box-shadow: 0 4px 6px -6px #222;
+    box-shadow: 0 4px 6px -6px #222;
+    height:3.7rem;
+}
+
+
+ul {
+    list-style-type: none;
+    display: flex;
+}

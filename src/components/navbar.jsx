@@ -7,18 +7,18 @@ import { useNavigate } from 'react-router-dom';
 const Navbar = () => {
   const navigation = useNavigate();
 
-  const handleHome = (e) => {
-    console.log(e);
+  const handleHome = () => {
+    console.log();
     navigation('/');
   };
 
-  const handleSignup = (e) => {
-    console.log(e);
+  const handleSignup = () => {
+    console.log();
     navigation('/signup');
   };
 
-  const handleLogin = (e) => {
-    console.log(e);
+  const handleLogin = () => {
+    console.log();
     navigation('/login');
   };
   return (
@@ -31,7 +31,7 @@ const Navbar = () => {
           <nav className="menu">
             <ul>
               <li>
-                <Button variant="txt" sx={{ width: '6rem' }} onClick={(e) => handleHome(e)}>
+                <Button variant="txt" sx={{ width: '6rem' }} onClick={() => handleHome()}>
                   Home
                 </Button>
               </li>
@@ -41,14 +41,14 @@ const Navbar = () => {
             className="signup-btn"
             variant="outlined"
             sx={{ width: '6rem', marginLeft: 'auto' }}
-            onClick={(e) => handleSignup(e)}>
+            onClick={() => handleSignup()}>
             Sign up
           </Button>
           <Button
             className="login-btn"
             variant="outlined"
             sx={{ width: '6rem', marginLeft: '1rem', marginRight: '1rem' }}
-            onClick={(e) => handleLogin(e)}>
+            onClick={() => handleLogin()}>
             Log in
           </Button>
         </div>
