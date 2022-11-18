@@ -4,35 +4,31 @@ import theme from '../theme';
 import { Stack, TextField, Link, Button, Checkbox } from '@mui/material';
 import { auth } from '../firebase.config';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const Signup = () => {
+const Signup = ({ authStatus }) => {
   const handleCheckbox = () => {};
 
   // const handleChange = (e) => {
   //   console.log(e.target.value);
   // };
-  //   let navigation = useNavigate();
+  let navigation = useNavigate();
 
   const handleRegularSignup = (e) => {
     e.preventDefault();
-    // console.log(e.target[0].value);
-    // console.log(e.target[2].value);
+
     const userLogin = document.getElementById('signup-form');
     const fname = userLogin['fname-field'].value;
     const lname = userLogin['lname-field'].value;
     const email = userLogin['email-field'].value;
     const password = userLogin['password-field'].value;
-    console.log(fname);
-    console.log(lname);
-    // console.log(email);
-    // console.log(password);
 
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         const user = userCredential.user;
         console.log(user);
 
+        // Assign first and last names to auth user
         await updateProfile(auth.currentUser, {
           displayName: fname + ' ' + lname
         })
@@ -43,8 +39,8 @@ const Signup = () => {
             console.log(error);
           });
 
-        // navigation('/');
-        // authStatus(true);
+        authStatus(true);
+        navigation('/');
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -52,23 +48,7 @@ const Signup = () => {
 
         console.log('error code: ' + errorCode);
         console.log('error message: ' + errorMessage);
-
-        // document.getElementById('errorCode').textContent = `${errorCode}`;
-        // document.getElementById('errorMessage').textContent = `${errorMessage}`;
-        // console.log(errorCode);
-        // console.log(errorMessage);
       });
-    console.log(auth.currentUser);
-
-    // updateProfile(auth.currentUser, {
-    //   displayName: fname + lname
-    // })
-    //   .then(() => {
-    //     console.log('profile name added');
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   };
   return (
     <div id="container-signup-page">

@@ -1,15 +1,20 @@
 import React from 'react';
-import './login.css';
+import '../assets/styles/login.css';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../theme';
-import { Stack, TextField, Link, Divider, Button, Checkbox } from '@mui/material';
+import { Stack } from '@mui/material';
+import { TextField } from '@mui/material';
+import { Link } from '@mui/material';
+import { Divider } from '@mui/material';
+import { Button } from '@mui/material';
+import { Checkbox } from '@mui/material';
 import { auth } from '../firebase.config';
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
 const provider = new GoogleAuthProvider();
 
-const Login = () => {
+const Login = ({ authStatus }) => {
   const handleCheckbox = () => {};
 
   // const handleChange = (e) => {
@@ -61,7 +66,7 @@ const Login = () => {
         const user = result.user;
         console.log(provider);
         console.log(user);
-        // authStatus(true);
+        authStatus(true);
         navigation('/');
       })
       .catch((error) => {
