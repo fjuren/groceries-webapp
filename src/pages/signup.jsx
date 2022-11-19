@@ -44,7 +44,8 @@ const Signup = ({ authStatus }) => {
           first_name: fname,
           last_name: lname,
           email: email,
-          account_created: serverTimestamp()
+          account_created: serverTimestamp(),
+          last_login: serverTimestamp()
         });
 
         authStatus(true);

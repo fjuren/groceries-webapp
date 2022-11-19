@@ -11,7 +11,7 @@ import { Checkbox } from '@mui/material';
 import { auth, db } from '../firebase.config';
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
+import { setDoc, doc, serverTimestamp, getDoc, updateDoc } from 'firebase/firestore';
 
 const provider = new GoogleAuthProvider();
 
@@ -23,33 +23,51 @@ const Login = ({ authStatus }) => {
   // };
   let navigation = useNavigate();
 
-  const handleRegularLogin = (e) => {
+  const handleRegularLogin = async (e) => {
     e.preventDefault();
     // console.log(e.target[0].value);
     // console.log(e.target[2].value);
     const userLogin = document.getElementById('login-form');
-    const email = userLogin['email-field'];
-    const password = userLogin['password-field'];
+    const email = userLogin['email-field'].value;
+    const password = userLogin['password-field'].value;
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+    try {
+      signInWithEmailAndPassword(auth, email, password).then(async (userCredential) => {
         const user = userCredential.user;
-        console.log(user);
+        const nameSplit = user.displayName.split(/(\s+)/).filter(function (e) {
+          return e.trim().length > 0;
+        });
+        const docRef = doc(db, 'users', user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          await updateDoc(doc(db, 'users', user.uid), {
+            last_login: serverTimestamp()
+          });
+        } else {
+          await setDoc(doc(db, 'users', user.uid), {
+            first_name: nameSplit[0],
+            last_name: nameSplit[1],
+            email: user.email,
+            account_created: serverTimestamp(),
+            last_login: serverTimestamp()
+          });
+        }
         authStatus(true);
         navigation('/');
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-
-        console.log('error code: ' + errorCode);
-        console.log('error message: ' + errorMessage);
-
-        // document.getElementById('errorCode').textContent = `${errorCode}`;
-        // document.getElementById('errorMessage').textContent = `${errorMessage}`;
-        // console.log(errorCode);
-        // console.log(errorMessage);
       });
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      console.log('error code: ' + errorCode);
+      console.log('error message: ' + errorMessage);
+
+      // document.getElementById('errorCode').textContent = `${errorCode}`;
+      // document.getElementById('errorMessage').textContent = `${errorMessage}`;
+      // console.log(errorCode);
+      // console.log(errorMessage);
+    }
   };
 
   const handleGoogleLogin = async (e) => {
@@ -70,12 +88,22 @@ const Login = ({ authStatus }) => {
           return e.trim().length > 0;
         });
 
-        await setDoc(doc(db, 'users', user.uid), {
-          first_name: nameSplit[0],
-          last_name: nameSplit[1],
-          email: user.email,
-          account_created: serverTimestamp()
-        });
+        const docRef = doc(db, 'users', user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          await updateDoc(doc(db, 'users', user.uid), {
+            last_login: serverTimestamp()
+          });
+        } else {
+          await setDoc(doc(db, 'users', user.uid), {
+            first_name: nameSplit[0],
+            last_name: nameSplit[1],
+            email: user.email,
+            account_created: serverTimestamp(),
+            last_login: serverTimestamp()
+          });
+        }
         authStatus(true);
         navigation('/');
       });
@@ -103,7 +131,7 @@ const Login = ({ authStatus }) => {
             <h1>Log in</h1>
           </div>
           <div id="login-options">
-            <form id="login-form" onSubmit={handleRegularLogin}>
+            <form id="login-form">
               <Stack spacing={2}>
                 <TextField
                   id="email-field"
@@ -134,8 +162,11 @@ const Login = ({ authStatus }) => {
               <div>
                 <Button
                   sx={{ bgcolor: 'primary.main', height: '50px' }}
-                  type="submit"
-                  variant="contained">
+                  // type="submit"
+                  variant="contained"
+                  onClick={(e) => {
+                    handleRegularLogin(e);
+                  }}>
                   Log in
                 </Button>
               </div>
