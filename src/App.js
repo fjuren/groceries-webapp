@@ -3,7 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { auth } from './firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
 import Navbar from './components/navbar';
+import NavbarMobile from './components/navbar-mobile';
 import Authnavbar from './components/authnavbar';
+import AuthnavbarMobile from './components/authnavbar-mobile';
 import Home from './pages/Home';
 import Grocerfylist from './pages/grocerfylist';
 import Recipes from './pages/recipes';
@@ -32,7 +34,17 @@ function App() {
 
   return (
     <BrowserRouter>
-      {!isAuthorized ? <Navbar /> : <Authnavbar authStatus={setIsAuthorized} />}
+      {!isAuthorized ? (
+        <div>
+          <Navbar />
+          <NavbarMobile />
+        </div>
+      ) : (
+        <div>
+          <Authnavbar authStatus={setIsAuthorized} />
+          <AuthnavbarMobile authStatus={setIsAuthorized} />
+        </div>
+      )}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/grocerfylist" element={<Grocerfylist />} />
