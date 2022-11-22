@@ -8,10 +8,6 @@ import { useNavigate } from 'react-router-dom';
 const Loggedoutmenu = ({ expandHamburger, setExpandHamburger }) => {
   const navigation = useNavigate();
 
-  // const slider = {
-  //   right: '0rem'
-  // };
-
   const handleHome = () => {
     console.log();
     navigation('/');
