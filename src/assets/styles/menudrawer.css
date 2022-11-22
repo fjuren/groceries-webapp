@@ -1,4 +1,4 @@
-.loggedout-menu-drawer#active {
+.menu-drawer#active {
     display: flex;
     justify-content: center;
     position: absolute;
@@ -12,28 +12,28 @@
     transition: 0.5s;
 }
 
-.loggedout-menu-drawer nav {
+.menu-drawer nav {
     width: 7rem;
 }
 /* body {
     background-color: grey;
 } */
 
-.loggedout-menu-drawer {
+.menu-drawer {
     display:none;
 }
 
-.loggedout-menu-drawer ul {
+.menu-drawer ul {
     flex-wrap: wrap;
     justify-content: center;
     padding-inline-start: 0;
 }
 
-.loggedout-menu-drawer li {
+.menu-drawer li {
     padding: .2rem 0 .2rem 0;
 }
 
-.loggedout-menu-drawer button {
+.menu-drawer button {
     margin-left: 0;
     margin-right: 0;
 }

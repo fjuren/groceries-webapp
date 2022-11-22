@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from '@emotion/react';
 import '../assets/styles/navbar.css';
 import Hamburger from './hamburger';
-import Loggedoutmenu from './loggedoutmenu';
+import Navbarmenu from './navbarmenu';
 import theme from '../theme';
 import { useState } from 'react';
 
@@ -17,10 +17,7 @@ const NavbarMobile = () => {
             Mobile Nav
           </a>
           <Hamburger expandHamburger={expandHamburger} setExpandHamburger={setExpandHamburger} />
-          <Loggedoutmenu
-            expandHamburger={expandHamburger}
-            setExpandHamburger={setExpandHamburger}
-          />
+          <Navbarmenu expandHamburger={expandHamburger} setExpandHamburger={setExpandHamburger} />
         </div>
       </header>
     </ThemeProvider>

@@ -1,11 +1,11 @@
 import { ThemeProvider } from '@emotion/react';
 import '../assets/styles/navbar.css';
-import '../assets/styles/loggedoutmenu.css';
+import '../assets/styles/menudrawer.css';
 import Button from '@mui/material/Button';
 import theme from '../theme';
 import { useNavigate } from 'react-router-dom';
 
-const Loggedoutmenu = ({ expandHamburger, setExpandHamburger }) => {
+const Navbarmenu = ({ expandHamburger, setExpandHamburger }) => {
   const navigation = useNavigate();
 
   const handleHome = () => {
@@ -27,7 +27,7 @@ const Loggedoutmenu = ({ expandHamburger, setExpandHamburger }) => {
   };
   return (
     <ThemeProvider theme={theme}>
-      <div className="loggedout-menu-drawer" id={expandHamburger ? 'active' : null}>
+      <div className="menu-drawer" id={expandHamburger ? 'active' : null}>
         <nav>
           <ul>
             <li>
@@ -63,4 +63,4 @@ const Loggedoutmenu = ({ expandHamburger, setExpandHamburger }) => {
   );
 };
 
-export default Loggedoutmenu;
+export default Navbarmenu;
