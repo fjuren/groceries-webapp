@@ -7,7 +7,7 @@ import theme from '../theme';
 import { useState } from 'react';
 
 const NavbarMobile = () => {
-  const [expandHamburger, setExpandHamburger] = useState('false');
+  const [expandHamburger, setExpandHamburger] = useState(false);
 
   return (
     <ThemeProvider theme={theme}>

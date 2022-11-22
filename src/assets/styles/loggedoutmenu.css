@@ -1,7 +1,36 @@
-.loggedout-menu#active {
+.loggedout-menu-drawer#active {
     display:block;
+    position: absolute;
+    height: 100%;
+    width: 9rem;
+    top:3.9rem;
+    /* right: -8rem; */
+    right: 0rem;
+    background-color: white;
+    z-index: 1;
+    transition: 0.5s;
 }
 
-.loggedout-menu {
+/* body {
+    background-color: grey;
+} */
+
+.loggedout-menu-drawer {
     display:none;
+    right:-5;
+}
+
+.loggedout-menu-drawer ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-inline-start: 0;
+}
+
+.loggedout-menu-drawer li {
+    padding: .2rem 0 .2rem 0;
+}
+
+.loggedout-menu-drawer button {
+    margin-left: 0;
+    margin-right: 0;
 }
