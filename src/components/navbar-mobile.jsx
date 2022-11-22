@@ -17,7 +17,10 @@ const NavbarMobile = () => {
             Mobile Nav
           </a>
           <Hamburger expandHamburger={expandHamburger} setExpandHamburger={setExpandHamburger} />
-          <Loggedoutmenu expandHamburger={expandHamburger} />
+          <Loggedoutmenu
+            expandHamburger={expandHamburger}
+            setExpandHamburger={setExpandHamburger}
+          />
         </div>
       </header>
     </ThemeProvider>

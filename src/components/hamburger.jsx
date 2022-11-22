@@ -4,7 +4,6 @@ import '../assets/styles/hamburger.css';
 const Hamburger = ({ expandHamburger, setExpandHamburger }) => {
   const animateBurger = () => {
     setExpandHamburger(!expandHamburger);
-    // document.getElementById('loggedout-menu-drawer').style.width = '9rem';
   };
 
   return (

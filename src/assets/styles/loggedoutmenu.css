@@ -1,16 +1,20 @@
 .loggedout-menu-drawer#active {
-    display:block;
+    display: flex;
+    justify-content: center;
     position: absolute;
     height: 100%;
-    width: 9rem;
+    width: 25rem;
     top:3.9rem;
-    /* right: -8rem; */
+    /* right: -23rem; */
     right: 0rem;
     background-color: white;
-    z-index: 1;
+    z-index: 2;
     transition: 0.5s;
 }
 
+.loggedout-menu-drawer nav {
+    width: 7rem;
+}
 /* body {
     background-color: grey;
 } */

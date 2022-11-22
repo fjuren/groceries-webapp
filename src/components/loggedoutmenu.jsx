@@ -5,27 +5,29 @@ import Button from '@mui/material/Button';
 import theme from '../theme';
 import { useNavigate } from 'react-router-dom';
 
-const Loggedoutmenu = ({ expandHamburger }) => {
+const Loggedoutmenu = ({ expandHamburger, setExpandHamburger }) => {
   const navigation = useNavigate();
 
-  // if (expandHamburger) {
-  //   const slideDrawer = document.getElementsByClassName('loggedout-menu-drawer');
-  //   console.log(slideDrawer.style);
-  // }
+  // const slider = {
+  //   right: '0rem'
+  // };
 
   const handleHome = () => {
     console.log();
     navigation('/');
+    setExpandHamburger(!expandHamburger);
   };
 
   const handleSignup = () => {
     console.log();
     navigation('/signup');
+    setExpandHamburger(!expandHamburger);
   };
 
   const handleLogin = () => {
     console.log();
     navigation('/login');
+    setExpandHamburger(!expandHamburger);
   };
   return (
     <ThemeProvider theme={theme}>
@@ -35,8 +37,8 @@ const Loggedoutmenu = ({ expandHamburger }) => {
             <li>
               <Button
                 className="login-btn"
-                variant="outlined"
-                sx={{ width: '6rem', marginLeft: '1rem', marginRight: '1rem' }}
+                variant="contained"
+                sx={{ width: '329px', height: '50px', marginLeft: '1rem', marginRight: '1rem' }}
                 onClick={() => handleLogin()}>
                 Log in
               </Button>
@@ -45,13 +47,16 @@ const Loggedoutmenu = ({ expandHamburger }) => {
               <Button
                 className="signup-btn"
                 variant="outlined"
-                sx={{ width: '6rem', marginLeft: 'auto' }}
+                sx={{ width: '329px', height: '50px', marginLeft: 'auto' }}
                 onClick={() => handleSignup()}>
                 Sign up
               </Button>
             </li>
             <li>
-              <Button variant="txt" sx={{ width: '6rem' }} onClick={() => handleHome()}>
+              <Button
+                variant="txt"
+                sx={{ width: '329px', height: '50px' }}
+                onClick={() => handleHome()}>
                 Home
               </Button>
             </li>
