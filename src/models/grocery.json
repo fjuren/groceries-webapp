@@ -1,6 +1,6 @@
 {
     "_id": "ObjectID",
-    "shopping_list": {
+    "groceries_list": {
         "_id": "ObjectID",
         "checked": "Boolean",
         "item": "String"
