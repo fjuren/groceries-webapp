@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from '@emotion/react';
 import theme from '../theme';
 import '../assets/styles/grocerfylist.css';
@@ -12,16 +12,19 @@ import {
   collection,
   addDoc,
   getDocs,
-  where,
-  query,
+  // where,
+  // query,
   serverTimestamp
+  // doc
   // orderBy
 } from 'firebase/firestore';
 
 const Grocerfylist = () => {
   const ariaLabel = { 'aria-label': 'description' };
 
-  // const [itemList] = useState([]);
+  const [testRender, setTestRender] = useState([]);
+
+  const [itemList, setItemList] = useState(['item']);
   const [item, setitem] = useState('');
   const [checkmark] = useState(false);
 
@@ -31,14 +34,9 @@ const Grocerfylist = () => {
     setitem(e.target.value);
   };
 
-  const q = query(
-    groceriesCollection,
-    where('author.id', '==', auth.currentUser.uid)
-    // orderBy('item_created')
-  );
-
-  const additem = async () => {
+  const addItem = async () => {
     try {
+      setTestRender('test');
       await addDoc(groceriesCollection, {
         item,
         checkmark,
@@ -48,15 +46,27 @@ const Grocerfylist = () => {
         },
         item_created: serverTimestamp()
       });
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id, ' => ', doc.data());
-        // setItemList(doc.data());
-      });
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    const getItems = async () => {
+      // const authoredItems = query(
+      //   groceriesCollection,
+      //   where('author.id', '==', auth.currentUser.uid)
+      //   // orderBy('item_created')
+      // );
+      const querySnapshot = await getDocs(groceriesCollection);
+      // console.log('querySnapshot.docs => ' + querySnapshot.docs);
+      setItemList(
+        querySnapshot.docs.map((document) => ({ ...document.data(), item_id: document.id }))
+      );
+    };
+    getItems();
+    console.log(itemList);
+  }, [testRender]);
 
   return (
     <div id="container-grocerfy-page">
@@ -69,16 +79,20 @@ const Grocerfylist = () => {
               sx={{ width: '6rem' }}
               variant="contained"
               startIcon={<AddIcon />}
-              onClick={additem}>
+              onClick={addItem}>
               Add
             </Button>
           </div>
         </div>
-        {/* <div>
-          {itemList.map((item) => {
-            <h3>{item}</h3>;
+        <div>
+          {itemList.map((item, index) => {
+            return (
+              <div key={index}>
+                <h3>{item.item}</h3>
+              </div>
+            );
           })}
-        </div> */}
+        </div>
       </ThemeProvider>
     </div>
   );
