@@ -8,25 +8,54 @@ import { Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 import { auth, db } from '../firebase.config';
-import { addDoc, collection } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  getDocs,
+  where,
+  query,
+  serverTimestamp
+  // orderBy
+} from 'firebase/firestore';
 
 const Grocerfylist = () => {
-  // const [checkmark, setCheckmark] = useState(false);
-  const [ingredient, setIngredient] = useState('');
-
   const ariaLabel = { 'aria-label': 'description' };
+
+  // const [itemList] = useState([]);
+  const [item, setitem] = useState('');
+  const [checkmark] = useState(false);
 
   const groceriesCollection = collection(db, 'groceries');
 
-  const handleIngredient = (e) => {
-    setIngredient(e.target.value);
+  const handleitem = (e) => {
+    setitem(e.target.value);
   };
 
-  const addIngredient = async () => {
-    await addDoc(groceriesCollection, {
-      ingredient,
-      author: { id: auth.currentUser.uid, name: auth.currentUser.displayName }
-    });
+  const q = query(
+    groceriesCollection,
+    where('author.id', '==', auth.currentUser.uid)
+    // orderBy('item_created')
+  );
+
+  const additem = async () => {
+    try {
+      await addDoc(groceriesCollection, {
+        item,
+        checkmark,
+        author: {
+          id: auth.currentUser.uid,
+          name: auth.currentUser.displayName
+        },
+        item_created: serverTimestamp()
+      });
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, ' => ', doc.data());
+        // setItemList(doc.data());
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -34,21 +63,22 @@ const Grocerfylist = () => {
       <ThemeProvider theme={theme}>
         <h1 className="title">My Grocerfy List</h1>
         <div className="grocerfyList-container">
-          <div className="addIngredients-container">
-            <Input
-              placeholder="Add ingredient"
-              inputProps={ariaLabel}
-              onChange={(e) => handleIngredient(e)}
-            />
+          <div className="additems-container">
+            <Input placeholder="Add item" inputProps={ariaLabel} onChange={(e) => handleitem(e)} />
             <Button
               sx={{ width: '6rem' }}
               variant="contained"
               startIcon={<AddIcon />}
-              onClick={addIngredient}>
+              onClick={additem}>
               Add
             </Button>
           </div>
         </div>
+        {/* <div>
+          {itemList.map((item) => {
+            <h3>{item}</h3>;
+          })}
+        </div> */}
       </ThemeProvider>
     </div>
   );
