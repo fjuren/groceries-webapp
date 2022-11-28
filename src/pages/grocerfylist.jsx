@@ -6,6 +6,7 @@ import '../assets/styles/grocerfylist.css';
 import Input from '@mui/material/Input';
 import { Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { auth, db } from '../firebase.config';
 import {
@@ -14,15 +15,14 @@ import {
   getDocs,
   // where,
   // query,
-  serverTimestamp
-  // doc
+  serverTimestamp,
+  deleteDoc,
+  doc
   // orderBy
 } from 'firebase/firestore';
 
 const Grocerfylist = () => {
   const ariaLabel = { 'aria-label': 'description' };
-
-  const [testRender, setTestRender] = useState([]);
 
   const [itemList, setItemList] = useState(['item']);
   const [item, setitem] = useState('');
@@ -36,7 +36,6 @@ const Grocerfylist = () => {
 
   const addItem = async () => {
     try {
-      setTestRender('test');
       await addDoc(groceriesCollection, {
         item,
         checkmark,
@@ -47,7 +46,16 @@ const Grocerfylist = () => {
         item_created: serverTimestamp()
       });
     } catch (err) {
-      console.log(err);
+      console.log('addItem error => ' + err);
+    }
+  };
+
+  const deleteItem = async (item_id) => {
+    try {
+      await deleteDoc(doc(db, 'groceries', item_id));
+      // console.log('delete item', e, item_id);
+    } catch (err) {
+      console.log('deleteItem error => ' + err);
     }
   };
 
@@ -65,8 +73,7 @@ const Grocerfylist = () => {
       );
     };
     getItems();
-    console.log(itemList);
-  }, [testRender]);
+  }, [deleteItem]);
 
   return (
     <div id="container-grocerfy-page">
@@ -84,14 +91,27 @@ const Grocerfylist = () => {
             </Button>
           </div>
         </div>
-        <div>
-          {itemList.map((item, index) => {
-            return (
-              <div key={index}>
-                <h3>{item.item}</h3>
-              </div>
-            );
-          })}
+        <div className="item-container">
+          <div>
+            {itemList.map((item, index) => {
+              return (
+                <div key={index}>
+                  <div>
+                    <h3>{item.item}</h3>
+                  </div>
+                  <div>
+                    <Button
+                      sx={{ width: '6rem', backgroundColor: 'red' }}
+                      variant="contained"
+                      startIcon={<DeleteIcon />}
+                      onClick={() => deleteItem(item.item_id)}>
+                      Delete
+                    </Button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </ThemeProvider>
     </div>
