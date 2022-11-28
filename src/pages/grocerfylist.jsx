@@ -24,7 +24,7 @@ import {
 const Grocerfylist = () => {
   const ariaLabel = { 'aria-label': 'description' };
 
-  const [itemList, setItemList] = useState(['item']);
+  const [itemList, setItemList] = useState([]);
   const [item, setitem] = useState('');
   const [checkmark] = useState(false);
 
@@ -34,7 +34,8 @@ const Grocerfylist = () => {
     setitem(e.target.value);
   };
 
-  const addItem = async () => {
+  const addItem = async (e) => {
+    e.preventDefault();
     try {
       await addDoc(groceriesCollection, {
         item,
@@ -81,14 +82,21 @@ const Grocerfylist = () => {
         <h1 className="title">My Grocerfy List</h1>
         <div className="grocerfyList-container">
           <div className="additems-container">
-            <Input placeholder="Add item" inputProps={ariaLabel} onChange={(e) => handleitem(e)} />
-            <Button
-              sx={{ width: '6rem' }}
-              variant="contained"
-              startIcon={<AddIcon />}
-              onClick={addItem}>
-              Add
-            </Button>
+            <form onSubmit={(e) => addItem(e)}>
+              <Input
+                placeholder="Add item"
+                inputProps={ariaLabel}
+                onChange={(e) => handleitem(e)}
+              />
+              <Button
+                sx={{ width: '6rem' }}
+                variant="contained"
+                startIcon={<AddIcon />}
+                onClick={(e) => addItem(e)}
+                type="submit">
+                Add
+              </Button>
+            </form>
           </div>
         </div>
         <div className="item-container">
