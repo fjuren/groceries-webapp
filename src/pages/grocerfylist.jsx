@@ -37,6 +37,10 @@ const Grocerfylist = () => {
     setitem(e.target.value);
   };
 
+  const handleClear = () => {
+    document.getElementsByClassName('addItemField')[0].firstChild.value = '';
+  };
+
   const addItem = async (e) => {
     e.preventDefault();
     try {
@@ -49,6 +53,7 @@ const Grocerfylist = () => {
         },
         item_created: serverTimestamp()
       });
+      handleClear();
       setRenderList(renderList + 1);
     } catch (err) {
       console.log('addItem error => ' + err);
@@ -89,6 +94,7 @@ const Grocerfylist = () => {
           <div className="additems-container">
             <form onSubmit={(e) => addItem(e)}>
               <Input
+                className="addItemField"
                 placeholder="Add item"
                 inputProps={ariaLabel}
                 onChange={(e) => handleItem(e)}
