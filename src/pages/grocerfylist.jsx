@@ -3,6 +3,8 @@ import { ThemeProvider } from '@emotion/react';
 import theme from '../theme';
 import '../assets/styles/grocerfylist.css';
 
+// import ListControlItems from '../components/listControlItems';
+
 import Input from '@mui/material/Input';
 import { Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
@@ -27,10 +29,11 @@ const Grocerfylist = () => {
   const [itemList, setItemList] = useState([]);
   const [item, setitem] = useState('');
   const [checkmark] = useState(false);
+  const [renderList, setRenderList] = useState(0);
 
   const groceriesCollection = collection(db, 'groceries');
 
-  const handleitem = (e) => {
+  const handleItem = (e) => {
     setitem(e.target.value);
   };
 
@@ -46,6 +49,7 @@ const Grocerfylist = () => {
         },
         item_created: serverTimestamp()
       });
+      setRenderList(renderList + 1);
     } catch (err) {
       console.log('addItem error => ' + err);
     }
@@ -54,6 +58,7 @@ const Grocerfylist = () => {
   const deleteItem = async (item_id) => {
     try {
       await deleteDoc(doc(db, 'groceries', item_id));
+      setRenderList(renderList + 1);
       // console.log('delete item', e, item_id);
     } catch (err) {
       console.log('deleteItem error => ' + err);
@@ -74,7 +79,7 @@ const Grocerfylist = () => {
       );
     };
     getItems();
-  }, [deleteItem]);
+  }, [renderList]);
 
   return (
     <div id="container-grocerfy-page">
@@ -86,7 +91,7 @@ const Grocerfylist = () => {
               <Input
                 placeholder="Add item"
                 inputProps={ariaLabel}
-                onChange={(e) => handleitem(e)}
+                onChange={(e) => handleItem(e)}
               />
               <Button
                 sx={{ width: '6rem' }}
@@ -104,6 +109,7 @@ const Grocerfylist = () => {
             {itemList.map((item, index) => {
               return (
                 <div key={index}>
+                  {/* <ListControlItems item={item.item} /> */}
                   <div>
                     <h3>{item.item}</h3>
                   </div>
