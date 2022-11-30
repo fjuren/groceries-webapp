@@ -3,7 +3,7 @@ import { ThemeProvider } from '@emotion/react';
 import theme from '../theme';
 import '../assets/styles/grocerfylist.css';
 
-// import ListControlItems from '../components/listControlItems';
+import ListControlItems from '../components/listControlItems';
 
 import Input from '@mui/material/Input';
 import { Button } from '@mui/material';
@@ -115,7 +115,7 @@ const Grocerfylist = () => {
             {itemList.map((item, index) => {
               return (
                 <div key={index}>
-                  {/* <ListControlItems item={item.item} /> */}
+                  <ListControlItems item={item.item} />
                   <div>
                     <h3>{item.item}</h3>
                   </div>
