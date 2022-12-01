@@ -10,7 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 // import { Tooltip } from '@mui/material';
 // import Stack from '@mui/material/Stack';
 // { item, check, deleted }
-export default function ListControlItems({ item }) {
+export default function ListControlItems({ item, deleteItem }) {
   const [checked, setChecked] = React.useState([0]);
 
   const handleToggle = (value) => () => {
@@ -26,10 +26,11 @@ export default function ListControlItems({ item }) {
 
     setChecked(newChecked);
   };
-
-  const handleDelete = (e) => {
-    console.log(e);
-  };
+  console.log(item);
+  console.log(item.item_id);
+  //   const handleDelete = (e) => {
+  //     console.log(e);
+  //   };
 
   return (
     <div>
@@ -41,7 +42,8 @@ export default function ListControlItems({ item }) {
         <ListItem
           // key={value}
           secondaryAction={
-            <IconButton onClick={(e) => handleDelete(e)}>
+            // <IconButton onClick={(e) => handleDelete(e)}>
+            <IconButton onClick={() => deleteItem(item.item_id)}>
               <DeleteIcon />
             </IconButton>
           }
@@ -56,7 +58,7 @@ export default function ListControlItems({ item }) {
                 // inputProps={{ 'aria-labelledby': labelId }}
               />
             </ListItemIcon>
-            <ListItemText id={'labelId'} primary={`${item}`} />
+            <ListItemText id={'labelId'} primary={`${item.item}`} />
           </ListItemButton>
         </ListItem>
         {/* //     ); */}

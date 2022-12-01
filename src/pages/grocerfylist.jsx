@@ -8,7 +8,7 @@ import ListControlItems from '../components/listControlItems';
 import Input from '@mui/material/Input';
 import { Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
+// import DeleteIcon from '@mui/icons-material/Delete';
 
 import { auth, db } from '../firebase.config';
 import {
@@ -115,8 +115,8 @@ const Grocerfylist = () => {
             {itemList.map((item, index) => {
               return (
                 <div key={index}>
-                  <ListControlItems item={item.item} />
-                  <div>
+                  <ListControlItems item={item} deleteItem={deleteItem} />
+                  {/* <div>
                     <h3>{item.item}</h3>
                   </div>
                   <div>
@@ -127,7 +127,7 @@ const Grocerfylist = () => {
                       onClick={() => deleteItem(item.item_id)}>
                       Delete
                     </Button>
-                  </div>
+                  </div> */}
                 </div>
               );
             })}
