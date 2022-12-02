@@ -7,30 +7,16 @@ import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-// import { Tooltip } from '@mui/material';
+import Tooltip from '@mui/material/Tooltip';
 // import Stack from '@mui/material/Stack';
 // { item, check, deleted }
-export default function ListControlItems({ item, deleteItem }) {
-  const [checked, setChecked] = React.useState([0]);
-
-  const handleToggle = (value) => () => {
-    console.log('itempressed');
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
+export default function ListControlItems({ item, deleteItem, checkmark, handleCheck }) {
+  const handleChangeStateClick = () => {
+    // changes state of checkmark on grocerfylist
+    handleCheck(!checkmark);
   };
-  console.log(item);
-  console.log(item.item_id);
-  //   const handleDelete = (e) => {
-  //     console.log(e);
-  //   };
+
+  console.log(checkmark);
 
   return (
     <div>
@@ -43,16 +29,22 @@ export default function ListControlItems({ item, deleteItem }) {
           // key={value}
           secondaryAction={
             // <IconButton onClick={(e) => handleDelete(e)}>
-            <IconButton onClick={() => deleteItem(item.item_id)}>
-              <DeleteIcon />
-            </IconButton>
+            <Tooltip title="Delete">
+              <IconButton onClick={() => deleteItem(item.item_id)}>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
           }
           disablePadding>
-          <ListItemButton role={undefined} onClick={handleToggle(item)} dense>
+          {/* <ListItemButton role={undefined} onClick={handleToggle(value)} dense> */}
+          {/* <ListItemButton role={undefined} onClick={() => handleCheck(item.item_id)} dense> */}
+          <ListItemButton role={undefined} onClick={handleChangeStateClick} dense>
+            {/* <ListItemButton role={undefined} dense> */}
             <ListItemIcon>
               <Checkbox
                 edge="start"
-                // checked={checked.indexOf(value) !== -1}
+                checked={checkmark}
+                onChange={handleChangeStateClick}
                 tabIndex={-1}
                 disableRipple
                 // inputProps={{ 'aria-labelledby': labelId }}

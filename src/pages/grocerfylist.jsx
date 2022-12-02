@@ -20,6 +20,7 @@ import {
   serverTimestamp,
   deleteDoc,
   doc
+  // updateDoc
   // orderBy
 } from 'firebase/firestore';
 
@@ -28,7 +29,7 @@ const Grocerfylist = () => {
 
   const [itemList, setItemList] = useState([]);
   const [item, setitem] = useState('');
-  const [checkmark] = useState(false);
+  const [checkmark, setCheckmark] = useState(false);
   const [renderList, setRenderList] = useState(0);
 
   const groceriesCollection = collection(db, 'groceries');
@@ -59,6 +60,17 @@ const Grocerfylist = () => {
       console.log('addItem error => ' + err);
     }
   };
+  // click checkbox
+  // setState of checkbox
+  // update firestore
+  const handleCheck = async (checkedInChild) => {
+    try {
+      setCheckmark(checkedInChild);
+    } catch (err) {
+      console.log('handleCheck error => ' + err);
+    }
+  };
+  console.log(checkmark);
 
   const deleteItem = async (item_id) => {
     try {
@@ -115,7 +127,12 @@ const Grocerfylist = () => {
             {itemList.map((item, index) => {
               return (
                 <div key={index}>
-                  <ListControlItems item={item} deleteItem={deleteItem} />
+                  <ListControlItems
+                    item={item}
+                    deleteItem={deleteItem}
+                    checkmark={checkmark}
+                    handleCheck={handleCheck}
+                  />
                   {/* <div>
                     <h3>{item.item}</h3>
                   </div>
