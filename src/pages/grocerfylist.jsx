@@ -30,7 +30,7 @@ const Grocerfylist = () => {
   const [itemList, setItemList] = useState([]);
   const [item, setitem] = useState('');
   // const [checkmark, setCheckmark] = useState(false);
-  const [checkmark, setCheckmark] = useState({ checkmark: false, doc_id: null });
+  const [checkmark, setCheckmark] = useState({ checkmark: false, doc_id: '' });
   // const [idTest, setIdtest] = useState();
   const [renderList, setRenderList] = useState(0);
 
@@ -100,11 +100,13 @@ const Grocerfylist = () => {
 
   useEffect(() => {
     try {
-      const updateDB = async (checkmark, item_id) => {
-        console.log('updateDB checkmark state: ' + checkmark);
-        await updateDoc(doc(db, 'groceries', item_id), { checkmark });
-      };
-      updateDB(checkmark.checkmark, checkmark.doc_id);
+      if (checkmark.doc_id !== '') {
+        const updateDB = async (checkmark, item_id) => {
+          console.log('updateDB checkmark state: ' + checkmark);
+          await updateDoc(doc(db, 'groceries', item_id), { checkmark });
+        };
+        updateDB(checkmark.checkmark, checkmark.doc_id);
+      }
     } catch (err) {
       console.log(err);
     }
