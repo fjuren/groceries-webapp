@@ -19,8 +19,8 @@ import {
   // query,
   serverTimestamp,
   deleteDoc,
-  doc
-  // updateDoc
+  doc,
+  updateDoc
   // orderBy
 } from 'firebase/firestore';
 
@@ -29,7 +29,9 @@ const Grocerfylist = () => {
 
   const [itemList, setItemList] = useState([]);
   const [item, setitem] = useState('');
-  const [checkmark, setCheckmark] = useState(false);
+  // const [checkmark, setCheckmark] = useState(false);
+  const [checkmark, setCheckmark] = useState({ checkmark: false, doc_id: null });
+  // const [idTest, setIdtest] = useState();
   const [renderList, setRenderList] = useState(0);
 
   const groceriesCollection = collection(db, 'groceries');
@@ -47,7 +49,7 @@ const Grocerfylist = () => {
     try {
       await addDoc(groceriesCollection, {
         item,
-        checkmark,
+        checkmark: checkmark.checkmark,
         author: {
           id: auth.currentUser.uid,
           name: auth.currentUser.displayName
@@ -60,23 +62,21 @@ const Grocerfylist = () => {
       console.log('addItem error => ' + err);
     }
   };
-  // click checkbox
-  // setState of checkbox
-  // update firestore
-  const handleCheck = async (checkedInChild) => {
+
+  const handleCheck = async (checkedInChild, item_id) => {
     try {
-      setCheckmark(checkedInChild);
+      console.log(checkedInChild);
+      console.log('before state change: ' + checkmark);
+      setCheckmark({ checkmark: checkedInChild, doc_id: item_id });
     } catch (err) {
       console.log('handleCheck error => ' + err);
     }
   };
-  console.log(checkmark);
 
   const deleteItem = async (item_id) => {
     try {
       await deleteDoc(doc(db, 'groceries', item_id));
       setRenderList(renderList + 1);
-      // console.log('delete item', e, item_id);
     } catch (err) {
       console.log('deleteItem error => ' + err);
     }
@@ -97,6 +97,18 @@ const Grocerfylist = () => {
     };
     getItems();
   }, [renderList]);
+
+  useEffect(() => {
+    try {
+      const updateDB = async (checkmark, item_id) => {
+        console.log('updateDB checkmark state: ' + checkmark);
+        await updateDoc(doc(db, 'groceries', item_id), { checkmark });
+      };
+      updateDB(checkmark.checkmark, checkmark.doc_id);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [checkmark.checkmark]);
 
   return (
     <div id="container-grocerfy-page">
@@ -130,7 +142,7 @@ const Grocerfylist = () => {
                   <ListControlItems
                     item={item}
                     deleteItem={deleteItem}
-                    checkmark={checkmark}
+                    checkmark={checkmark.checkmark}
                     handleCheck={handleCheck}
                   />
                   {/* <div>

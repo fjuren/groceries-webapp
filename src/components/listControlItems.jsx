@@ -11,12 +11,11 @@ import Tooltip from '@mui/material/Tooltip';
 // import Stack from '@mui/material/Stack';
 // { item, check, deleted }
 export default function ListControlItems({ item, deleteItem, checkmark, handleCheck }) {
-  const handleChangeStateClick = () => {
+  const handleChangeStateClick = (item_id) => {
     // changes state of checkmark on grocerfylist
-    handleCheck(!checkmark);
+    handleCheck(!checkmark, item_id);
   };
-
-  console.log(checkmark);
+  console.log('Child component: ' + checkmark);
 
   return (
     <div>
@@ -38,13 +37,17 @@ export default function ListControlItems({ item, deleteItem, checkmark, handleCh
           disablePadding>
           {/* <ListItemButton role={undefined} onClick={handleToggle(value)} dense> */}
           {/* <ListItemButton role={undefined} onClick={() => handleCheck(item.item_id)} dense> */}
-          <ListItemButton role={undefined} onClick={handleChangeStateClick} dense>
+          <ListItemButton
+            role={undefined}
+            onClick={() => handleChangeStateClick(item.item_id)}
+            dense>
             {/* <ListItemButton role={undefined} dense> */}
             <ListItemIcon>
               <Checkbox
                 edge="start"
+                // bug: clicking checkbox calls both ListItemButton onclick and checkbox onChange events
                 checked={checkmark}
-                onChange={handleChangeStateClick}
+                onChange={() => handleChangeStateClick(item.item_id)}
                 tabIndex={-1}
                 disableRipple
                 // inputProps={{ 'aria-labelledby': labelId }}
