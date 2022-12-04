@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from '@emotion/react';
 import theme from '../theme';
 import '../assets/styles/grocerfylist.css';
+import { useNavigate } from 'react-router-dom';
 
 import ListControlItems from '../components/listControlItems';
 
@@ -24,8 +25,9 @@ import {
   // orderBy
 } from 'firebase/firestore';
 
-const Grocerfylist = () => {
+const Grocerfylist = ({ authStatus }) => {
   const ariaLabel = { 'aria-label': 'description' };
+  let navigation = useNavigate();
 
   const [itemList, setItemList] = useState([]);
   const [item, setitem] = useState('');
@@ -107,6 +109,12 @@ const Grocerfylist = () => {
       console.log('getItems from db error => ' + err);
     }
   }, [renderList]);
+
+  useEffect(() => {
+    if (!authStatus) {
+      navigation('/');
+    }
+  });
 
   return (
     <div id="container-grocerfy-page">

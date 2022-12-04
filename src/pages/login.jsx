@@ -53,6 +53,7 @@ const Login = ({ authStatus }) => {
             last_login: serverTimestamp()
           });
         }
+        localStorage.setItem('authStatus', true);
         authStatus(true);
         navigation('/');
       });
@@ -104,6 +105,7 @@ const Login = ({ authStatus }) => {
             last_login: serverTimestamp()
           });
         }
+        localStorage.setItem('authStatus', true);
         authStatus(true);
         navigation('/');
       });

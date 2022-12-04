@@ -16,7 +16,8 @@ import Login from './pages/login';
 import './assets/styles/App.css';
 
 function App() {
-  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(localStorage.getItem('authStatus'));
+  // localStorage.getItem()
 
   // const userLogout = (e) => {
 
@@ -47,7 +48,7 @@ function App() {
       )}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/grocerfylist" element={<Grocerfylist />} />
+        <Route path="/grocerfylist" element={<Grocerfylist authStatus={isAuthorized} />} />
         <Route path="/recipes" element={<Recipes />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/signup" element={<Signup authStatus={setIsAuthorized} />} />
