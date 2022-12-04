@@ -37,21 +37,23 @@ const Grocerfylist = () => {
     setitem(e.target.value);
   };
 
+  // clear input field
   const handleClear = () => {
     document.getElementsByClassName('addItemField')[0].firstChild.value = '';
   };
 
+  // CREATE (crud)
   const addItem = async (e) => {
     e.preventDefault();
     try {
       await addDoc(groceriesCollection, {
-        item,
-        checkmark: false,
+        item, // STRING
+        checkmark: false, // BOOL
         author: {
-          id: auth.currentUser.uid,
-          name: auth.currentUser.displayName
+          id: auth.currentUser.uid, // STRING
+          name: auth.currentUser.displayName // STRING
         },
-        item_created: serverTimestamp()
+        item_created: serverTimestamp() // TIMESTAMP
       });
       handleClear();
       setRenderList(renderList + 1);
@@ -60,21 +62,24 @@ const Grocerfylist = () => {
     }
   };
 
-  // boolean item ID
-  const handleCheck = async (checkedInChild, item_id) => {
+  // Boolean String
+  const updateDB = async (checkedInChild, item_id) => {
+    await updateDoc(doc(db, 'groceries', item_id), { checkmark: checkedInChild });
+  };
+
+  // UPDATE (crud)
+  // Boolean String
+  const handleCheckItem = async (checkedInChildComponenet, item_id) => {
     try {
-      const updateDB = async (checkedInChild, item_id) => {
-        console.log(`updateDB ${item_id} checkmark state: ` + checkedInChild);
-        await updateDoc(doc(db, 'groceries', item_id), { checkmark: checkedInChild });
-      };
-      updateDB(checkedInChild, item_id);
-      console.log(`DB updated ${checkedInChild} in parent`);
+      updateDB(checkedInChildComponenet, item_id);
       setRenderList(renderList + 1);
     } catch (err) {
       console.log('handleCheck error => ' + err);
     }
   };
-  const deleteItem = async (item_id) => {
+
+  // DELETE (crud)
+  const handleDeleteItem = async (item_id) => {
     try {
       await deleteDoc(doc(db, 'groceries', item_id));
       setRenderList(renderList + 1);
@@ -83,20 +88,24 @@ const Grocerfylist = () => {
     }
   };
 
+  // READ (crud)
   useEffect(() => {
-    const getItems = async () => {
-      // const authoredItems = query(
-      //   groceriesCollection,
-      //   where('author.id', '==', auth.currentUser.uid)
-      //   // orderBy('item_created')
-      // );
-      const querySnapshot = await getDocs(groceriesCollection);
-      console.log('loading DB content');
-      setItemList(
-        querySnapshot.docs.map((document) => ({ ...document.data(), item_id: document.id }))
-      );
-    };
-    getItems();
+    try {
+      const getItems = async () => {
+        // const authoredItems = query(
+        //   groceriesCollection,
+        //   where('author.id', '==', auth.currentUser.uid)
+        //   // orderBy('item_created')
+        // );
+        const querySnapshot = await getDocs(groceriesCollection);
+        setItemList(
+          querySnapshot.docs.map((document) => ({ ...document.data(), item_id: document.id }))
+        );
+      };
+      getItems();
+    } catch (err) {
+      console.log('getItems from db error => ' + err);
+    }
   }, [renderList]);
 
   return (
@@ -130,22 +139,10 @@ const Grocerfylist = () => {
                 <div key={index}>
                   <ListControlItems
                     itemFromList={itemFromList}
-                    deleteItem={deleteItem}
+                    handleDeleteItem={handleDeleteItem}
                     // checkmark={checkmark}
-                    handleCheck={handleCheck}
+                    handleCheckItem={handleCheckItem}
                   />
-                  {/* <div>
-                    <h3>{item.item}</h3>
-                  </div>
-                  <div>
-                    <Button
-                      sx={{ width: '6rem', backgroundColor: 'red' }}
-                      variant="contained"
-                      startIcon={<DeleteIcon />}
-                      onClick={() => deleteItem(item.item_id)}>
-                      Delete
-                    </Button>
-                  </div> */}
                 </div>
               );
             })}
