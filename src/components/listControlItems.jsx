@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -8,14 +8,36 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Tooltip from '@mui/material/Tooltip';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase.config';
 // import Stack from '@mui/material/Stack';
-// { item, check, deleted }
-export default function ListControlItems({ item, deleteItem, checkmark, handleCheck }) {
+
+export default function ListControlItems({ itemFromList, deleteItem, handleCheck }) {
+  const [checkStatus, setCheckStatus] = useState(itemFromList.checkmark);
+
   const handleChangeStateClick = (item_id) => {
     // changes state of checkmark on grocerfylist
-    handleCheck(!checkmark, item_id);
+    console.log('---------------------');
+    console.log('checkmark from BEFORE handleCheck child itemList: ' + itemFromList.checkmark);
+    handleCheck(!checkStatus, item_id);
   };
-  console.log('Child component: ' + checkmark);
+  //   const handleChangeStateClick = (item_id) => {
+  //     // changes state of checkmark on grocerfylist
+  //     handleCheck(!checkmark, item_id);
+  //     console.log('checkmark state: ' + checkmark);
+  //     console.log('checkmark from itemList: ' + item.checkmark);
+  //   };
+
+  useEffect(() => {
+    const getItems = async () => {
+      const docRef = doc(db, 'groceries', itemFromList.item_id);
+      const docSnap = await getDoc(docRef);
+      const data = await docSnap.data();
+
+      setCheckStatus(data.checkmark);
+    };
+    getItems();
+  });
 
   return (
     <div>
@@ -29,7 +51,7 @@ export default function ListControlItems({ item, deleteItem, checkmark, handleCh
           secondaryAction={
             // <IconButton onClick={(e) => handleDelete(e)}>
             <Tooltip title="Delete">
-              <IconButton onClick={() => deleteItem(item.item_id)}>
+              <IconButton onClick={() => deleteItem(itemFromList.item_id)}>
                 <DeleteIcon />
               </IconButton>
             </Tooltip>
@@ -39,21 +61,21 @@ export default function ListControlItems({ item, deleteItem, checkmark, handleCh
           {/* <ListItemButton role={undefined} onClick={() => handleCheck(item.item_id)} dense> */}
           <ListItemButton
             role={undefined}
-            onClick={() => handleChangeStateClick(item.item_id)}
+            onClick={() => handleChangeStateClick(itemFromList.item_id)}
             dense>
             {/* <ListItemButton role={undefined} dense> */}
             <ListItemIcon>
               <Checkbox
                 edge="start"
-                // bug: clicking checkbox calls both ListItemButton onclick and checkbox onChange events
-                checked={checkmark}
-                onChange={() => handleChangeStateClick(item.item_id)}
+                // bug: clicking checkbox calls both ListItemButton onclick and checkbox onChange events. FIXED?
+                checked={checkStatus}
+                onClick={() => handleChangeStateClick(itemFromList.item_id)}
                 tabIndex={-1}
                 disableRipple
                 // inputProps={{ 'aria-labelledby': labelId }}
               />
             </ListItemIcon>
-            <ListItemText id={'labelId'} primary={`${item.item}`} />
+            <ListItemText id={'labelId'} primary={`${itemFromList.item}`} />
           </ListItemButton>
         </ListItem>
         {/* //     ); */}

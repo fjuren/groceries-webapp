@@ -29,9 +29,6 @@ const Grocerfylist = () => {
 
   const [itemList, setItemList] = useState([]);
   const [item, setitem] = useState('');
-  // const [checkmark, setCheckmark] = useState(false);
-  const [checkmark, setCheckmark] = useState({ checkmark: false, doc_id: '' });
-  // const [idTest, setIdtest] = useState();
   const [renderList, setRenderList] = useState(0);
 
   const groceriesCollection = collection(db, 'groceries');
@@ -49,7 +46,7 @@ const Grocerfylist = () => {
     try {
       await addDoc(groceriesCollection, {
         item,
-        checkmark: checkmark.checkmark,
+        checkmark: false,
         author: {
           id: auth.currentUser.uid,
           name: auth.currentUser.displayName
@@ -63,16 +60,20 @@ const Grocerfylist = () => {
     }
   };
 
+  // boolean item ID
   const handleCheck = async (checkedInChild, item_id) => {
     try {
-      console.log(checkedInChild);
-      console.log('before state change: ' + checkmark);
-      setCheckmark({ checkmark: checkedInChild, doc_id: item_id });
+      const updateDB = async (checkedInChild, item_id) => {
+        console.log(`updateDB ${item_id} checkmark state: ` + checkedInChild);
+        await updateDoc(doc(db, 'groceries', item_id), { checkmark: checkedInChild });
+      };
+      updateDB(checkedInChild, item_id);
+      console.log(`DB updated ${checkedInChild} in parent`);
+      setRenderList(renderList + 1);
     } catch (err) {
       console.log('handleCheck error => ' + err);
     }
   };
-
   const deleteItem = async (item_id) => {
     try {
       await deleteDoc(doc(db, 'groceries', item_id));
@@ -90,27 +91,13 @@ const Grocerfylist = () => {
       //   // orderBy('item_created')
       // );
       const querySnapshot = await getDocs(groceriesCollection);
-      // console.log('querySnapshot.docs => ' + querySnapshot.docs);
+      console.log('loading DB content');
       setItemList(
         querySnapshot.docs.map((document) => ({ ...document.data(), item_id: document.id }))
       );
     };
     getItems();
   }, [renderList]);
-
-  useEffect(() => {
-    try {
-      if (checkmark.doc_id !== '') {
-        const updateDB = async (checkmark, item_id) => {
-          console.log('updateDB checkmark state: ' + checkmark);
-          await updateDoc(doc(db, 'groceries', item_id), { checkmark });
-        };
-        updateDB(checkmark.checkmark, checkmark.doc_id);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }, [checkmark.checkmark]);
 
   return (
     <div id="container-grocerfy-page">
@@ -138,13 +125,13 @@ const Grocerfylist = () => {
         </div>
         <div className="item-container">
           <div>
-            {itemList.map((item, index) => {
+            {itemList.map((itemFromList, index) => {
               return (
                 <div key={index}>
                   <ListControlItems
-                    item={item}
+                    itemFromList={itemFromList}
                     deleteItem={deleteItem}
-                    checkmark={checkmark.checkmark}
+                    // checkmark={checkmark}
                     handleCheck={handleCheck}
                   />
                   {/* <div>
