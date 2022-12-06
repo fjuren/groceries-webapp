@@ -145,12 +145,22 @@ const Grocerfylist = ({ authStatus }) => {
             {itemList.map((itemFromList, index) => {
               return (
                 <div key={index}>
-                  <ListControlItems
-                    itemFromList={itemFromList}
-                    handleDeleteItem={handleDeleteItem}
-                    // checkmark={checkmark}
-                    handleCheckItem={handleCheckItem}
-                  />
+                  {authStatus &&
+                  itemFromList.author.id === auth.currentUser.uid && (
+                    <ListControlItems
+                      itemFromList={itemFromList}
+                      handleDeleteItem={handleDeleteItem}
+                      // checkmark={checkmark}
+                      handleCheckItem={handleCheckItem}
+                    />
+                  ) ? (
+                    <ListControlItems
+                      itemFromList={itemFromList}
+                      handleDeleteItem={handleDeleteItem}
+                      // checkmark={checkmark}
+                      handleCheckItem={handleCheckItem}
+                    />
+                  ) : null}
                 </div>
               );
             })}
