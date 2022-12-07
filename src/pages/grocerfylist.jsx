@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import ListControlItems from '../components/listControlItems';
 
 import Input from '@mui/material/Input';
-import { Button } from '@mui/material';
+import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 // import DeleteIcon from '@mui/icons-material/Delete';
 
