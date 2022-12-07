@@ -28,6 +28,7 @@ const Authnavbar = ({ authStatus }) => {
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
+        localStorage.clear();
         authStatus(false);
         navigation('/');
       })

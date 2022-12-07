@@ -37,6 +37,7 @@ const Authnavbarmenu = ({ expandHamburger, setExpandHamburger, authStatus }) => 
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
+        localStorage.clear();
         authStatus(false);
         navigation('/');
         setExpandHamburger(!expandHamburger);
