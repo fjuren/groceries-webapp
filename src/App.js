@@ -9,6 +9,7 @@ import AuthnavbarMobile from './components/authnavbar-mobile';
 import Home from './pages/Home';
 import Grocerfylist from './pages/grocerfylist';
 import Recipes from './pages/recipes';
+import Createnewrecipe from './pages/subpages/createNewRecipe';
 import Favorites from './pages/favorites';
 import Signup from './pages/signup';
 import Login from './pages/login';
@@ -49,7 +50,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/grocerfylist" element={<Grocerfylist authStatus={isAuthorized} />} />
-        <Route path="/recipes" element={<Recipes />} />
+        <Route exact path="/recipes" element={<Recipes />} />
+        <Route path="/recipes/create-a-new-recipe" element={<Createnewrecipe />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/signup" element={<Signup authStatus={setIsAuthorized} />} />
         <Route path="/login" element={<Login authStatus={setIsAuthorized} />} />

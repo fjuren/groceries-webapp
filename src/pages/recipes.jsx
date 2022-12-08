@@ -3,8 +3,10 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import { ThemeProvider } from '@emotion/react';
 import theme from '../theme';
+import { useNavigate } from 'react-router-dom';
 
 const Recipes = () => {
+  const navigation = useNavigate();
   const createRecipe = (e) => {
     console.log(e);
   };
@@ -18,7 +20,7 @@ const Recipes = () => {
             sx={{ width: '11rem' }}
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={(e) => createRecipe(e)}
+            onClick={() => createRecipe(navigation('/recipes/create-a-new-recipe'))}
             type="submit">
             Create new recipe
           </Button>
