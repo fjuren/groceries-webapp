@@ -1,0 +1,19 @@
+#container-create-recipe-page {
+    padding-top: 10px;
+}
+
+#container-create-recipe-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 960px;
+    /* box-sizing: border-box; */
+    border-color: lightgray;
+    border-style: solid;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#form-create-recipe {
+    display: flex;
+    justify-content: center;
+}
