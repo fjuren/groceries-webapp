@@ -29,3 +29,23 @@
 #btn-save {
     align-self: flex-end;
 }
+
+#container-addItem {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+#text-addItem {
+    flex-basis: 26rem;
+}
+
+#btn-addItem {
+    display:flex;
+    align-items: center;
+}
+
+#btn-group-create-recipe {
+    display: flex;
+    justify-content: flex-end;
+}

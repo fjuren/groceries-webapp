@@ -12,7 +12,7 @@ const Createnewrecipe = () => {
   //   const navigation = useNavigate();
   const parentPage = '/recipes';
   const parentPageName = 'Recipes';
-  const currentPageName = 'Create a recipe';
+  const currentPageName = 'Create your recipe';
 
   const handleTitle = (e) => {
     e.preventDefaul();
@@ -66,31 +66,62 @@ const Createnewrecipe = () => {
                     />
                   </div>
                   <div id="container-addItem">
-                    <TextField
-                      fullWidth
-                      id="addItemField"
-                      label="Add item"
-                      variant="outlined"
-                      onChange={(e) => handleTitle(e)}
-                    />
-                    <Button
-                      sx={{ width: '6rem' }}
-                      variant="outlined"
-                      startIcon={<AddIcon />}
-                      // onClick={(e) => addItem(e)}
-                      type="submit">
-                      Add
-                    </Button>
+                    <div id="text-addItem">
+                      <TextField
+                        fullWidth
+                        id="addItemField"
+                        label="Add item"
+                        variant="outlined"
+                        onChange={(e) => handleTitle(e)}
+                      />
+                    </div>
+                    <div id="btn-addItem">
+                      <Button
+                        sx={{ width: '6rem' }}
+                        variant="outlined"
+                        startIcon={<AddIcon />}
+                        // onClick={(e) => addItem(e)}
+                        type="submit">
+                        Add
+                      </Button>
+                    </div>
                   </div>
-                  <Button
-                    id="btn-save"
-                    sx={{ width: '6rem' }}
-                    variant="contained"
-                    // startIcon={<AddIcon />}
-                    // onClick={(e) => addItem(e)}
-                    type="submit">
-                    Save
-                  </Button>
+                  <div id="btn-group-create-recipe">
+                    <div>
+                      {' '}
+                      <Button
+                        id="btn-save"
+                        sx={{ width: '6rem' }}
+                        variant="text"
+                        // startIcon={<AddIcon />}
+                        // onClick={(e) => addItem(e)}
+                        type="submit">
+                        Share with community
+                      </Button>
+                    </div>
+                    <div>
+                      <Button
+                        id="btn-save"
+                        sx={{ width: '6rem' }}
+                        variant="text"
+                        // startIcon={<AddIcon />}
+                        // onClick={(e) => addItem(e)}
+                        type="submit">
+                        Add to Grocerfy list
+                      </Button>
+                    </div>
+                    <div>
+                      <Button
+                        id="btn-save"
+                        sx={{ width: '6rem' }}
+                        variant="contained"
+                        // startIcon={<AddIcon />}
+                        // onClick={(e) => addItem(e)}
+                        type="submit">
+                        Save
+                      </Button>
+                    </div>
+                  </div>
                 </Stack>
               </form>
             </div>
