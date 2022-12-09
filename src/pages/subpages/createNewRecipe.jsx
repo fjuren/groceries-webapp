@@ -25,15 +25,15 @@ const Createnewrecipe = () => {
   return (
     <div id="container-create-recipe-page">
       <ThemeProvider theme={theme}>
-        <div>
-          <Breadcrumb
-            parentPageName={parentPageName}
-            parentPage={parentPage}
-            currentPageName={currentPageName}
-          />
-        </div>
-        <div id="container-create-recipe-form">
-          <div>
+        <div id="container-create-recipe">
+          <div id="breadcrumb">
+            <Breadcrumb
+              parentPageName={parentPageName}
+              parentPage={parentPage}
+              currentPageName={currentPageName}
+            />
+          </div>
+          <div id="border-create-recipe">
             <div>
               <h2>Create your recipe</h2>
               <p>
@@ -65,7 +65,14 @@ const Createnewrecipe = () => {
                       onChange={(e) => handleDescription(e)}
                     />
                   </div>
-                  <div>
+                  <div id="container-addItem">
+                    <TextField
+                      fullWidth
+                      id="addItemField"
+                      label="Add item"
+                      variant="outlined"
+                      onChange={(e) => handleTitle(e)}
+                    />
                     <Button
                       sx={{ width: '6rem' }}
                       variant="outlined"
@@ -76,6 +83,7 @@ const Createnewrecipe = () => {
                     </Button>
                   </div>
                   <Button
+                    id="btn-save"
                     sx={{ width: '6rem' }}
                     variant="contained"
                     // startIcon={<AddIcon />}

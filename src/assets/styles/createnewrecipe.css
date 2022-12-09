@@ -2,13 +2,20 @@
     padding-top: 10px;
 }
 
-#container-create-recipe-form {
-    display: flex;
-    flex-direction: column;
-    max-width: 960px;
-    /* box-sizing: border-box; */
+#breadcrumb {
+    padding: 1rem 0 2rem 0;
+}
+
+#border-create-recipe{
+    box-sizing: border-box;
+    padding: 1rem;
     border-color: lightgray;
     border-style: solid;
+}
+
+#container-create-recipe {
+    max-width: 960px;
+    /* box-sizing: border-box; */
     margin-left: auto;
     margin-right: auto;
 }
@@ -16,4 +23,9 @@
 #form-create-recipe {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+}
+
+#btn-save {
+    align-self: flex-end;
 }
