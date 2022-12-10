@@ -2,6 +2,8 @@ import React from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import CircleIcon from '@mui/icons-material/Circle';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -33,12 +35,12 @@ export default function ListBulletItems({ bulletItemFromList, handleDeleteItem }
           }
           disablePadding>
           <ListItemButton role={undefined} dense>
-            <ul>
-              <li>{/* <ListItemText id={'labelId'} primary={`${itemFromList.item}`} /> */}</li>
-              <li>
-                <ListItemText primary={`${bulletItemFromList}`} />{' '}
-              </li>
-            </ul>
+            <ListItemIcon>
+              <CircleIcon edge="start" />
+            </ListItemIcon>
+
+            {/* <li><ListItemText id={'labelId'} primary={`${itemFromList.item}`} /></li> */}
+            <ListItemText primary={`${bulletItemFromList}`} />
             {/* <ListItemIcon>              
             </ListItemIcon> */}
           </ListItemButton>
