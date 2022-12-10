@@ -20,6 +20,13 @@
     margin-right: auto;
 }
 
+#container-chips {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
 #form-create-recipe {
     display: flex;
     justify-content: center;

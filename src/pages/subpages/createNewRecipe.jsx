@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
+import Chip from '@mui/material/Chip';
 import { ThemeProvider } from '@emotion/react';
 import theme from '../../theme';
 import '../../assets/styles/createnewrecipe.css';
@@ -19,8 +20,11 @@ const Createnewrecipe = () => {
   const parentPageName = 'Recipes';
   const currentPageName = 'Create your recipe';
 
+  const chipItems = ['Breakfast', 'Lunch', 'Snack', 'Dinner', 'Dessert', 'Drink'];
+
   const [bulletItemList, setBulletItemList] = useState([]);
   const [bulletItem, setBulletItem] = useState('');
+  // const [selectedChips, setSelectedChips] = useState([]);
   const [renderList, setRenderList] = useState(0);
 
   // const recipesCollection = collection(db, 'recipes');
@@ -31,6 +35,10 @@ const Createnewrecipe = () => {
 
   const handleDescription = (e) => {
     e.preventDefault();
+  };
+
+  const handleChipClick = (e) => {
+    console.log(e.target.innerHTML);
   };
 
   const handleBulletItem = (e) => {
@@ -105,6 +113,20 @@ const Createnewrecipe = () => {
                       variant="outlined"
                       onChange={(e) => handleDescription(e)}
                     />
+                  </div>
+                  <div id="container-chips">
+                    {chipItems.map((chip, index) => {
+                      return (
+                        <div id={`${chip}-chip`} key={index}>
+                          <Chip
+                            // sx={{ bgcolor: 'primary.main' }}
+                            label={chip}
+                            variant="outlined"
+                            onClick={(e) => handleChipClick(e)}
+                          />
+                        </div>
+                      );
+                    })}
                   </div>
                   <div id="container-addItem">
                     <div id="text-addItem">
