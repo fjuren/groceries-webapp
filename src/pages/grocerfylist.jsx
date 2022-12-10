@@ -4,7 +4,7 @@ import theme from '../theme';
 import '../assets/styles/grocerfylist.css';
 import { useNavigate } from 'react-router-dom';
 
-import ListControlItems from '../components/listControlItems';
+import ListCheckboxItems from '../components/ListCheckboxItems';
 
 import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
@@ -147,14 +147,14 @@ const Grocerfylist = ({ authStatus }) => {
                 <div key={index}>
                   {authStatus &&
                   itemFromList.author.id === auth.currentUser.uid && (
-                    <ListControlItems
+                    <ListCheckboxItems
                       itemFromList={itemFromList}
                       handleDeleteItem={handleDeleteItem}
                       // checkmark={checkmark}
                       handleCheckItem={handleCheckItem}
                     />
                   ) ? (
-                    <ListControlItems
+                    <ListCheckboxItems
                       itemFromList={itemFromList}
                       handleDeleteItem={handleDeleteItem}
                       // checkmark={checkmark}

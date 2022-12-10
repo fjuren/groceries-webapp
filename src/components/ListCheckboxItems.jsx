@@ -12,7 +12,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase.config';
 // import Stack from '@mui/material/Stack';
 
-export default function ListControlItems({ itemFromList, handleDeleteItem, handleCheckItem }) {
+export default function ListCheckboxItems({ itemFromList, handleDeleteItem, handleCheckItem }) {
   const [checkStatus, setCheckStatus] = useState(itemFromList.checkmark);
 
   const handleChangeStateClick = (item_id) => {
