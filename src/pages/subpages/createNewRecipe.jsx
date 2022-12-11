@@ -3,8 +3,8 @@ import Breadcrumb from '../../components/breadcrumb';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
+import ClickableChips from '../../components/ClickableChips';
 import AddIcon from '@mui/icons-material/Add';
-import Chip from '@mui/material/Chip';
 import { ThemeProvider } from '@emotion/react';
 import theme from '../../theme';
 import '../../assets/styles/createnewrecipe.css';
@@ -24,7 +24,7 @@ const Createnewrecipe = () => {
 
   const [bulletItemList, setBulletItemList] = useState([]);
   const [bulletItem, setBulletItem] = useState('');
-  // const [selectedChips, setSelectedChips] = useState([]);
+  // const [itemChipStatusList, setItemChipStatusList] = useState({ chipName: '', selected: false });
   const [renderList, setRenderList] = useState(0);
 
   // const recipesCollection = collection(db, 'recipes');
@@ -37,8 +37,8 @@ const Createnewrecipe = () => {
     e.preventDefault();
   };
 
-  const handleChipClick = (e) => {
-    console.log(e.target.innerHTML);
+  const handleChipClick = (chipStatus, chipName) => {
+    console.log(chipName, chipStatus);
   };
 
   const handleBulletItem = (e) => {
@@ -117,14 +117,12 @@ const Createnewrecipe = () => {
                   <div id="container-chips">
                     {chipItems.map((chip, index) => {
                       return (
-                        <div id={`${chip}-chip`} key={index}>
-                          <Chip
-                            // sx={{ bgcolor: 'primary.main' }}
-                            label={chip}
-                            variant="outlined"
-                            onClick={(e) => handleChipClick(e)}
-                          />
-                        </div>
+                        <ClickableChips
+                          label={chip}
+                          key={index}
+                          // onClick={() => handleActiveChipClick()}
+                          handleChipClick={handleChipClick}
+                        />
                       );
                     })}
                   </div>

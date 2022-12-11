@@ -8,6 +8,12 @@ const theme = createTheme({
     // secondary: {
     //   // main: '#067A46'
     // },
+    selected: {
+      main: '#E4FABF',
+      '&:hover': {
+        backgroundColor: '#E4FABF'
+      }
+    },
     error: {
       main: '#067A46'
     }
