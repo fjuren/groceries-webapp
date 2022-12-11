@@ -1,9 +1,9 @@
+import { useState } from 'react';
 import { ThemeProvider } from '@emotion/react';
 import '../assets/styles/authnavbar.css';
 import theme from '../theme';
 import Hamburger from './hamburger';
 import Authnavbarmenu from './authnavbarmenu';
-import { useState } from 'react';
 
 const AuthnavbarMobile = ({ authStatus }) => {
   const [expandHamburger, setExpandHamburger] = useState(false);

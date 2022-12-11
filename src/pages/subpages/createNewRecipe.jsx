@@ -164,7 +164,7 @@ const Createnewrecipe = () => {
                     </div>
                   </div>
                   <div id="btn-group-create-recipe">
-                    <div>
+                    {/* <div>
                       <Button
                         id="btn-save"
                         sx={{ width: '6rem' }}
@@ -185,7 +185,7 @@ const Createnewrecipe = () => {
                         type="submit">
                         Add to Grocerfy list
                       </Button>
-                    </div>
+                    </div> */}
                     <div>
                       <Button
                         id="btn-save"
