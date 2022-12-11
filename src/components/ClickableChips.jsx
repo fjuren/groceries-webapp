@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Chip from '@mui/material/Chip';
 import { ThemeProvider } from '@emotion/react';
 import theme from '../../src/theme';
@@ -6,10 +6,17 @@ import theme from '../../src/theme';
 export default function ClickableChips({ label, handleChipClick }) {
   const [itemChipStatus, setItemChipStatus] = useState(false);
 
-  const handleClick = (chipName) => {
+  // const handleClick = (chipName) => {
+  //   setItemChipStatus(!itemChipStatus);
+  //   handleChipClick(itemChipStatus, chipName);
+  // };
+  const handleClick = () => {
     setItemChipStatus(!itemChipStatus);
-    handleChipClick(itemChipStatus, chipName);
   };
+
+  useEffect(() => {
+    handleChipClick(itemChipStatus, label);
+  }, [itemChipStatus]);
 
   return (
     <div id={`${label}-chip`}>
@@ -17,8 +24,8 @@ export default function ClickableChips({ label, handleChipClick }) {
         <Chip
           label={label} // ID
           variant="outlined"
-          // onClick={handleClick}
-          onClick={() => handleClick(label)}
+          // onClick={() => handleClick(label)}
+          onClick={() => handleClick()}
           sx={{
             bgcolor: itemChipStatus ? 'selected.main' : 'inherit',
             borderColor: itemChipStatus ? 'primary.main' : 'lightgray'

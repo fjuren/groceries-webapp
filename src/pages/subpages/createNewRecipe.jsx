@@ -69,7 +69,9 @@ const Createnewrecipe = () => {
     }
     // bulletItemList.indexOf(bulletItem).splice();
   };
-  useEffect(() => {}, [renderList]);
+  useEffect(() => {
+    console.log();
+  }, [renderList]);
 
   return (
     <div id="container-create-recipe-page">
