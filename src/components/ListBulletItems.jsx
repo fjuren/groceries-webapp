@@ -31,11 +31,8 @@ export default function ListBulletItems({ bulletItemFromList, handleDeleteItem }
               <ListItemIcon>
                 <CircleIcon edge="start" sx={{ fontSize: 10 }} />
               </ListItemIcon>
-
               {/* <li><ListItemText id={'labelId'} primary={`${itemFromList.item}`} /></li> */}
               <ListItemText primary={`${bulletItemFromList}`} />
-              {/* <ListItemIcon>              
-            </ListItemIcon> */}
             </ListItemButton>
           </ListItem>
         </List>

@@ -6,11 +6,8 @@ import theme from '../../src/theme';
 export default function ClickableChips({ label, handleChipClick }) {
   const [itemChipStatus, setItemChipStatus] = useState(false);
 
-  // const handleClick = (chipName) => {
-  //   setItemChipStatus(!itemChipStatus);
-  //   handleChipClick(itemChipStatus, chipName);
-  // };
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
     setItemChipStatus(!itemChipStatus);
   };
 
@@ -24,8 +21,7 @@ export default function ClickableChips({ label, handleChipClick }) {
         <Chip
           label={label} // ID
           variant="outlined"
-          // onClick={() => handleClick(label)}
-          onClick={() => handleClick()}
+          onClick={(e) => handleClick(e)}
           sx={{
             bgcolor: itemChipStatus ? 'selected.main' : 'inherit',
             borderColor: itemChipStatus ? 'primary.main' : 'lightgray'

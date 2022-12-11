@@ -10,35 +10,53 @@ import theme from '../../theme';
 import '../../assets/styles/createnewrecipe.css';
 import ListBulletItems from '../../components/ListBulletItems';
 // import { useEffect } from 'react';
-// import { db } from '../firebase.config';
-// import { collection } from 'firebase/firestore';
+import { db } from '../../firebase.config';
+import { collection } from 'firebase/firestore';
 // import { useNavigate } from 'react-router-dom';
 
 const Createnewrecipe = () => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [chips, setChips] = useState([]);
+  const [bulletItemList, setBulletItemList] = useState([]);
+  const [bulletItem, setBulletItem] = useState('');
+  // const [itemChipStatusList, setItemChipStatusList] = useState({ chipName: '', selected: false });
+  const [renderList, setRenderList] = useState(0);
+
   //   const navigation = useNavigate();
+
   const parentPage = '/recipes';
   const parentPageName = 'Recipes';
   const currentPageName = 'Create your recipe';
 
   const chipItems = ['Breakfast', 'Lunch', 'Snack', 'Dinner', 'Dessert', 'Drink'];
 
-  const [bulletItemList, setBulletItemList] = useState([]);
-  const [bulletItem, setBulletItem] = useState('');
-  // const [itemChipStatusList, setItemChipStatusList] = useState({ chipName: '', selected: false });
-  const [renderList, setRenderList] = useState(0);
-
-  // const recipesCollection = collection(db, 'recipes');
+  const recipesCollection = collection(db, 'recipes');
 
   const handleTitle = (e) => {
     e.preventDefault();
+    setTitle(e.target.value);
   };
 
   const handleDescription = (e) => {
     e.preventDefault();
+    setDescription(e.target.value);
   };
 
   const handleChipClick = (chipStatus, chipName) => {
-    console.log(chipName, chipStatus);
+    chips.push({ chipName, chipStatus });
+    setChips(chips);
+    // BUG console.logging chips, the duplicated rendering of objects is due to the useEffect in file ClickableChips.jsx. This duplication should be prevented
+    // console.log(chips);
+  };
+
+  const save = (e) => {
+    e.preventDefault();
+    setChips(chips);
+    chips.forEach((chip) => {
+      console.log(chip.chipStatus);
+    });
+    // console.log(chips);
   };
 
   const handleBulletItem = (e) => {
@@ -192,7 +210,7 @@ const Createnewrecipe = () => {
                         sx={{ width: '6rem' }}
                         variant="contained"
                         // startIcon={<AddIcon />}
-                        // onClick={(e) => addItem(e)}
+                        onClick={(e) => save(e)}
                         type="submit">
                         Save
                       </Button>
