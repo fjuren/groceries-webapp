@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Breadcrumb from '../../components/breadcrumb';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -10,8 +10,8 @@ import theme from '../../theme';
 import '../../assets/styles/createnewrecipe.css';
 import ListBulletItems from '../../components/ListBulletItems';
 // import { useEffect } from 'react';
-import { db } from '../../firebase.config';
-import { collection } from 'firebase/firestore';
+// import { db } from '../../firebase.config';
+// import { collection } from 'firebase/firestore';
 // import { useNavigate } from 'react-router-dom';
 
 const Createnewrecipe = () => {
@@ -31,7 +31,7 @@ const Createnewrecipe = () => {
 
   const chipItems = ['Breakfast', 'Lunch', 'Snack', 'Dinner', 'Dessert', 'Drink'];
 
-  const recipesCollection = collection(db, 'recipes');
+  // const recipesCollection = collection(db, 'recipes');
 
   const handleTitle = (e) => {
     e.preventDefault();
@@ -43,10 +43,16 @@ const Createnewrecipe = () => {
     setDescription(e.target.value);
   };
 
-  const handleChipClick = (chipStatus, chipName) => {
+  const handleChipClick = (chipName, chipStatus) => {
+    chips.forEach((chip, index) => {
+      if (chipName === chip.chipName) {
+        chips.splice([index], 1);
+      }
+    });
     chips.push({ chipName, chipStatus });
-    setChips(chips);
+    console.log(chips);
     // BUG console.logging chips, the duplicated rendering of objects is due to the useEffect in file ClickableChips.jsx. This duplication should be prevented
+    // above solution may have solved the BUG. It iterates through the list, and if there's  match, it deletes the match at its index and then the new value is pushed
     // console.log(chips);
   };
 
@@ -87,9 +93,9 @@ const Createnewrecipe = () => {
     }
     // bulletItemList.indexOf(bulletItem).splice();
   };
-  useEffect(() => {
-    console.log();
-  }, [renderList]);
+  // useEffect(() => {
+  //   console.log();
+  // }, [renderList]);
 
   return (
     <div id="container-create-recipe-page">

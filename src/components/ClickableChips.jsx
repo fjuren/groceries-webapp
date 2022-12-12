@@ -12,7 +12,8 @@ export default function ClickableChips({ label, handleChipClick }) {
   };
 
   useEffect(() => {
-    handleChipClick(itemChipStatus, label);
+    // console.log('i fire once from chips');
+    handleChipClick(label, itemChipStatus);
   }, [itemChipStatus]);
 
   return (

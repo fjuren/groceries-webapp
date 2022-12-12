@@ -114,7 +114,7 @@ const Grocerfylist = ({ authStatus }) => {
     if (!authStatus) {
       navigation('/');
     }
-  });
+  }, []);
 
   return (
     <div id="container-grocerfy-page">
