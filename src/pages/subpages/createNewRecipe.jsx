@@ -10,9 +10,9 @@ import theme from '../../theme';
 import '../../assets/styles/createnewrecipe.css';
 import ListBulletItems from '../../components/ListBulletItems';
 // import { useEffect } from 'react';
-// import { db } from '../../firebase.config';
-// import { collection } from 'firebase/firestore';
-// import { useNavigate } from 'react-router-dom';
+import { auth, db } from '../../firebase.config';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 const Createnewrecipe = () => {
   const [title, setTitle] = useState('');
@@ -20,10 +20,10 @@ const Createnewrecipe = () => {
   const [chips, setChips] = useState([]);
   const [bulletItemList, setBulletItemList] = useState([]);
   const [bulletItem, setBulletItem] = useState('');
-  // const [itemChipStatusList, setItemChipStatusList] = useState({ chipName: '', selected: false });
+  // const [itemtypeStatusList, setItemtypeStatusList] = useState({ type: '', selected: false });
   const [renderList, setRenderList] = useState(0);
 
-  //   const navigation = useNavigate();
+  const navigation = useNavigate();
 
   const parentPage = '/recipes';
   const parentPageName = 'Recipes';
@@ -31,7 +31,7 @@ const Createnewrecipe = () => {
 
   const chipItems = ['Breakfast', 'Lunch', 'Snack', 'Dinner', 'Dessert', 'Drink'];
 
-  // const recipesCollection = collection(db, 'recipes');
+  const recipesCollection = collection(db, 'recipes');
 
   const handleTitle = (e) => {
     e.preventDefault();
@@ -43,25 +43,37 @@ const Createnewrecipe = () => {
     setDescription(e.target.value);
   };
 
-  const handleChipClick = (chipName, chipStatus) => {
+  const handleChipClick = (type, typeStatus) => {
     chips.forEach((chip, index) => {
-      if (chipName === chip.chipName) {
-        chips.splice([index], 1);
+      if (type === chip.type) {
+        chips.splice([index], 1); // prevent duplicates. Deletes the last instance if there's a match
       }
     });
-    chips.push({ chipName, chipStatus });
-    console.log(chips);
+    chips.push({ type, typeStatus }); // adds whatever the most recent instance is
+    setChips(chips);
+    // console.log(chips);
     // BUG console.logging chips, the duplicated rendering of objects is due to the useEffect in file ClickableChips.jsx. This duplication should be prevented
     // above solution may have solved the BUG. It iterates through the list, and if there's  match, it deletes the match at its index and then the new value is pushed
-    // console.log(chips);
   };
 
-  const save = (e) => {
+  const save = async (e) => {
     e.preventDefault();
-    setChips(chips);
-    chips.forEach((chip) => {
-      console.log(chip.chipStatus);
-    });
+    try {
+      await addDoc(recipesCollection, {
+        title,
+        description,
+        types: chips,
+        items: bulletItemList,
+        author: {
+          id: auth.currentUser.uid,
+          name: auth.currentUser.displayName
+        },
+        recipe_created: serverTimestamp()
+      });
+      navigation('/recipes');
+    } catch (err) {
+      console.log('save error => ' + err);
+    }
     // console.log(chips);
   };
 

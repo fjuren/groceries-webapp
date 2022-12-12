@@ -4,17 +4,17 @@ import { ThemeProvider } from '@emotion/react';
 import theme from '../../src/theme';
 
 export default function ClickableChips({ label, handleChipClick }) {
-  const [itemChipStatus, setItemChipStatus] = useState(false);
+  const [itemtypeStatus, setItemtypeStatus] = useState(false);
 
   const handleClick = (e) => {
     e.preventDefault();
-    setItemChipStatus(!itemChipStatus);
+    setItemtypeStatus(!itemtypeStatus);
   };
 
   useEffect(() => {
     // console.log('i fire once from chips');
-    handleChipClick(label, itemChipStatus);
-  }, [itemChipStatus]);
+    handleChipClick(label, itemtypeStatus);
+  }, [itemtypeStatus]);
 
   return (
     <div id={`${label}-chip`}>
@@ -24,8 +24,8 @@ export default function ClickableChips({ label, handleChipClick }) {
           variant="outlined"
           onClick={(e) => handleClick(e)}
           sx={{
-            bgcolor: itemChipStatus ? 'selected.main' : 'inherit',
-            borderColor: itemChipStatus ? 'primary.main' : 'lightgray'
+            bgcolor: itemtypeStatus ? 'selected.main' : 'inherit',
+            borderColor: itemtypeStatus ? 'primary.main' : 'lightgray'
           }}
         />
       </ThemeProvider>
