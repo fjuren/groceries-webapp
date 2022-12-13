@@ -1,6 +1,11 @@
 import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
+import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
+import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
 // import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
@@ -26,18 +31,21 @@ export default function MultiActionAreaCard({ recipe }) {
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary">
-          Upvote
+          <ThumbDownOutlinedIcon />
         </Button>
         <Button size="small" color="primary">
-          Downvote
+          <ThumbUpAltOutlinedIcon />
         </Button>
         <Button size="small" color="primary">
+          <ChatBubbleOutlineOutlinedIcon />
           Comments
         </Button>
         <Button size="small" color="primary">
+          <IosShareOutlinedIcon />
           Share
         </Button>
         <Button size="small" color="primary">
+          <FavoriteBorderOutlinedIcon />
           Favourites
         </Button>
       </CardActions>
