@@ -8,12 +8,12 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
 // import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import { Button, CardActionArea, CardActions, IconButton } from '@mui/material';
 
 export default function MultiActionAreaCard({ recipe }) {
   return (
     <Card sx={{ maxWidth: 1000 }}>
-      <CardActionArea>
+      <CardActionArea disableRipple>
         {/* <CardMedia
           component="img"
           height="140"
@@ -29,25 +29,56 @@ export default function MultiActionAreaCard({ recipe }) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          <ThumbDownOutlinedIcon />
-        </Button>
-        <Button size="small" color="primary">
-          <ThumbUpAltOutlinedIcon />
-        </Button>
-        <Button size="small" color="primary">
-          <ChatBubbleOutlineOutlinedIcon />
-          Comments
-        </Button>
-        <Button size="small" color="primary">
-          <IosShareOutlinedIcon />
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          <FavoriteBorderOutlinedIcon />
-          Favourites
-        </Button>
+      <CardActions disableSpacing>
+        <div
+          id="btn-icon-container"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            width: '700px',
+            justifyContent: 'space-between'
+          }}>
+          <div>
+            <IconButton aria-label="dislike">
+              <ThumbDownOutlinedIcon />
+            </IconButton>
+          </div>
+          <div>
+            <IconButton aria-label="like">
+              <ThumbUpAltOutlinedIcon />
+            </IconButton>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <IconButton aria-label="comment">
+                <ChatBubbleOutlineOutlinedIcon />
+              </IconButton>
+            </div>
+            <div>
+              <p>Comments</p>
+            </div>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <IconButton aria-label="share">
+                <IosShareOutlinedIcon />
+              </IconButton>
+            </div>
+            <div>
+              <p>Share</p>
+            </div>
+          </div>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <IconButton aria-label="favourite">
+                <FavoriteBorderOutlinedIcon />
+              </IconButton>
+            </div>
+            <div>
+              <p>Favourites</p>
+            </div>
+          </div>
+        </div>
       </CardActions>
     </Card>
   );
