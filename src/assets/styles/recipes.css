@@ -1,9 +1,18 @@
-container-recipes-homepage {
-    
+#container-recipes-page {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    width: 62rem;
 }
 
-recipes-list {
-    box-sizing: border-box;
+#container-recipes-page > div {
     display: flex;
-    flex-direction: row;
+    justify-content: flex-end;
+}
+
+#recipes-list {
+    display: flex;
+    justify-content: center;
+    padding-top: 23px
 }

@@ -7,6 +7,8 @@ import { ThemeProvider } from '@emotion/react';
 import theme from '../theme';
 import { useNavigate } from 'react-router-dom';
 
+import '../assets/styles/recipes.css';
+
 import { auth, db } from '../firebase.config';
 import { collection, getDocs } from 'firebase/firestore';
 
