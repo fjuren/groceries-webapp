@@ -1,0 +1,31 @@
+#btn-icon-container {
+    display: flex;
+    align-items: center;
+    width: 700px;
+    justify-content: space-between;
+  }
+
+
+.btn-icons { 
+    display: flex;
+    align-items: center;
+    
+}
+
+/* alternative to styling is create a new class on hover of btn-icons */
+.btn-icons > button:hover {
+    background-color: transparent;
+    color: #067A46;
+    cursor: pointer;
+}
+
+.btn-icons > div > div > button:hover {
+    color: #067A46;
+    cursor: pointer;
+}
+
+.btn-icons > div:hover {
+    background-color: transparent;
+    color: #067A46;
+    cursor: pointer;
+}

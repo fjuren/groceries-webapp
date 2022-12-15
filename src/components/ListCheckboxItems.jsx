@@ -47,7 +47,7 @@ export default function ListCheckboxItems({ itemFromList, handleDeleteItem, hand
           }
           disablePadding>
           <ListItemButton
-            role={undefined}
+            // role={undefined}
             onClick={() => handleChangeStateClick(itemFromList.item_id)}
             dense>
             <ListItemIcon>

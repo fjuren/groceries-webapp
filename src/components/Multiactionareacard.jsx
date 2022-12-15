@@ -1,4 +1,5 @@
 import React from 'react';
+import '../assets/styles/multiactionareacard.css';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
@@ -8,7 +9,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
 // import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions, IconButton } from '@mui/material';
+import { ListItemButton, CardActionArea, CardActions, IconButton, Tooltip } from '@mui/material';
 
 export default function MultiActionAreaCard({ recipe }) {
   return (
@@ -30,53 +31,56 @@ export default function MultiActionAreaCard({ recipe }) {
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing>
-        <div
-          id="btn-icon-container"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            width: '700px',
-            justifyContent: 'space-between'
-          }}>
-          <div>
-            <IconButton aria-label="dislike">
-              <ThumbDownOutlinedIcon />
-            </IconButton>
-          </div>
-          <div>
-            <IconButton aria-label="like">
-              <ThumbUpAltOutlinedIcon />
-            </IconButton>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div>
-              <IconButton aria-label="comment">
-                <ChatBubbleOutlineOutlinedIcon />
+        <div id="btn-icon-container">
+          <div className="btn-icons">
+            <Tooltip title="Dislike">
+              <IconButton aria-label="dislike">
+                <ThumbDownOutlinedIcon />
               </IconButton>
-            </div>
-            <div>
-              <p>Comments</p>
-            </div>
+            </Tooltip>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div>
-              <IconButton aria-label="share">
-                <IosShareOutlinedIcon />
+          <div className="btn-icons">
+            <Tooltip title="Like">
+              <IconButton aria-label="like">
+                <ThumbUpAltOutlinedIcon />
               </IconButton>
-            </div>
-            <div>
-              <p>Share</p>
-            </div>
+            </Tooltip>
           </div>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <IconButton aria-label="favourite">
-                <FavoriteBorderOutlinedIcon />
-              </IconButton>
-            </div>
-            <div>
-              <p>Favourites</p>
-            </div>
+          <div className="btn-icons">
+            <ListItemButton disableRipple>
+              <div>
+                <IconButton aria-label="comment">
+                  <ChatBubbleOutlineOutlinedIcon />
+                </IconButton>
+              </div>
+              <div>
+                <p>Comments</p>
+              </div>
+            </ListItemButton>
+          </div>
+          <div className="btn-icons">
+            <ListItemButton disableRipple>
+              <div>
+                <IconButton aria-label="share">
+                  <IosShareOutlinedIcon />
+                </IconButton>
+              </div>
+              <div>
+                <p>Share</p>
+              </div>
+            </ListItemButton>
+          </div>
+          <div className="btn-icons">
+            <ListItemButton disableRipple>
+              <div>
+                <IconButton aria-label="favourite">
+                  <FavoriteBorderOutlinedIcon />
+                </IconButton>
+              </div>
+              <div>
+                <p>Favourites</p>
+              </div>
+            </ListItemButton>
           </div>
         </div>
       </CardActions>
