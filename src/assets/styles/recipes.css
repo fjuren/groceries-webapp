@@ -1,3 +1,4 @@
+@media (min-width: 481px) {
 #container-recipes-page {
     display: flex;
     flex-direction: column;
@@ -14,5 +15,30 @@
 #recipes-list {
     display: flex;
     justify-content: center;
-    padding-top: 23px
+    padding-top: 23px;
 }
+}
+
+@media (max-width: 480px) {
+    #container-recipes-page {
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding: 0px 8px 0px 8px;
+        /* width: 10rem; */
+    }
+    #container-recipes-page > div {
+        display: block;
+        justify-content: flex-end;
+    }
+    #recipes-list {
+        display: block;
+        padding-top: 23px;
+    }
+    .btn-icons {
+        transform: scale(.9);
+    }
+    .btn-icons p {
+      display:none;
+    }
+  }
