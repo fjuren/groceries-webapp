@@ -9,11 +9,29 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
 // import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { ListItemButton, CardActionArea, CardActions, IconButton, Tooltip } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import {
+  ListItemButton,
+  CardActionArea,
+  CardActions,
+  IconButton,
+  Tooltip,
+  CardHeader
+} from '@mui/material';
 
 export default function MultiActionAreaCard({ recipe }) {
   return (
-    <Card sx={{ maxWidth: 1000 }}>
+    <Card id="MUIcard" sx={{ maxWidth: 1000 }}>
+      <CardHeader
+        id="MUIcardheader"
+        sx={{ maxHeight: 500 }}
+        action={
+          <Tooltip title="Delete">
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        }></CardHeader>
       <CardActionArea disableRipple>
         {/* <CardMedia
           component="img"

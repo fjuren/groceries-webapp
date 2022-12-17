@@ -29,3 +29,18 @@
     color: #067A46;
     cursor: pointer;
 }
+
+
+
+/* Card */
+#MUIcard {
+    position: relative;
+}
+
+/* garbage icon */
+#MUIcardheader {
+    height: 0px;
+    position: absolute;
+    z-index: 1;
+    right: 0;
+ }
