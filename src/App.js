@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import Grocerfylist from './pages/grocerfylist';
 import Recipes from './pages/recipes';
 import Createnewrecipe from './pages/subpages/createNewRecipe';
+import ViewMyRecipe from './pages/subpages/ViewMyRecipe';
 import Favorites from './pages/favorites';
 import Signup from './pages/signup';
 import Login from './pages/login';
@@ -52,6 +53,7 @@ function App() {
         <Route path="/grocerfylist" element={<Grocerfylist authStatus={isAuthorized} />} />
         <Route exact path="/recipes" element={<Recipes />} />
         <Route path="/recipes/create-a-new-recipe" element={<Createnewrecipe />} />
+        <Route path="/recipes/:recipe-named-path" element={<ViewMyRecipe />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/signup" element={<Signup authStatus={setIsAuthorized} />} />
         <Route path="/login" element={<Login authStatus={setIsAuthorized} />} />

@@ -19,7 +19,7 @@ import {
   CardHeader
 } from '@mui/material';
 
-export default function MultiActionAreaCard({ recipe, handleDeleteRecipe }) {
+export default function MultiActionAreaCard({ recipe, viewRecipeDetails, handleDeleteRecipe }) {
   return (
     <Card id="MUIcard" sx={{ maxWidth: 1000 }}>
       <CardHeader
@@ -32,7 +32,7 @@ export default function MultiActionAreaCard({ recipe, handleDeleteRecipe }) {
             </IconButton>
           </Tooltip>
         }></CardHeader>
-      <CardActionArea disableRipple>
+      <CardActionArea onClick={() => viewRecipeDetails(recipe.title)} disableRipple>
         {/* <CardMedia
           component="img"
           height="140"

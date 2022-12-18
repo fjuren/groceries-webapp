@@ -23,6 +23,14 @@ const Recipes = () => {
     navigation('/recipes/create-a-new-recipe');
   };
 
+  const viewRecipeDetails = (recipe_title) => {
+    try {
+      navigation(`recipes/${recipe_title}`);
+    } catch (err) {
+      console.log('viewRecipeDetails error -> ' + err);
+    }
+  };
+
   const handleDeleteRecipe = async (recipe_doc_id) => {
     try {
       await deleteDoc(doc(db, 'recipes', recipe_doc_id));
@@ -65,7 +73,11 @@ const Recipes = () => {
             {recipesList.map((recipe, index) => {
               return (
                 <div key={index}>
-                  <MultiActionAreaCard recipe={recipe} handleDeleteRecipe={handleDeleteRecipe} />
+                  <MultiActionAreaCard
+                    recipe={recipe}
+                    viewRecipeDetails={viewRecipeDetails}
+                    handleDeleteRecipe={handleDeleteRecipe}
+                  />
                 </div>
               );
             })}
