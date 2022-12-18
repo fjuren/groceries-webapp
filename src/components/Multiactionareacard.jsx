@@ -32,7 +32,7 @@ export default function MultiActionAreaCard({ recipe, viewRecipeDetails, handleD
             </IconButton>
           </Tooltip>
         }></CardHeader>
-      <CardActionArea onClick={() => viewRecipeDetails(recipe.title)} disableRipple>
+      <CardActionArea onClick={() => viewRecipeDetails(recipe)} disableRipple>
         {/* <CardMedia
           component="img"
           height="140"

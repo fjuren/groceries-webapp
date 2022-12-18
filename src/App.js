@@ -53,7 +53,8 @@ function App() {
         <Route path="/grocerfylist" element={<Grocerfylist authStatus={isAuthorized} />} />
         <Route exact path="/recipes" element={<Recipes />} />
         <Route path="/recipes/create-a-new-recipe" element={<Createnewrecipe />} />
-        <Route path="/recipes/:recipe-named-path" element={<ViewMyRecipe />} />
+        {/* <Route path="/recipes/:recipe-named-path" element={<ViewMyRecipe />} /> */}
+        <Route path="/recipes/viewrecipe" element={<ViewMyRecipe />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/signup" element={<Signup authStatus={setIsAuthorized} />} />
         <Route path="/login" element={<Login authStatus={setIsAuthorized} />} />

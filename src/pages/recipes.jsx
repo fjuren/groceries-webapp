@@ -5,7 +5,7 @@ import MultiActionAreaCard from '../components/Multiactionareacard';
 import { Stack } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import theme from '../theme';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import '../assets/styles/recipes.css';
 
@@ -23,9 +23,15 @@ const Recipes = () => {
     navigation('/recipes/create-a-new-recipe');
   };
 
-  const viewRecipeDetails = (recipe_title) => {
+  const viewRecipeDetails = (recipe_data) => {
     try {
-      navigation(`recipes/${recipe_title}`);
+      // navigation(`recipes/${recipe_data}`, { state: { recipe_data } });
+      navigation('/recipes/viewrecipe', { state: { data: recipe_data } });
+      // <Link
+      //   to={{
+      //     pathname: `recipes/${recipe_data}`,
+      //     state: recipe_data // your data array of objects
+      //   }}></Link>;
     } catch (err) {
       console.log('viewRecipeDetails error -> ' + err);
     }
