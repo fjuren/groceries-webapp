@@ -19,7 +19,7 @@ import {
   CardHeader
 } from '@mui/material';
 
-export default function MultiActionAreaCard({ recipe }) {
+export default function MultiActionAreaCard({ recipe, handleDeleteRecipe }) {
   return (
     <Card id="MUIcard" sx={{ maxWidth: 1000 }}>
       <CardHeader
@@ -27,7 +27,7 @@ export default function MultiActionAreaCard({ recipe }) {
         sx={{ maxHeight: 500 }}
         action={
           <Tooltip title="Delete">
-            <IconButton>
+            <IconButton onClick={() => handleDeleteRecipe(recipe.document_id)}>
               <DeleteIcon />
             </IconButton>
           </Tooltip>

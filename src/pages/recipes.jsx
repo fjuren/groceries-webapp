@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import '../assets/styles/recipes.css';
 
 import { auth, db } from '../firebase.config';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, deleteDoc, getDocs, doc } from 'firebase/firestore';
 
 const Recipes = () => {
   const navigation = useNavigate();
@@ -19,8 +19,17 @@ const Recipes = () => {
   const [recipesList, setRecipesList] = useState([]);
   const [renderList, setRenderList] = useState(0);
 
-  const createRecipe = (e) => {
-    console.log(e);
+  const createRecipe = () => {
+    navigation('/recipes/create-a-new-recipe');
+  };
+
+  const handleDeleteRecipe = async (recipe_doc_id) => {
+    try {
+      await deleteDoc(doc(db, 'recipes', recipe_doc_id));
+      setRenderList(renderList + 1);
+    } catch (err) {
+      console.log('handleDeleteRecipe error -> ' + err);
+    }
   };
 
   useEffect(() => {
@@ -32,7 +41,6 @@ const Recipes = () => {
         );
       };
       getItems();
-      console.log('infinite loop?');
     } catch (err) {
       console.log('getItems from db error -> ' + err);
     }
@@ -47,7 +55,7 @@ const Recipes = () => {
             sx={{ width: '11rem' }}
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={() => createRecipe(navigation('/recipes/create-a-new-recipe'))}
+            onClick={() => createRecipe()}
             type="submit">
             Create new recipe
           </Button>
@@ -57,7 +65,7 @@ const Recipes = () => {
             {recipesList.map((recipe, index) => {
               return (
                 <div key={index}>
-                  <MultiActionAreaCard recipe={recipe} />
+                  <MultiActionAreaCard recipe={recipe} handleDeleteRecipe={handleDeleteRecipe} />
                 </div>
               );
             })}
