@@ -6,6 +6,8 @@ import { Stack } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import theme from '../theme';
 import { useNavigate, Link } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 import '../assets/styles/recipes.css';
 
@@ -16,6 +18,7 @@ const Recipes = () => {
   const navigation = useNavigate();
   const recipesCollection = collection(db, 'recipes');
 
+  const [loadSpinner, setLoadSpinner] = useState(false);
   const [recipesList, setRecipesList] = useState([]);
   const [renderList, setRenderList] = useState(0);
 
@@ -48,11 +51,13 @@ const Recipes = () => {
 
   useEffect(() => {
     try {
+      setLoadSpinner(true);
       const getItems = async () => {
         const querySnapshot = await getDocs(recipesCollection);
         setRecipesList(
           querySnapshot.docs.map((document) => ({ ...document.data(), document_id: document.id }))
         );
+        setLoadSpinner(false);
       };
       getItems();
     } catch (err) {
@@ -75,19 +80,27 @@ const Recipes = () => {
           </Button>
         </div>
         <div id="recipes-list">
-          <Stack spacing={2}>
-            {recipesList.map((recipe, index) => {
-              return (
-                <div key={index}>
-                  <MultiActionAreaCard
-                    recipe={recipe}
-                    viewRecipeDetails={viewRecipeDetails}
-                    handleDeleteRecipe={handleDeleteRecipe}
-                  />
-                </div>
-              );
-            })}
-          </Stack>
+          {loadSpinner ? (
+            <div className="loader-container">
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <CircularProgress />
+              </Box>
+            </div>
+          ) : (
+            <Stack spacing={2}>
+              {recipesList.map((recipe, index) => {
+                return (
+                  <div key={index}>
+                    <MultiActionAreaCard
+                      recipe={recipe}
+                      viewRecipeDetails={viewRecipeDetails}
+                      handleDeleteRecipe={handleDeleteRecipe}
+                    />
+                  </div>
+                );
+              })}
+            </Stack>
+          )}
         </div>
       </ThemeProvider>
     </div>
