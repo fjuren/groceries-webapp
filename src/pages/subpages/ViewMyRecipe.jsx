@@ -1,6 +1,6 @@
 import React from 'react';
 import BreadCrumb from '../../components/breadcrumb';
-import { ThemeProvider } from '@mui/material';
+import { List, ThemeProvider } from '@mui/material';
 import theme from '../../theme';
 import { useLocation } from 'react-router-dom';
 
@@ -12,6 +12,8 @@ const ViewMyRecipe = () => {
   const parentPage = '/recipes';
   const parentPageName = 'Recipes';
   const currentPageName = `${state.data.title}`;
+
+  // console.log(state.data);
 
   return (
     <div id="container-view-recipe-page">
@@ -30,6 +32,15 @@ const ViewMyRecipe = () => {
             </div>
             <div>
               <p>{state.data.description}</p>
+            </div>
+            <div>
+              {state.data.items.map((recipeItem, index) => {
+                return (
+                  <div key={index}>
+                    <ListBulletItemsNoDel bulletItemFromList={recipeItem} />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
