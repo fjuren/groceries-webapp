@@ -33,9 +33,16 @@ const ViewMyRecipe = () => {
           },
           item_created: serverTimestamp()
         });
+
+        document.getElementById('btn-add-to-list-alert').style.color = 'green';
+        document.getElementById('btn-add-to-list-alert').innerHTML =
+          'Ingredient(s) successfully added to your grocerfy list!';
       });
     } catch (err) {
       console.log('add recipe items to list error => ' + err);
+      document.getElementById('btn-add-to-list-alert').style.color = 'red';
+      document.getElementById('btn-add-to-list-alert').innerHTML =
+        'Oh no! There was an issue adding ingredients to your groceryfy list. Try again later :(';
     }
   };
 
@@ -83,7 +90,7 @@ const ViewMyRecipe = () => {
               })}
             </div>
             <div>
-              <div>
+              <div id="btn-add-to-list">
                 <Button
                   sx={{ width: '13rem' }}
                   variant="contained"
@@ -93,6 +100,7 @@ const ViewMyRecipe = () => {
                   Add to my grocery list
                 </Button>
               </div>
+              <span id="btn-add-to-list-alert"></span>
             </div>
           </div>
         </div>
