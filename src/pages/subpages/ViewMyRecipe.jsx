@@ -1,8 +1,10 @@
 import React from 'react';
 import BreadCrumb from '../../components/breadcrumb';
-import { List, ThemeProvider } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
 import theme from '../../theme';
 import { useLocation } from 'react-router-dom';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 
 import ListBulletItemsNoDel from '../../components/ListBulletItemNoDel';
 
@@ -13,7 +15,7 @@ const ViewMyRecipe = () => {
   const parentPageName = 'Recipes';
   const currentPageName = `${state.data.title}`;
 
-  // console.log(state.data);
+  console.log(state.data.types);
 
   return (
     <div id="container-view-recipe-page">
@@ -29,6 +31,19 @@ const ViewMyRecipe = () => {
           <div id="border-view-recipe">
             <div>
               <h2>{state.data.title}</h2>
+            </div>
+            <div>
+              {state.data.types.map((recipeType, index) => {
+                if (recipeType.typeStatus) {
+                  return (
+                    <div key={index}>
+                      <Stack direction="row" spacing={1}>
+                        <Chip label={`${recipeType.type}`} color="primary" />
+                      </Stack>
+                    </div>
+                  );
+                }
+              })}
             </div>
             <div>
               <p>{state.data.description}</p>

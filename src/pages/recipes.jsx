@@ -5,7 +5,7 @@ import MultiActionAreaCard from '../components/Multiactionareacard';
 import { Stack } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import theme from '../theme';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
