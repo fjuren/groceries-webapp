@@ -25,6 +25,8 @@ function App() {
 
   // }
 
+  const homeParentPath = '/';
+  const homeParentName = 'Home';
   const myRecipeParentPath = '/recipes';
   const myRecipeParentName = 'Recipes';
   const myFavouritesParentPath = '/favourites';
@@ -55,6 +57,10 @@ function App() {
       )}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route
+          path="/view-recipe"
+          element={<ViewRecipe parentPage={homeParentPath} parentPageName={homeParentName} />}
+        />
         <Route path="/grocerfylist" element={<Grocerfylist authStatus={isAuthorized} />} />
         <Route exact path="/recipes" element={<Recipes />} />
         <Route path="/recipes/create-a-new-recipe" element={<Createnewrecipe />} />

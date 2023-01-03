@@ -21,7 +21,7 @@ const Home = () => {
 
   const viewRecipeDetails = (recipe_data) => {
     try {
-      navigation('/home/view-recipe', { state: { data: recipe_data } });
+      navigation('/view-recipe', { state: { data: recipe_data } });
     } catch (err) {
       console.log('viewRecipeDetails error => ' + err);
     }
