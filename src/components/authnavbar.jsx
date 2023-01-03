@@ -21,8 +21,8 @@ const Authnavbar = ({ authStatus }) => {
     navigation('/recipes');
   };
 
-  const handleFavorites = () => {
-    navigation('/favorites');
+  const handlefavourites = () => {
+    navigation('/favourites');
   };
 
   const handleLogout = () => {
@@ -61,8 +61,8 @@ const Authnavbar = ({ authStatus }) => {
                 </Button>
               </li>
               <li>
-                <Button variant="txt" sx={{ width: '6rem' }} onClick={() => handleFavorites()}>
-                  Favorites
+                <Button variant="txt" sx={{ width: '6rem' }} onClick={() => handlefavourites()}>
+                  Favourites
                 </Button>
               </li>
             </ul>

@@ -9,29 +9,11 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
 // import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import DeleteIcon from '@mui/icons-material/Delete';
-import {
-  ListItemButton,
-  CardActionArea,
-  CardActions,
-  IconButton,
-  Tooltip,
-  CardHeader
-} from '@mui/material';
+import { ListItemButton, CardActionArea, CardActions, IconButton, Tooltip } from '@mui/material';
 
-export default function MultiActionAreaCard({ recipe, viewRecipeDetails, handleDeleteRecipe }) {
+export default function MultiActionAreaCard({ recipe, viewRecipeDetails }) {
   return (
     <Card id="MUIcard" sx={{ maxWidth: 1000 }}>
-      <CardHeader
-        id="MUIcardheader"
-        sx={{ maxHeight: 500 }}
-        action={
-          <Tooltip title="Delete">
-            <IconButton onClick={() => handleDeleteRecipe(recipe.document_id)}>
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
-        }></CardHeader>
       <CardActionArea onClick={() => viewRecipeDetails(recipe)} disableRipple>
         {/* <CardMedia
           component="img"

@@ -10,8 +10,8 @@ import Home from './pages/Home';
 import Grocerfylist from './pages/grocerfylist';
 import Recipes from './pages/recipes';
 import Createnewrecipe from './pages/subpages/createNewRecipe';
-import ViewMyRecipe from './pages/subpages/ViewMyRecipe';
-import Favorites from './pages/favorites';
+import ViewRecipe from './pages/subpages/ViewRecipe';
+import Favourites from './pages/favourites';
 import Signup from './pages/signup';
 import Login from './pages/login';
 
@@ -24,6 +24,11 @@ function App() {
   // const userLogout = (e) => {
 
   // }
+
+  const myRecipeParentPath = '/recipes';
+  const myRecipeParentName = 'Recipes';
+  const myFavouritesParentPath = '/favourites';
+  const myFavouritesName = 'Favourites';
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -53,9 +58,19 @@ function App() {
         <Route path="/grocerfylist" element={<Grocerfylist authStatus={isAuthorized} />} />
         <Route exact path="/recipes" element={<Recipes />} />
         <Route path="/recipes/create-a-new-recipe" element={<Createnewrecipe />} />
-        {/* <Route path="/recipes/:recipe-named-path" element={<ViewMyRecipe />} /> */}
-        <Route path="/recipes/viewrecipe" element={<ViewMyRecipe />} />
-        <Route path="/favorites" element={<Favorites />} />
+        <Route
+          path="/recipes/view-recipe"
+          element={
+            <ViewRecipe parentPage={myRecipeParentPath} parentPageName={myRecipeParentName} />
+          }
+        />
+        <Route path="/favourites" element={<Favourites />} />
+        <Route
+          path="/favourites/view-recipe"
+          element={
+            <ViewRecipe parentPage={myFavouritesParentPath} parentPageName={myFavouritesName} />
+          }
+        />
         <Route path="/signup" element={<Signup authStatus={setIsAuthorized} />} />
         <Route path="/login" element={<Login authStatus={setIsAuthorized} />} />
       </Routes>

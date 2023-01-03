@@ -10,18 +10,18 @@ import { db } from '../firebase.config';
 import { collection, getDocs } from 'firebase/firestore';
 import PublicActionAreaCard from '../components/PublicActionAreaCard';
 
-const Home = () => {
+const Favourites = () => {
   const navigation = useNavigate();
 
   const recipesCollection = collection(db, 'recipes');
 
   const [loadSpinner, setLoadSpinner] = useState(false);
-  const [homeList, setHomeList] = useState([]);
+  const [favouritesList, setFavouritesList] = useState([]);
   const [renderList, setRenderList] = useState(0);
 
   const viewRecipeDetails = (recipe_data) => {
     try {
-      navigation('/home/view-recipe', { state: { data: recipe_data } });
+      navigation('/favourites/view-recipe', { state: { data: recipe_data } });
     } catch (err) {
       console.log('viewRecipeDetails error => ' + err);
     }
@@ -33,7 +33,7 @@ const Home = () => {
       const getItems = async () => {
         // Update this once the build of HomePage is done. Currently no way to favourite recipes
         const querySnapshot = await getDocs(recipesCollection);
-        setHomeList(
+        setFavouritesList(
           querySnapshot.docs.map((document) => ({ ...document.data(), document_id: document.id }))
         );
         setLoadSpinner(false);
@@ -41,15 +41,15 @@ const Home = () => {
       getItems();
     } catch (err) {
       setLoadSpinner(true);
-      console.log('getHome from DB error => ' + err);
+      console.log('getFavourites from DB error => ' + err);
     }
   }, [renderList]);
 
   return (
-    <div id="container-home-page">
+    <div id="container-favourites-page">
       <ThemeProvider theme={theme}>
-        <h1 className="title">Community recipes</h1>
-        <div id="home-list">
+        <h1 className="title">My favourites</h1>
+        <div id="favourites-list">
           {loadSpinner ? (
             <div className="loader-container">
               <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -58,7 +58,7 @@ const Home = () => {
             </div>
           ) : (
             <Stack spaceing={2}>
-              {homeList.map((recipe, index) => {
+              {favouritesList.map((recipe, index) => {
                 return (
                   <div key={index}>
                     <PublicActionAreaCard recipe={recipe} viewRecipeDetails={viewRecipeDetails} />
@@ -73,4 +73,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Favourites;

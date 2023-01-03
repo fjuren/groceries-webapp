@@ -4,7 +4,6 @@ import { ThemeProvider } from '@mui/material';
 import theme from '../../theme';
 import { useLocation } from 'react-router-dom';
 import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
@@ -12,11 +11,13 @@ import { db, auth } from '../../firebase.config';
 
 import ListBulletItemsNoDel from '../../components/ListBulletItemNoDel';
 
-const ViewMyRecipe = () => {
+const ViewRecipe = ({ parentPage, parentPageName }) => {
   const { state } = useLocation();
 
-  const parentPage = '/recipes';
-  const parentPageName = 'Recipes';
+  // const parent = '/recipes';
+  // const parentName = 'Recipes';
+  // const parent = parentPage;
+  // const parentName = parentPageName;
   const currentPageName = `${state.data.title}`;
 
   const groceriesCollection = collection(db, 'groceries');
@@ -66,9 +67,9 @@ const ViewMyRecipe = () => {
                 if (recipeType.typeStatus) {
                   return (
                     <div key={index}>
-                      <Stack direction="row" spacing={1}>
-                        <Chip label={`${recipeType.type}`} color="primary" variant="outlined" />
-                      </Stack>
+                      {/* <Stack direction="row" spacing={1}> */}
+                      <Chip label={`${recipeType.type}`} color="primary" variant="outlined" />
+                      {/* </Stack> */}
                     </div>
                   );
                 }
@@ -92,12 +93,12 @@ const ViewMyRecipe = () => {
             <div>
               <div id="btn-add-to-list">
                 <Button
-                  sx={{ width: '13rem' }}
+                  sx={{ width: '18rem' }}
                   variant="contained"
                   startIcon={<AddIcon />}
                   onClick={() => addItemsToList(state.data.items)}
                   type="submit">
-                  Add to my grocery list
+                  Add ingredients to my grocery list
                 </Button>
               </div>
               <span id="btn-add-to-list-alert"></span>
@@ -109,4 +110,4 @@ const ViewMyRecipe = () => {
   );
 };
 
-export default ViewMyRecipe;
+export default ViewRecipe;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
-import MultiActionAreaCard from '../components/Multiactionareacard';
+import PersonalActionAreaCard from '../components/PersonalActionAreaCard';
 import { Stack } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import theme from '../theme';
@@ -29,7 +29,7 @@ const Recipes = () => {
   const viewRecipeDetails = (recipe_data) => {
     try {
       // navigation(`recipes/${recipe_data}`, { state: { recipe_data } });
-      navigation('/recipes/viewrecipe', { state: { data: recipe_data } });
+      navigation('/recipes/view-recipe', { state: { data: recipe_data } });
       // <Link
       //   to={{
       //     pathname: `recipes/${recipe_data}`,
@@ -61,6 +61,7 @@ const Recipes = () => {
       };
       getItems();
     } catch (err) {
+      setLoadSpinner(true);
       console.log('getItems from db error -> ' + err);
     }
   }, [renderList]);
@@ -91,7 +92,7 @@ const Recipes = () => {
               {recipesList.map((recipe, index) => {
                 return (
                   <div key={index}>
-                    <MultiActionAreaCard
+                    <PersonalActionAreaCard
                       recipe={recipe}
                       viewRecipeDetails={viewRecipeDetails}
                       handleDeleteRecipe={handleDeleteRecipe}

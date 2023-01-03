@@ -29,9 +29,9 @@ const Authnavbarmenu = ({ expandHamburger, setExpandHamburger, authStatus }) => 
     setExpandHamburger(!expandHamburger);
   };
 
-  const handleFavorites = () => {
+  const handlefavourites = () => {
     console.log();
-    navigation('/favorites');
+    navigation('/favourites');
     setExpandHamburger(!expandHamburger);
   };
 
@@ -82,8 +82,8 @@ const Authnavbarmenu = ({ expandHamburger, setExpandHamburger, authStatus }) => 
                 <Button
                   variant="txt"
                   sx={{ width: '329px', height: '50px' }}
-                  onClick={() => handleFavorites()}>
-                  Favorites
+                  onClick={() => handlefavourites()}>
+                  Favourites
                 </Button>
               </li>
               <li id="btn-logout">
