@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import { ListItemButton, CardActionArea, CardActions, IconButton, Tooltip } from '@mui/material';
 
 export default function MultiActionAreaCard({ recipe, viewRecipeDetails }) {
+  console.log(recipe.recipe_created.toDate());
   return (
     <Card id="MUIcard" sx={{ maxWidth: 1000 }}>
       <CardActionArea onClick={() => viewRecipeDetails(recipe)} disableRipple>
@@ -24,6 +25,11 @@ export default function MultiActionAreaCard({ recipe, viewRecipeDetails }) {
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {recipe.title}
+          </Typography>
+          <Typography variant="p" component="div" sx={{ color: 'grey' }}>
+            <i>
+              Posted by {recipe.author.name} on {recipe.recipe_created.toDate().toDateString()}
+            </i>
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {recipe.description}
@@ -78,7 +84,7 @@ export default function MultiActionAreaCard({ recipe, viewRecipeDetails }) {
                 </IconButton>
               </div>
               <div>
-                <p>Favourites</p>
+                <p>Favourite</p>
               </div>
             </ListItemButton>
           </div>

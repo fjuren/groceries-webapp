@@ -12,7 +12,6 @@
     "tags": "Array",
     "recipe_items": {
         "_id": "ObjectID",
-        "checked": "ObjectID",
         "item": "String"
     },
     "votes": "Number",
