@@ -62,7 +62,7 @@ function App() {
           element={<ViewRecipe parentPage={homeParentPath} parentPageName={homeParentName} />}
         />
         <Route path="/grocerfylist" element={<Grocerfylist authStatus={isAuthorized} />} />
-        <Route exact path="/recipes" element={<Recipes />} />
+        <Route exact path="/recipes" element={<Recipes authStatus={isAuthorized} />} />
         <Route path="/recipes/create-a-new-recipe" element={<Createnewrecipe />} />
         <Route
           path="/recipes/view-recipe"

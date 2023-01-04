@@ -1,5 +1,5 @@
 import React from 'react';
-import '../assets/styles/multiactionareacard.css';
+import '../assets/styles/publicactionareacard.css';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
@@ -11,7 +11,7 @@ import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
 import Typography from '@mui/material/Typography';
 import { ListItemButton, CardActionArea, CardActions, IconButton, Tooltip } from '@mui/material';
 
-export default function MultiActionAreaCard({ recipe, viewRecipeDetails }) {
+export default function PublicActionAreaCard({ recipe, viewRecipeDetails }) {
   return (
     <Card id="MUIcard" sx={{ maxWidth: 1000 }}>
       <CardActionArea onClick={() => viewRecipeDetails(recipe)} disableRipple>

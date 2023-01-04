@@ -1,5 +1,5 @@
 import React from 'react';
-import '../assets/styles/multiactionareacard.css';
+import '../assets/styles/publicactionareacard.css'; // FIXME
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';

@@ -14,7 +14,7 @@ import '../assets/styles/recipes.css';
 import { auth, db } from '../firebase.config';
 import { collection, deleteDoc, getDocs, doc } from 'firebase/firestore';
 
-const Recipes = () => {
+const Recipes = (authStatus) => {
   const navigation = useNavigate();
   const recipesCollection = collection(db, 'recipes');
 
@@ -92,11 +92,13 @@ const Recipes = () => {
               {recipesList.map((recipe, index) => {
                 return (
                   <div key={index}>
-                    <PersonalActionAreaCard
-                      recipe={recipe}
-                      viewRecipeDetails={viewRecipeDetails}
-                      handleDeleteRecipe={handleDeleteRecipe}
-                    />
+                    {authStatus && recipe.author.id === auth.currentUser.uid ? (
+                      <PersonalActionAreaCard
+                        recipe={recipe}
+                        viewRecipeDetails={viewRecipeDetails}
+                        handleDeleteRecipe={handleDeleteRecipe}
+                      />
+                    ) : null}
                   </div>
                 );
               })}
