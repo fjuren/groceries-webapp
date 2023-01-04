@@ -40,10 +40,10 @@ export default function SemiActionAreaCard({ recipe, viewRecipeDetails, handleDe
           alt="green iguana"
         /> */}
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h5" component="div" sx={{ mb: '0' }}>
             {recipe.title}
           </Typography>
-          <Typography variant="p" component="div" sx={{ color: 'grey' }}>
+          <Typography variant="p" component="div" sx={{ color: 'grey', pb: '10px' }}>
             <i>
               Posted by {recipe.author.name} on {recipe.recipe_created.toDate().toDateString()}
             </i>
