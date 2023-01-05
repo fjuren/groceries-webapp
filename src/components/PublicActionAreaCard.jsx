@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../assets/styles/publicactionareacard.css';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -11,7 +11,44 @@ import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
 import Typography from '@mui/material/Typography';
 import { ListItemButton, CardActionArea, CardActions, IconButton, Tooltip } from '@mui/material';
 
+import { db } from '../firebase.config';
+import { doc, updateDoc, increment, getDoc } from 'firebase/firestore';
+
 export default function PublicActionAreaCard({ recipe, viewRecipeDetails }) {
+  const [likes, setLikes] = useState(0);
+
+  const handleLike = async (e, recipe_id) => {
+    e.preventDefault();
+    try {
+      const recipeTotalLikesField = doc(db, 'recipes', recipe_id);
+      await updateDoc(recipeTotalLikesField, { total_likes: increment(1) });
+      setLikes(likes + 1);
+    } catch (err) {
+      console.log('handleLike error -> ' + err);
+    }
+  };
+
+  const handleDislike = async (e, recipe_id) => {
+    e.preventDefault();
+    try {
+      const recipeTotalLikesField = doc(db, 'recipes', recipe_id);
+      await updateDoc(recipeTotalLikesField, { total_likes: increment(-1) });
+      setLikes(likes - 1);
+    } catch (err) {
+      console.log('handleLike error -> ' + err);
+    }
+  };
+
+  // useEffect(() => {
+  //   const getLikes = async () => {
+  //     const docRef = doc(db, 'recipes', recipe.document_id);
+  //     const docSnap = await getDoc(docRef);
+  //     document.getElementById('votes').innerHTML = docSnap.data().total_likes;
+  //     // console.log(docSnap.data().total_likes);
+  //   };
+  //   getLikes();
+  // }, [likes]);
+
   return (
     <Card id="MUIcard" sx={{ maxWidth: 1000 }}>
       <CardActionArea onClick={() => viewRecipeDetails(recipe)} disableRipple>
@@ -39,14 +76,17 @@ export default function PublicActionAreaCard({ recipe, viewRecipeDetails }) {
         <div id="btn-icon-container">
           <div className="btn-icons">
             <Tooltip title="Dislike">
-              <IconButton aria-label="dislike">
+              <IconButton
+                aria-label="dislike"
+                onClick={(e) => handleDislike(e, recipe.document_id)}>
                 <ThumbDownOutlinedIcon />
               </IconButton>
             </Tooltip>
           </div>
+          <span id="votes">{recipe.total_likes}</span>
           <div className="btn-icons">
             <Tooltip title="Like">
-              <IconButton aria-label="like">
+              <IconButton aria-label="like" onClick={(e) => handleLike(e, recipe.document_id)}>
                 <ThumbUpAltOutlinedIcon />
               </IconButton>
             </Tooltip>

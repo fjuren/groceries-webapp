@@ -26,6 +26,7 @@ const Recipes = (authStatus) => {
     navigation('/recipes/create-a-new-recipe');
   };
 
+  // FIXME might be more efficient to move viewRecipeDetails and handleDeleteRecipe functions to the relevant component cards instead of the recipe.jsx file. See handleLike function in PublicActionAreaCard for example
   const viewRecipeDetails = (recipe_data) => {
     try {
       // navigation(`recipes/${recipe_data}`, { state: { recipe_data } });

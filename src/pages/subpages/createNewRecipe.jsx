@@ -68,6 +68,7 @@ const Createnewrecipe = () => {
           id: auth.currentUser.uid,
           name: auth.currentUser.displayName
         },
+        total_likes: 0,
         recipe_created: serverTimestamp()
       });
       navigation('/recipes');

@@ -19,7 +19,7 @@ import {
 } from '@mui/material';
 
 // Component card for recipe page (favourite button removed)
-export default function SemiActionAreaCard({ recipe, viewRecipeDetails, handleDeleteRecipe }) {
+export default function PersonalActionAreaCard({ recipe, viewRecipeDetails, handleDeleteRecipe }) {
   return (
     <Card id="MUIcard" sx={{ maxWidth: 1000 }}>
       <CardHeader
