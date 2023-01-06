@@ -15,7 +15,7 @@ import { db } from '../firebase.config';
 import { doc, updateDoc, increment, getDoc } from 'firebase/firestore';
 
 export default function PublicActionAreaCard({ recipe, viewRecipeDetails }) {
-  const [votes, setVotes] = useState(0);
+  const [votes, setVotes] = useState();
 
   const handleLike = async (e, recipe_id) => {
     e.preventDefault();
