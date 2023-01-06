@@ -15,39 +15,38 @@ import { db } from '../firebase.config';
 import { doc, updateDoc, increment, getDoc } from 'firebase/firestore';
 
 export default function PublicActionAreaCard({ recipe, viewRecipeDetails }) {
-  const [likes, setLikes] = useState(0);
+  const [votes, setVotes] = useState(0);
 
   const handleLike = async (e, recipe_id) => {
     e.preventDefault();
     try {
-      const recipeTotalLikesField = doc(db, 'recipes', recipe_id);
-      await updateDoc(recipeTotalLikesField, { total_likes: increment(1) });
-      setLikes(likes + 1);
+      const recipeTotalVotesField = doc(db, 'recipes', recipe_id);
+      await updateDoc(recipeTotalVotesField, { votes: increment(1) });
+      setVotes(votes + 1);
     } catch (err) {
-      console.log('handleLike error -> ' + err);
+      console.log('handleVote error -> ' + err);
     }
   };
 
   const handleDislike = async (e, recipe_id) => {
     e.preventDefault();
     try {
-      const recipeTotalLikesField = doc(db, 'recipes', recipe_id);
-      await updateDoc(recipeTotalLikesField, { total_likes: increment(-1) });
-      setLikes(likes - 1);
+      const recipeTotalVotesField = doc(db, 'recipes', recipe_id);
+      await updateDoc(recipeTotalVotesField, { votes: increment(-1) });
+      setVotes(votes - 1);
     } catch (err) {
-      console.log('handleLike error -> ' + err);
+      console.log('handleVotes error -> ' + err);
     }
   };
 
-  // useEffect(() => {
-  //   const getLikes = async () => {
-  //     const docRef = doc(db, 'recipes', recipe.document_id);
-  //     const docSnap = await getDoc(docRef);
-  //     document.getElementById('votes').innerHTML = docSnap.data().total_likes;
-  //     // console.log(docSnap.data().total_likes);
-  //   };
-  //   getLikes();
-  // }, [likes]);
+  useEffect(() => {
+    const getVotes = async () => {
+      const docRef = doc(db, 'recipes', recipe.document_id);
+      const docSnap = await getDoc(docRef);
+      setVotes(docSnap.data().votes);
+    };
+    getVotes();
+  }, [votes]);
 
   return (
     <Card id="MUIcard" sx={{ maxWidth: 1000 }}>
@@ -83,7 +82,7 @@ export default function PublicActionAreaCard({ recipe, viewRecipeDetails }) {
               </IconButton>
             </Tooltip>
           </div>
-          <span id="votes">{recipe.total_likes}</span>
+          <span id="votes">{votes}</span>
           <div className="btn-icons">
             <Tooltip title="Like">
               <IconButton aria-label="like" onClick={(e) => handleLike(e, recipe.document_id)}>
