@@ -3,7 +3,9 @@ import '../assets/styles/publicactionareacard.css';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
@@ -11,29 +13,94 @@ import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
 import Typography from '@mui/material/Typography';
 import { ListItemButton, CardActionArea, CardActions, IconButton, Tooltip } from '@mui/material';
 
-import { db } from '../firebase.config';
-import { doc, updateDoc, increment, getDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase.config';
+import { doc, updateDoc, increment, getDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 
 export default function PublicActionAreaCard({ recipe, viewRecipeDetails }) {
-  const [votes, setVotes] = useState();
+  const [votes, setVotes] = useState(1);
+  const [userLikedRecipe, setUserLikedRecipe] = useState([]);
+  const [userDislikedRecipe, setUserDislikedRecipe] = useState([]);
+
+  const user = doc(db, 'users', auth.currentUser.uid);
 
   const handleLike = async (e, recipe_id) => {
     e.preventDefault();
+    const recipe = doc(db, 'recipes', recipe_id);
+    const recipeSnap = await getDoc(recipe);
+    const userSnap = await getDoc(user);
     try {
-      const recipeTotalVotesField = doc(db, 'recipes', recipe_id);
-      await updateDoc(recipeTotalVotesField, { votes: increment(1) });
-      setVotes(votes + 1);
+      if (
+        !userSnap.data().liked_recipes.includes(recipeSnap.data().title) &&
+        userSnap.data().disliked_recipes.includes(recipeSnap.data().title)
+      ) {
+        await updateDoc(recipe, { votes: increment(2) });
+        await updateDoc(user, {
+          disliked_recipes: arrayRemove(recipeSnap.data().title)
+        });
+        await updateDoc(user, {
+          liked_recipes: arrayUnion(recipeSnap.data().title)
+        });
+        setVotes(votes + 1);
+      } else if (
+        !userSnap.data().liked_recipes.includes(recipeSnap.data().title) &&
+        !userSnap.data().disliked_recipes.includes(recipeSnap.data().title)
+      ) {
+        await updateDoc(recipe, { votes: increment(1) });
+        await updateDoc(user, {
+          liked_recipes: arrayUnion(recipeSnap.data().title)
+        });
+        setVotes(votes + 1);
+      }
+      // setLikePressed(true);
+      else {
+        await updateDoc(recipe, { votes: increment(-1) });
+        await updateDoc(user, {
+          liked_recipes: arrayRemove(recipeSnap.data().title)
+        });
+        // setVotes(votes + 1);
+        setVotes(votes - 1);
+      }
     } catch (err) {
-      console.log('handleVote error -> ' + err);
+      console.log('handleLike error -> ' + err);
     }
   };
 
   const handleDislike = async (e, recipe_id) => {
     e.preventDefault();
+    const recipe = doc(db, 'recipes', recipe_id);
+    const recipeSnap = await getDoc(recipe);
+    const userSnap = await getDoc(user);
     try {
-      const recipeTotalVotesField = doc(db, 'recipes', recipe_id);
-      await updateDoc(recipeTotalVotesField, { votes: increment(-1) });
-      setVotes(votes - 1);
+      if (
+        !userSnap.data().disliked_recipes.includes(recipeSnap.data().title) &&
+        userSnap.data().liked_recipes.includes(recipeSnap.data().title)
+      ) {
+        await updateDoc(recipe, { votes: increment(-2) });
+        await updateDoc(user, {
+          liked_recipes: arrayRemove(recipeSnap.data().title)
+        });
+        await updateDoc(user, {
+          disliked_recipes: arrayUnion(recipeSnap.data().title)
+        });
+        setVotes(votes - 1);
+      } else if (
+        !userSnap.data().liked_recipes.includes(recipeSnap.data().title) &&
+        !userSnap.data().disliked_recipes.includes(recipeSnap.data().title)
+      ) {
+        await updateDoc(recipe, { votes: increment(-1) });
+        await updateDoc(user, {
+          disliked_recipes: arrayUnion(recipeSnap.data().title)
+        });
+        setVotes(votes - 1);
+      }
+      // setLikePressed(true);
+      else {
+        await updateDoc(recipe, { votes: increment(1) });
+        await updateDoc(user, {
+          disliked_recipes: arrayRemove(recipeSnap.data().title)
+        });
+        setVotes(votes + 1);
+      }
     } catch (err) {
       console.log('handleVotes error -> ' + err);
     }
@@ -46,6 +113,18 @@ export default function PublicActionAreaCard({ recipe, viewRecipeDetails }) {
       setVotes(docSnap.data().votes);
     };
     getVotes();
+
+    const userLikes = async () => {
+      const userSnap = await getDoc(user);
+      setUserLikedRecipe(userSnap.data().liked_recipes);
+    };
+    userLikes();
+
+    const userDislikes = async () => {
+      const userSnap = await getDoc(user);
+      setUserDislikedRecipe(userSnap.data().disliked_recipes);
+    };
+    userDislikes();
   }, [votes]);
 
   return (
@@ -73,23 +152,69 @@ export default function PublicActionAreaCard({ recipe, viewRecipeDetails }) {
       </CardActionArea>
       <CardActions disableSpacing>
         <div id="btn-icon-container">
-          <div className="btn-icons">
-            <Tooltip title="Dislike">
-              <IconButton
-                aria-label="dislike"
-                onClick={(e) => handleDislike(e, recipe.document_id)}>
-                <ThumbDownOutlinedIcon />
-              </IconButton>
-            </Tooltip>
-          </div>
+          {userDislikedRecipe.includes(recipe.title) ? (
+            <div className="btn-icons">
+              <ListItemButton disableRipple>
+                <div>
+                  <Tooltip title="Dislike">
+                    <IconButton
+                      variant="filled"
+                      sx={{ color: 'green' }}
+                      aria-label="like"
+                      onClick={(e) => handleDislike(e, recipe.document_id)}>
+                      <ThumbDownIcon />
+                    </IconButton>
+                  </Tooltip>
+                </div>
+              </ListItemButton>
+            </div>
+          ) : (
+            <div className="btn-icons">
+              <ListItemButton disableRipple>
+                <div>
+                  <Tooltip title="Dislike">
+                    <IconButton
+                      aria-label="dislike"
+                      onClick={(e) => handleDislike(e, recipe.document_id)}>
+                      <ThumbDownOutlinedIcon />
+                    </IconButton>
+                  </Tooltip>
+                </div>
+              </ListItemButton>
+            </div>
+          )}
           <span id="votes">{votes}</span>
-          <div className="btn-icons">
-            <Tooltip title="Like">
-              <IconButton aria-label="like" onClick={(e) => handleLike(e, recipe.document_id)}>
-                <ThumbUpAltOutlinedIcon />
-              </IconButton>
-            </Tooltip>
-          </div>
+          {userLikedRecipe.includes(recipe.title) ? (
+            <div className="btn-icons">
+              <ListItemButton disableRipple>
+                <div>
+                  <Tooltip title="Like">
+                    <IconButton
+                      variant="filled"
+                      sx={{ color: 'green' }}
+                      aria-label="like"
+                      onClick={(e) => handleLike(e, recipe.document_id)}>
+                      <ThumbUpIcon />
+                    </IconButton>
+                  </Tooltip>
+                </div>
+              </ListItemButton>
+            </div>
+          ) : (
+            <div className="btn-icons">
+              <ListItemButton disableRipple>
+                <div>
+                  <Tooltip title="Like">
+                    <IconButton
+                      aria-label="like"
+                      onClick={(e) => handleLike(e, recipe.document_id)}>
+                      <ThumbUpAltOutlinedIcon />
+                    </IconButton>
+                  </Tooltip>
+                </div>
+              </ListItemButton>
+            </div>
+          )}
           <div className="btn-icons">
             <ListItemButton disableRipple>
               <div>
