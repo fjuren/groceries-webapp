@@ -102,7 +102,9 @@ const Login = ({ authStatus }) => {
             last_name: nameSplit[1],
             email: user.email,
             account_created: serverTimestamp(),
-            last_login: serverTimestamp()
+            last_login: serverTimestamp(),
+            liked_recipes: [],
+            disliked_recipes: []
           });
         }
         localStorage.setItem('authStatus', true);

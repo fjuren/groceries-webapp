@@ -45,7 +45,9 @@ const Signup = ({ authStatus }) => {
           last_name: lname,
           email: email,
           account_created: serverTimestamp(),
-          last_login: serverTimestamp()
+          last_login: serverTimestamp(),
+          liked_recipes: [],
+          disliked_recipes: []
         });
 
         authStatus(true);
