@@ -58,14 +58,11 @@ export default function PersonalActionAreaCard({ recipe, viewRecipeDetails, hand
           liked_recipes: arrayUnion(recipeSnap.data().title)
         });
         setVotes(votes + 1);
-      }
-      // setLikePressed(true);
-      else {
+      } else {
         await updateDoc(recipe, { votes: increment(-1) });
         await updateDoc(user, {
           liked_recipes: arrayRemove(recipeSnap.data().title)
         });
-        // setVotes(votes + 1);
         setVotes(votes - 1);
       }
     } catch (err) {

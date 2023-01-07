@@ -8,6 +8,7 @@ import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
 // import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
@@ -20,6 +21,8 @@ export default function PublicActionAreaCard({ recipe, viewRecipeDetails }) {
   const [votes, setVotes] = useState(1);
   const [userLikedRecipe, setUserLikedRecipe] = useState([]);
   const [userDislikedRecipe, setUserDislikedRecipe] = useState([]);
+  const [favourites, setFavourites] = useState(1);
+  const [userFavouritedRecipe, setUserFavouritedRecipe] = useState([]);
 
   const user = doc(db, 'users', auth.currentUser.uid);
 
@@ -50,14 +53,11 @@ export default function PublicActionAreaCard({ recipe, viewRecipeDetails }) {
           liked_recipes: arrayUnion(recipeSnap.data().title)
         });
         setVotes(votes + 1);
-      }
-      // setLikePressed(true);
-      else {
+      } else {
         await updateDoc(recipe, { votes: increment(-1) });
         await updateDoc(user, {
           liked_recipes: arrayRemove(recipeSnap.data().title)
         });
-        // setVotes(votes + 1);
         setVotes(votes - 1);
       }
     } catch (err) {
@@ -106,6 +106,30 @@ export default function PublicActionAreaCard({ recipe, viewRecipeDetails }) {
     }
   };
 
+  const handleFavouritedRecipe = async (e, recipe_id) => {
+    e.preventDefault();
+    const recipe = doc(db, 'recipes', recipe_id);
+    const recipeSnap = await getDoc(recipe);
+    const userSnap = await getDoc(user);
+    try {
+      if (!userSnap.data().favourited_recipes.includes(recipeSnap.data().title)) {
+        await updateDoc(recipe, { total_favourites: increment(1) });
+        await updateDoc(user, {
+          favourited_recipes: arrayUnion(recipeSnap.data().title)
+        });
+        setFavourites(favourites + 1);
+      } else {
+        await updateDoc(recipe, { total_favourites: increment(-1) });
+        await updateDoc(user, {
+          favourited_recipes: arrayRemove(recipeSnap.data().title)
+        });
+        setFavourites(favourites - 1);
+      }
+    } catch (err) {
+      console.log('handleFavouritedRecipe error -> ' + err);
+    }
+  };
+
   useEffect(() => {
     const getVotes = async () => {
       const docRef = doc(db, 'recipes', recipe.document_id);
@@ -125,7 +149,13 @@ export default function PublicActionAreaCard({ recipe, viewRecipeDetails }) {
       setUserDislikedRecipe(userSnap.data().disliked_recipes);
     };
     userDislikes();
-  }, [votes]);
+
+    const userFavourites = async () => {
+      const userSnap = await getDoc(user);
+      setUserFavouritedRecipe(userSnap.data().favourited_recipes);
+    };
+    userFavourites();
+  }, [votes, favourites]);
 
   return (
     <Card id="MUIcard" sx={{ maxWidth: 1000 }}>
@@ -239,18 +269,39 @@ export default function PublicActionAreaCard({ recipe, viewRecipeDetails }) {
               </div>
             </ListItemButton>
           </div>
-          <div className="btn-icons">
-            <ListItemButton disableRipple>
-              <div>
-                <IconButton aria-label="favourite">
-                  <FavoriteBorderOutlinedIcon />
-                </IconButton>
-              </div>
-              <div>
-                <p>Favourite</p>
-              </div>
-            </ListItemButton>
-          </div>
+          {userFavouritedRecipe.includes(recipe.title) ? (
+            <div className="btn-icons">
+              <ListItemButton disableRipple>
+                <div>
+                  <IconButton
+                    aria-label="favourite"
+                    variant="filled"
+                    sx={{ color: 'green' }}
+                    onClick={(e) => handleFavouritedRecipe(e, recipe.document_id)}>
+                    <FavoriteIcon />
+                  </IconButton>
+                </div>
+                <div>
+                  <p>Favourite</p>
+                </div>
+              </ListItemButton>
+            </div>
+          ) : (
+            <div className="btn-icons">
+              <ListItemButton disableRipple>
+                <div>
+                  <IconButton
+                    aria-label="favourite"
+                    onClick={(e) => handleFavouritedRecipe(e, recipe.document_id)}>
+                    <FavoriteBorderOutlinedIcon />
+                  </IconButton>
+                </div>
+                <div>
+                  <p>Favourite</p>
+                </div>
+              </ListItemButton>
+            </div>
+          )}
         </div>
       </CardActions>
     </Card>

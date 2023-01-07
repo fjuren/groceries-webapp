@@ -104,7 +104,8 @@ const Login = ({ authStatus }) => {
             account_created: serverTimestamp(),
             last_login: serverTimestamp(),
             liked_recipes: [],
-            disliked_recipes: []
+            disliked_recipes: [],
+            favourited_recipes: []
           });
         }
         localStorage.setItem('authStatus', true);
