@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
-import { db } from '../firebase.config';
-import { collection, getDocs } from 'firebase/firestore';
+import { auth, db } from '../firebase.config';
+import { collection, getDocs, doc, getDoc, arrayUnion, query, where } from 'firebase/firestore';
 import PublicActionAreaCard from '../components/PublicActionAreaCard';
 
 const Favourites = () => {
@@ -18,6 +18,8 @@ const Favourites = () => {
   const [loadSpinner, setLoadSpinner] = useState(false);
   const [favouritesList, setFavouritesList] = useState([]);
   const [renderList, setRenderList] = useState(0);
+
+  // const [test, setTest] = useState([]);
 
   const viewRecipeDetails = (recipe_data) => {
     try {
@@ -31,8 +33,9 @@ const Favourites = () => {
     try {
       setLoadSpinner(true);
       const getItems = async () => {
-        // Update this once the build of HomePage is done. Currently no way to favourite recipes
-        const querySnapshot = await getDocs(recipesCollection);
+        // const querySnapshot = await getDocs(recipesCollection);
+        const q = query(recipesCollection, where('total_favourites', '>', 0));
+        const querySnapshot = await getDocs(q);
         setFavouritesList(
           querySnapshot.docs.map((document) => ({ ...document.data(), document_id: document.id }))
         );

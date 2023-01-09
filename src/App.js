@@ -70,7 +70,7 @@ function App() {
             <ViewRecipe parentPage={myRecipeParentPath} parentPageName={myRecipeParentName} />
           }
         />
-        <Route path="/favourites" element={<Favourites />} />
+        <Route path="/favourites" element={<Favourites authStatus={isAuthorized} />} />
         <Route
           path="/favourites/view-recipe"
           element={
