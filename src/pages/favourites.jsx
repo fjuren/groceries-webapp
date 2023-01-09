@@ -33,7 +33,6 @@ const Favourites = () => {
     try {
       setLoadSpinner(true);
       const getItems = async () => {
-        // const querySnapshot = await getDocs(recipesCollection);
         const q = query(recipesCollection, where('total_favourites', '>', 0));
         const querySnapshot = await getDocs(q);
         setFavouritesList(
@@ -58,6 +57,14 @@ const Favourites = () => {
               <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <CircularProgress />
               </Box>
+            </div>
+          ) : favouritesList.length === 0 ? (
+            <div>
+              <p>
+                {' '}
+                You have no favourites! Go ahead and start finding recipes you want to save for
+                later.{' '}
+              </p>
             </div>
           ) : (
             <Stack spaceing={2}>
