@@ -257,7 +257,7 @@ export default function PublicActionAreaCard({ recipe, viewRecipeDetails }) {
               </div>
             </ListItemButton>
           </div>
-          <div className="btn-icons">
+          {/* <div className="btn-icons">
             <ListItemButton disableRipple>
               <div>
                 <IconButton aria-label="share">
@@ -268,7 +268,7 @@ export default function PublicActionAreaCard({ recipe, viewRecipeDetails }) {
                 <p>Share</p>
               </div>
             </ListItemButton>
-          </div>
+          </div> */}
           {userFavouritedRecipe.includes(recipe.title) ? (
             <div className="btn-icons">
               <ListItemButton disableRipple>

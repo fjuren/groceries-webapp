@@ -119,7 +119,8 @@ const Grocerfylist = ({ authStatus }) => {
   return (
     <div id="container-grocerfy-page">
       <ThemeProvider theme={theme}>
-        <h1 className="title">My Grocerfy List</h1>
+        <h1 className="title">My grocerfy List</h1>
+        <p>Take this list with you to the grocery store!</p>
         <div className="grocerfyList-container">
           <div className="additems-container">
             <form onSubmit={(e) => addItem(e)}>
@@ -139,31 +140,31 @@ const Grocerfylist = ({ authStatus }) => {
               </Button>
             </form>
           </div>
-        </div>
-        <div className="item-container">
-          <div>
-            {itemList.map((itemFromList, index) => {
-              return (
-                <div key={index}>
-                  {authStatus &&
-                  itemFromList.author.id === auth.currentUser.uid && (
-                    <ListCheckboxItems
-                      itemFromList={itemFromList}
-                      handleDeleteItem={handleDeleteItem}
-                      // checkmark={checkmark}
-                      handleCheckItem={handleCheckItem}
-                    />
-                  ) ? (
-                    <ListCheckboxItems
-                      itemFromList={itemFromList}
-                      handleDeleteItem={handleDeleteItem}
-                      // checkmark={checkmark}
-                      handleCheckItem={handleCheckItem}
-                    />
-                  ) : null}
-                </div>
-              );
-            })}
+          <div className="item-container">
+            <div>
+              {itemList.map((itemFromList, index) => {
+                return (
+                  <div key={index}>
+                    {authStatus &&
+                    itemFromList.author.id === auth.currentUser.uid && (
+                      <ListCheckboxItems
+                        itemFromList={itemFromList}
+                        handleDeleteItem={handleDeleteItem}
+                        // checkmark={checkmark}
+                        handleCheckItem={handleCheckItem}
+                      />
+                    ) ? (
+                      <ListCheckboxItems
+                        itemFromList={itemFromList}
+                        handleDeleteItem={handleDeleteItem}
+                        // checkmark={checkmark}
+                        handleCheckItem={handleCheckItem}
+                      />
+                    ) : null}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </ThemeProvider>

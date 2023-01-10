@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../assets/styles/publicactionareacard.css'; // FIXME
+import '../assets/styles/personalactionareacard.css';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
@@ -7,7 +7,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
-import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
+// import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
 // import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -242,7 +242,7 @@ export default function PersonalActionAreaCard({ recipe, viewRecipeDetails, hand
               </div>
             </ListItemButton>
           </div>
-          <div className="btn-icons">
+          {/* <div className="btn-icons">
             <ListItemButton disableRipple>
               <div>
                 <IconButton aria-label="share">
@@ -253,7 +253,7 @@ export default function PersonalActionAreaCard({ recipe, viewRecipeDetails, hand
                 <p>Share</p>
               </div>
             </ListItemButton>
-          </div>
+          </div> */}
         </div>
       </CardActions>
     </Card>

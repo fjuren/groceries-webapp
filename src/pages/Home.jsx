@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../assets/styles/home.css';
 import { Stack } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import theme from '../theme';

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../assets/styles/favourites.css';
 import { Stack } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import theme from '../theme';
@@ -60,11 +61,7 @@ const Favourites = () => {
             </div>
           ) : favouritesList.length === 0 ? (
             <div>
-              <p>
-                {' '}
-                You have no favourites! Go ahead and start finding recipes you want to save for
-                later.{' '}
-              </p>
+              <p> You have no favourites! Start finding recipes you want to save for later. </p>
             </div>
           ) : (
             <Stack spaceing={2}>
