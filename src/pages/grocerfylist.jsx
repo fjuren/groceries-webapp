@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import ListCheckboxItems from '../components/ListCheckboxItems';
 
 import Input from '@mui/material/Input';
+import { TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 // import DeleteIcon from '@mui/icons-material/Delete';
@@ -124,20 +125,25 @@ const Grocerfylist = ({ authStatus }) => {
         <div className="grocerfyList-container">
           <div className="additems-container">
             <form onSubmit={(e) => addItem(e)}>
-              <Input
-                className="addItemField"
-                placeholder="Add item"
-                inputProps={ariaLabel}
-                onChange={(e) => handleItem(e)}
-              />
-              <Button
-                sx={{ width: '6rem' }}
-                variant="contained"
-                startIcon={<AddIcon />}
-                onClick={(e) => addItem(e)}
-                type="submit">
-                Add
-              </Button>
+              <div>
+                <TextField
+                  className="addItemField"
+                  label="Add item"
+                  inputProps={ariaLabel}
+                  variant="outlined"
+                  onChange={(e) => handleItem(e)}
+                />
+              </div>
+              <div className="addItem-btn">
+                <Button
+                  sx={{ width: '7rem' }}
+                  variant="contained"
+                  startIcon={<AddIcon />}
+                  onClick={(e) => addItem(e)}
+                  type="submit">
+                  Add
+                </Button>
+              </div>
             </form>
           </div>
           <div className="item-container">

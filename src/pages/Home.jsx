@@ -58,7 +58,7 @@ const Home = () => {
               </Box>
             </div>
           ) : (
-            <Stack spaceing={2}>
+            <Stack spacing={2}>
               {homeList.map((recipe, index) => {
                 return (
                   <div key={index}>

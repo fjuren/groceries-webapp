@@ -64,7 +64,7 @@ const Favourites = () => {
               <p> You have no favourites! Start finding recipes you want to save for later. </p>
             </div>
           ) : (
-            <Stack spaceing={2}>
+            <Stack spacing={2}>
               {favouritesList.map((recipe, index) => {
                 return (
                   <div key={index}>

@@ -3,25 +3,46 @@
     flex-direction: column;
     margin-left: auto;
     margin-right: auto;
-    width: 62rem;
+    width: 62rem; /* change this for mobile */
 }
 
 .grocerfyList-container{
     box-sizing: border-box;
     display: flex;
-    justify-content: center;
     flex-direction: column;
+}
+
+.additems-container {
+    box-sizing: border-box;
+    padding: 2rem;
     background-color: white;
     border-color: lightgray;
     border-style: solid;
+    display: flex;
+    justify-content: center;
+}
+
+form {
+    display: flex;
+    gap: 10px;
+}
+
+.addItem-btn {
+    align-self: center;
 }
 
 .item-container {
-    box-sizing: border-box;
+    /* box-sizing: border-box;
     display: flex;
     justify-content: center;
     flex-direction: column;
     background-color: white;
     border-color: lightgray;
-    border-style: solid;
+    border-style: solid; */
 }
+
+@media (max-width: 480px) {
+    #container-grocerfy-page {
+        width: 22rem; /* change this for mobile */
+    }
+  }
