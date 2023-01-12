@@ -1,85 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import '../assets/styles/publicactionareacard.css';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
-import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
+import BasicModal from './BasicModal';
 // import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { ListItemButton, CardActionArea, CardActions, IconButton, Tooltip } from '@mui/material';
 
-import { auth, db } from '../firebase.config';
-import { doc, updateDoc, increment, getDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
-
 export default function UnAuthActionAreaCard({ recipe, viewRecipeDetails }) {
-  // const [votes, setVotes] = useState(1);
-  // const [userLikedRecipe, setUserLikedRecipe] = useState([]);
-  // const [userDislikedRecipe, setUserDislikedRecipe] = useState([]);
-  // const [favourites, setFavourites] = useState(1);
-  // const [userFavouritedRecipe, setUserFavouritedRecipe] = useState([]);
+  const [openModal, setOpenModal] = React.useState(false);
 
-  const handleLike = async (e) => {
-    e.preventDefault();
-    try {
-      console.log('like');
-    } catch (err) {
-      console.log('handleLike error -> ' + err);
-    }
+  const handleModalStatus = () => {
+    setOpenModal(false);
   };
 
-  const handleDislike = async (e) => {
+  const handleIconClick = async (e) => {
     e.preventDefault();
     try {
       console.log('dislike');
+      setOpenModal(true);
+      // <BasicModal openStatus={true} />;
     } catch (err) {
       console.log('handleVotes error -> ' + err);
     }
   };
 
-  const handleFavouritedRecipe = async (e) => {
-    e.preventDefault();
-    try {
-      console.log('favourite');
-    } catch (err) {
-      console.log('handleFavouritedRecipe error -> ' + err);
-    }
-  };
-
-  // useEffect(() => {
-  //   const getVotes = async () => {
-  //     const docRef = doc(db, 'recipes', recipe.document_id);
-  //     const docSnap = await getDoc(docRef);
-  //     setVotes(docSnap.data().votes);
-  //   };
-  //   getVotes();
-
-  //   const userLikes = async () => {
-  //     const userSnap = await getDoc(user);
-  //     setUserLikedRecipe(userSnap.data().liked_recipes);
-  //   };
-  //   userLikes();
-
-  //   const userDislikes = async () => {
-  //     const userSnap = await getDoc(user);
-  //     setUserDislikedRecipe(userSnap.data().disliked_recipes);
-  //   };
-  //   userDislikes();
-
-  //   const userFavourites = async () => {
-  //     const userSnap = await getDoc(user);
-  //     setUserFavouritedRecipe(userSnap.data().favourited_recipes);
-  //   };
-  //   userFavourites();
-  // }, [votes, favourites]);
-
   return (
     <Card id="MUIcard" sx={{ maxWidth: 1000 }}>
+      {openModal ? <BasicModal openStatus={true} handleModalStatus={handleModalStatus} /> : null}
       <CardActionArea onClick={() => viewRecipeDetails(recipe)} disableRipple>
         {/* <CardMedia
           component="img"
@@ -107,9 +59,7 @@ export default function UnAuthActionAreaCard({ recipe, viewRecipeDetails }) {
             <ListItemButton disableRipple>
               <div>
                 <Tooltip title="Dislike">
-                  <IconButton
-                    aria-label="dislike"
-                    onClick={(e) => handleDislike(e, recipe.document_id)}>
+                  <IconButton aria-label="dislike" onClick={(e) => handleIconClick(e)}>
                     <ThumbDownOutlinedIcon />
                   </IconButton>
                 </Tooltip>
@@ -120,7 +70,7 @@ export default function UnAuthActionAreaCard({ recipe, viewRecipeDetails }) {
             <ListItemButton disableRipple>
               <div>
                 <Tooltip title="Like">
-                  <IconButton aria-label="like" onClick={(e) => handleLike(e, recipe.document_id)}>
+                  <IconButton aria-label="like" onClick={(e) => handleIconClick(e)}>
                     <ThumbUpAltOutlinedIcon />
                   </IconButton>
                 </Tooltip>
@@ -130,7 +80,7 @@ export default function UnAuthActionAreaCard({ recipe, viewRecipeDetails }) {
           <div className="btn-icons">
             <ListItemButton disableRipple>
               <div>
-                <IconButton aria-label="comment">
+                <IconButton aria-label="comment" onClick={(e) => handleIconClick(e)}>
                   <ChatBubbleOutlineOutlinedIcon />
                 </IconButton>
               </div>
@@ -154,9 +104,7 @@ export default function UnAuthActionAreaCard({ recipe, viewRecipeDetails }) {
           <div className="btn-icons">
             <ListItemButton disableRipple>
               <div>
-                <IconButton
-                  aria-label="favourite"
-                  onClick={(e) => handleFavouritedRecipe(e, recipe.document_id)}>
+                <IconButton aria-label="favourite" onClick={(e) => handleIconClick(e)}>
                   <FavoriteBorderOutlinedIcon />
                 </IconButton>
               </div>
