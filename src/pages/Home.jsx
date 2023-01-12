@@ -10,8 +10,9 @@ import Box from '@mui/material/Box';
 import { db } from '../firebase.config';
 import { collection, getDocs } from 'firebase/firestore';
 import PublicActionAreaCard from '../components/PublicActionAreaCard';
+import UnAuthActionAreaCard from '../components/UnAuthActionAreaCard';
 
-const Home = () => {
+const Home = ({ authStatus }) => {
   const navigation = useNavigate();
 
   const recipesCollection = collection(db, 'recipes');
@@ -62,7 +63,11 @@ const Home = () => {
               {homeList.map((recipe, index) => {
                 return (
                   <div key={index}>
-                    <PublicActionAreaCard recipe={recipe} viewRecipeDetails={viewRecipeDetails} />
+                    {authStatus ? (
+                      <PublicActionAreaCard recipe={recipe} viewRecipeDetails={viewRecipeDetails} />
+                    ) : (
+                      <UnAuthActionAreaCard recipe={recipe} viewRecipeDetails={viewRecipeDetails} />
+                    )}
                   </div>
                 );
               })}

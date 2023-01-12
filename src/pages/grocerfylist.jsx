@@ -41,6 +41,7 @@ const Grocerfylist = ({ authStatus }) => {
   };
 
   // clear input field
+  // FIXME - updated to textfield so this query doesn't capture the correct field anymore
   const handleClear = () => {
     document.getElementsByClassName('addItemField')[0].firstChild.value = '';
   };

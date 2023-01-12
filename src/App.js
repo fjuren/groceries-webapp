@@ -56,7 +56,7 @@ function App() {
         </div>
       )}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home authStatus={isAuthorized} />} />
         <Route
           path="/view-recipe"
           element={<ViewRecipe parentPage={homeParentPath} parentPageName={homeParentName} />}
