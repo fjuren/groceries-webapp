@@ -22,7 +22,7 @@
     justify-content: center;
 }
 
-form {
+#grocerfyList-form {
     display: flex;
     gap: 10px;
 }

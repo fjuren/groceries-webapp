@@ -31,19 +31,20 @@ const Grocerfylist = ({ authStatus }) => {
   let navigation = useNavigate();
 
   const [itemList, setItemList] = useState([]);
-  const [item, setitem] = useState('');
+  const [item, setItem] = useState('');
   const [renderList, setRenderList] = useState(0);
 
   const groceriesCollection = collection(db, 'groceries');
 
   const handleItem = (e) => {
-    setitem(e.target.value);
+    setItem(e.target.value);
   };
 
   // clear input field
   // FIXME - updated to textfield so this query doesn't capture the correct field anymore
   const handleClear = () => {
-    document.getElementsByClassName('addItemField')[0].firstChild.value = '';
+    // document.getElementsByClassName('addItemField')[0].firstChild.value = '';
+    setItem('');
   };
 
   // CREATE (crud)
@@ -125,9 +126,10 @@ const Grocerfylist = ({ authStatus }) => {
         <p>Take this list with you to the grocery store!</p>
         <div className="grocerfyList-container">
           <div className="additems-container">
-            <form onSubmit={(e) => addItem(e)}>
+            <form id="grocerfyList-form" onSubmit={(e) => addItem(e)}>
               <div>
                 <TextField
+                  value={item}
                   className="addItemField"
                   label="Add item"
                   inputProps={ariaLabel}
