@@ -5,6 +5,7 @@ import theme from '../theme';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase.config';
+import logo from '../../src/assets/images/logo.png';
 
 const Authnavbar = ({ authStatus }) => {
   const navigation = useNavigate();
@@ -40,8 +41,8 @@ const Authnavbar = ({ authStatus }) => {
     <ThemeProvider theme={theme}>
       <header id="desktop-header">
         <div id="navbar">
-          <a href="" className="logo">
-            Logo
+          <a href="/" className="logo">
+            <img src={logo} className="logo-img" />
           </a>
           <nav className="menu">
             <ul>

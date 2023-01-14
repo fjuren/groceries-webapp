@@ -23,6 +23,20 @@ const theme = createTheme({
       textTransform: 'none'
     }
   }
+  // typography: {
+  //   button: {
+  //     fontSize: '1rem',
+  //   },
+  // },
+  // ListItemText: {
+  //   styleOverrides: {
+  //     // Name of the slot
+  //     root: {
+  //       // Some CSS
+  //       fontSize: '1rem'
+  //     }
+  //   }
+  // }
 });
 
 export default theme;

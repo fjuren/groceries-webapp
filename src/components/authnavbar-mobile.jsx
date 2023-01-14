@@ -4,6 +4,7 @@ import '../assets/styles/authnavbar.css';
 import theme from '../theme';
 import Hamburger from './hamburger';
 import Authnavbarmenu from './authnavbarmenu';
+import logo from '../../src/assets/images/logo.png';
 
 const AuthnavbarMobile = ({ authStatus }) => {
   const [expandHamburger, setExpandHamburger] = useState(false);
@@ -12,8 +13,8 @@ const AuthnavbarMobile = ({ authStatus }) => {
     <ThemeProvider theme={theme}>
       <header id="mobile-header">
         <div id="navbar">
-          <a href="" className="logo">
-            Auth Logo
+          <a href="/" className="logo">
+            <img src={logo} className="logo-img" />
           </a>
           <Hamburger expandHamburger={expandHamburger} setExpandHamburger={setExpandHamburger} />
           <Authnavbarmenu

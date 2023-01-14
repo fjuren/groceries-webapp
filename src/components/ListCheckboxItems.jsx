@@ -36,7 +36,7 @@ export default function ListCheckboxItems({ itemFromList, handleDeleteItem, hand
 
   return (
     <div>
-      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+      <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
         <ListItem
           secondaryAction={
             <Tooltip title="Delete">
@@ -46,10 +46,7 @@ export default function ListCheckboxItems({ itemFromList, handleDeleteItem, hand
             </Tooltip>
           }
           disablePadding>
-          <ListItemButton
-            // role={undefined}
-            onClick={() => handleChangeStateClick(itemFromList.item_id)}
-            dense>
+          <ListItemButton onClick={() => handleChangeStateClick(itemFromList.item_id)} dense>
             <ListItemIcon>
               <Checkbox
                 edge="start"

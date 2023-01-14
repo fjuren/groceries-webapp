@@ -134,6 +134,12 @@ const Grocerfylist = ({ authStatus }) => {
                   label="Add item"
                   inputProps={ariaLabel}
                   variant="outlined"
+                  sx={{
+                    width: '30rem',
+                    '@media(max-width: 480px)': {
+                      width: '13rem'
+                    }
+                  }}
                   onChange={(e) => handleItem(e)}
                 />
               </div>
@@ -150,30 +156,20 @@ const Grocerfylist = ({ authStatus }) => {
             </form>
           </div>
           <div className="item-container">
-            <div>
-              {itemList.map((itemFromList, index) => {
-                return (
-                  <div key={index}>
-                    {authStatus &&
-                    itemFromList.author.id === auth.currentUser.uid && (
-                      <ListCheckboxItems
-                        itemFromList={itemFromList}
-                        handleDeleteItem={handleDeleteItem}
-                        // checkmark={checkmark}
-                        handleCheckItem={handleCheckItem}
-                      />
-                    ) ? (
-                      <ListCheckboxItems
-                        itemFromList={itemFromList}
-                        handleDeleteItem={handleDeleteItem}
-                        // checkmark={checkmark}
-                        handleCheckItem={handleCheckItem}
-                      />
-                    ) : null}
-                  </div>
-                );
-              })}
-            </div>
+            {itemList.map((itemFromList, index) => {
+              return (
+                <div key={index}>
+                  {authStatus && itemFromList.author.id === auth.currentUser.uid ? (
+                    <ListCheckboxItems
+                      itemFromList={itemFromList}
+                      handleDeleteItem={handleDeleteItem}
+                      // checkmark={checkmark}
+                      handleCheckItem={handleCheckItem}
+                    />
+                  ) : null}
+                </div>
+              );
+            })}
           </div>
         </div>
       </ThemeProvider>

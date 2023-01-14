@@ -1,3 +1,9 @@
+.logo-img {
+    width: 2.5em;
+    height: 2.5em;
+    padding-left: 10px
+}
+
 #mobile-header {
     display: none;
 }

@@ -3,6 +3,7 @@ import '../assets/styles/navbar.css';
 import Button from '@mui/material/Button';
 import theme from '../theme';
 import { useNavigate } from 'react-router-dom';
+import logo from '../../src/assets/images/logo.png';
 
 const Navbar = () => {
   const navigation = useNavigate();
@@ -25,8 +26,8 @@ const Navbar = () => {
     <ThemeProvider theme={theme}>
       <header id="desktop-header">
         <div id="navbar">
-          <a href="" className="logo">
-            Logo
+          <a href="/" className="logo">
+            <img src={logo} className="logo-img" />
           </a>
           <nav className="menu">
             <ul>
