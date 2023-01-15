@@ -77,8 +77,11 @@ function App() {
             <ViewRecipe parentPage={myFavouritesParentPath} parentPageName={myFavouritesName} />
           }
         />
-        <Route path="/signup" element={<Signup authStatus={setIsAuthorized} />} />
-        <Route path="/login" element={<Login authStatus={setIsAuthorized} />} />
+        <Route path="/signup" element={<Signup setAuthStatus={setIsAuthorized} />} />
+        <Route
+          path="/login"
+          element={<Login authStatus={isAuthorized} setAuthStatus={setIsAuthorized} />}
+        />
       </Routes>
     </BrowserRouter>
   );

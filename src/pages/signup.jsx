@@ -7,7 +7,7 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 
-const Signup = ({ authStatus }) => {
+const Signup = ({ setAuthStatus }) => {
   const handleCheckbox = () => {};
 
   // const handleChange = (e) => {
@@ -51,7 +51,7 @@ const Signup = ({ authStatus }) => {
           favourited_recipes: []
         });
 
-        authStatus(true);
+        setAuthStatus(true);
         navigation('/');
       });
     } catch (error) {
