@@ -78,10 +78,7 @@ function App() {
           }
         />
         <Route path="/signup" element={<Signup setAuthStatus={setIsAuthorized} />} />
-        <Route
-          path="/login"
-          element={<Login authStatus={isAuthorized} setAuthStatus={setIsAuthorized} />}
-        />
+        <Route path="/login" element={<Login setAuthStatus={setIsAuthorized} />} />
       </Routes>
     </BrowserRouter>
   );

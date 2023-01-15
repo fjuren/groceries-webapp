@@ -30,7 +30,7 @@ function isMobile() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
-const Login = ({ authStatus, setAuthStatus }) => {
+const Login = ({ setAuthStatus }) => {
   const [loadSpinner, setLoadSpinner] = useState(false);
   const handleCheckbox = () => {};
 
@@ -123,7 +123,7 @@ const Login = ({ authStatus, setAuthStatus }) => {
               favourited_recipes: []
             });
           }
-          localStorage.setItem('setAuthStatus', true);
+          localStorage.setItem('authStatus', true);
           setAuthStatus(true);
           navigation('/');
         });
@@ -136,15 +136,12 @@ const Login = ({ authStatus, setAuthStatus }) => {
   };
 
   useEffect(() => {
-    if (authStatus === null) {
-      setLoadSpinner(true);
-    }
-  }, []);
-
-  useEffect(() => {
     const googleRedirectedResult = async () => {
       try {
         getRedirectResult(auth).then(async (result) => {
+          if (result) {
+            setLoadSpinner(true);
+          }
           // This gives you a Google Access Token. You can use it to access the Google API.
           // const credential = GoogleAuthProvider.credentialFromResult(result);
           // const token = credential.accessToken;
@@ -173,7 +170,7 @@ const Login = ({ authStatus, setAuthStatus }) => {
               favourited_recipes: []
             });
           }
-          localStorage.setItem('setAuthStatus', true);
+          localStorage.setItem('authStatus', true);
           setAuthStatus(true);
           navigation('/');
         });
