@@ -1,0 +1,38 @@
+#container-view-recipe-page {
+    padding-top: 10px;
+}
+
+#breadcrumb {
+    padding: 1rem 0 2rem 0;
+}
+
+#container-view-recipe {
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#border-view-recipe{
+    box-sizing: border-box;
+    padding: 1rem;
+    border-color: lightgray;
+    border-style: solid;
+    background-color: white;
+}
+
+#container-view-chips {
+    display: flex;
+    gap: 0.5rem;
+}
+
+h3 {
+    margin-block-end: 0;
+}
+
+#btn-add-to-list {
+    padding: 1rem;    
+}
+
+.view-recipe-loader-container {
+
+}

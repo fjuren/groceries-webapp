@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import BreadCrumb from '../../components/breadcrumb';
+import '../../assets/styles/viewRecipe.css';
 import { ThemeProvider } from '@mui/material';
 import theme from '../../theme';
 import { useLocation } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
@@ -13,6 +16,21 @@ import ListBulletItemsNoDel from '../../components/ListBulletItemNoDel';
 
 const ViewRecipe = ({ parentPage, parentPageName }) => {
   const { state } = useLocation();
+  const [loadSpinner, setLoadSpinner] = useState(false);
+
+  const successSpinner = () => {
+    setLoadSpinner(false);
+    document.getElementById('btn-add-to-list-alert').style.color = 'green';
+    document.getElementById('btn-add-to-list-alert').innerHTML =
+      'Ingredient(s) successfully added to your grocerfy list!';
+  };
+
+  const failedSpinner = () => {
+    setLoadSpinner(false);
+    document.getElementById('btn-add-to-list-alert').style.color = 'red';
+    document.getElementById('btn-add-to-list-alert').innerHTML =
+      'Oh no! There was an issue adding ingredients to your groceryfy list. Try again later :(';
+  };
 
   // const parent = '/recipes';
   // const parentName = 'Recipes';
@@ -24,6 +42,8 @@ const ViewRecipe = ({ parentPage, parentPageName }) => {
 
   const addItemsToList = async (recipeItems) => {
     try {
+      setLoadSpinner(true);
+      setTimeout(successSpinner, 1200);
       await recipeItems.forEach((item) => {
         addDoc(groceriesCollection, {
           item: item,
@@ -34,16 +54,11 @@ const ViewRecipe = ({ parentPage, parentPageName }) => {
           },
           item_created: serverTimestamp()
         });
-
-        document.getElementById('btn-add-to-list-alert').style.color = 'green';
-        document.getElementById('btn-add-to-list-alert').innerHTML =
-          'Ingredient(s) successfully added to your grocerfy list!';
       });
     } catch (err) {
-      console.log('add recipe items to list error => ' + err);
-      document.getElementById('btn-add-to-list-alert').style.color = 'red';
-      document.getElementById('btn-add-to-list-alert').innerHTML =
-        'Oh no! There was an issue adding ingredients to your groceryfy list. Try again later :(';
+      console.log(err);
+      setLoadSpinner(true);
+      setTimeout(failedSpinner, 1200);
     }
   };
 
@@ -59,10 +74,10 @@ const ViewRecipe = ({ parentPage, parentPageName }) => {
             />
           </div>
           <div id="border-view-recipe">
-            <div>
+            <div id="title">
               <h2>{state.data.title}</h2>
             </div>
-            <div>
+            <div id="container-view-chips">
               {state.data.types.map((recipeType, index) => {
                 if (recipeType.typeStatus) {
                   return (
@@ -101,6 +116,13 @@ const ViewRecipe = ({ parentPage, parentPageName }) => {
                   Add ingredients to my grocery list
                 </Button>
               </div>
+              {loadSpinner ? (
+                <div className="view-recipe-loader-container">
+                  <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <CircularProgress />
+                  </Box>
+                </div>
+              ) : null}
               <span id="btn-add-to-list-alert"></span>
             </div>
           </div>
