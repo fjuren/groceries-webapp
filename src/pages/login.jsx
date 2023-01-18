@@ -47,8 +47,8 @@ const Login = ({ setAuthStatus }) => {
     const email = userLogin['email-field'].value;
     const password = userLogin['password-field'].value;
 
-    try {
-      signInWithEmailAndPassword(auth, email, password).then(async (userCredential) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
         const user = userCredential.user;
         const nameSplit = user.displayName.split(/(\s+)/).filter(function (e) {
           return e.trim().length > 0;
@@ -72,19 +72,19 @@ const Login = ({ setAuthStatus }) => {
         localStorage.setItem('authStatus', true);
         setAuthStatus(true);
         navigation('/');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        console.log('error code: ' + errorCode);
+        console.log('error message: ' + errorMessage);
+
+        document.getElementById('errorCode').textContent =
+          'Incorrect email and/or password. Please try again';
+        console.log(errorCode);
+        console.log(errorMessage);
       });
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-
-      console.log('error code: ' + errorCode);
-      console.log('error message: ' + errorMessage);
-
-      // document.getElementById('errorCode').textContent = `${errorCode}`;
-      // document.getElementById('errorMessage').textContent = `${errorMessage}`;
-      // console.log(errorCode);
-      // console.log(errorMessage);
-    }
   };
 
   const handleGoogleLogin = async (e) => {
@@ -224,6 +224,7 @@ const Login = ({ setAuthStatus }) => {
                     variant="outlined"
                   />
                 </Stack>
+                <span id="errorCode"></span>
                 <div id="container-login-selections">
                   <div>
                     <Checkbox onChange={handleCheckbox} sx={{ padding: 0 }} />
