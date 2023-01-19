@@ -11,6 +11,7 @@ import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutline
 // import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
+import truncate from '../utilities/truncate';
 import {
   ListItemButton,
   CardActionArea,
@@ -161,7 +162,7 @@ export default function PersonalActionAreaCard({ recipe, viewRecipeDetails, hand
             </i>
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {recipe.description}
+            {truncate(recipe.description, 500)}
           </Typography>
         </CardContent>
       </CardActionArea>

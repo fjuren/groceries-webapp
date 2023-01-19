@@ -7,6 +7,7 @@ import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import BasicModal from './BasicModal';
+import truncate from '../utilities/truncate';
 // import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { ListItemButton, CardActionArea, CardActions, IconButton, Tooltip } from '@mui/material';
@@ -49,7 +50,7 @@ export default function UnAuthActionAreaCard({ recipe, viewRecipeDetails }) {
             </i>
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {recipe.description}
+            {truncate(recipe.description, 500)}
           </Typography>
         </CardContent>
       </CardActionArea>

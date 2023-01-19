@@ -1,0 +1,45 @@
+body{
+    padding: 0%;
+    margin: 0%;
+}
+
+#container-signup-page {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-top:7rem;
+}
+
+#signup {
+    width: 464px;
+}
+
+#signup-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#signup-options {
+    padding-bottom: 10px;
+}
+
+#container-signup-selections {
+    display: flex;
+    align-items: center;
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
+}
+
+/* #container-login-selections div:nth-child(3) {
+    margin-left: auto;
+} */
+
+button {
+    width: 100%;
+}
+
+@media only screen and (max-width: 391px) {
+#signup {
+    width: 329px;
+}
+}

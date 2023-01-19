@@ -9,6 +9,7 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import truncate from '../utilities/truncate';
 import IosShareOutlinedIcon from '@mui/icons-material/IosShareOutlined';
 // import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
@@ -176,7 +177,7 @@ export default function PublicActionAreaCard({ recipe, viewRecipeDetails }) {
             </i>
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {recipe.description}
+            {truncate(recipe.description, 500)}
           </Typography>
         </CardContent>
       </CardActionArea>

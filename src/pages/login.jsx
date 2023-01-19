@@ -76,14 +76,10 @@ const Login = ({ setAuthStatus }) => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-
         console.log('error code: ' + errorCode);
         console.log('error message: ' + errorMessage);
-
         document.getElementById('errorCode').textContent =
           'Incorrect email and/or password. Please try again';
-        console.log(errorCode);
-        console.log(errorMessage);
       });
   };
 
@@ -241,6 +237,7 @@ const Login = ({ setAuthStatus }) => {
                     sx={{ bgcolor: 'primary.main', height: '50px' }}
                     // type="submit"
                     variant="contained"
+                    type="submit"
                     onClick={(e) => {
                       handleRegularLogin(e);
                     }}>

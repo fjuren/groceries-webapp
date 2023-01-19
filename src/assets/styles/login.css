@@ -21,6 +21,7 @@ body{
 
 #errorCode {
   align-self: self-start;
+  text-align: left;
   color: red;
 }
 

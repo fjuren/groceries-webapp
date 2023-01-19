@@ -1,5 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from '@mui/material/styles';
+import '../assets/styles/signup.css';
 import theme from '../theme';
 import { Stack, TextField, Link, Button, Checkbox } from '@mui/material';
 import { auth, db } from '../firebase.config';
@@ -27,7 +28,6 @@ const Signup = ({ setAuthStatus }) => {
     try {
       createUserWithEmailAndPassword(auth, email, password).then(async (userCredential) => {
         const user = userCredential.user;
-        console.log(user);
 
         // Assign first and last names to auth user
         await updateProfile(auth.currentUser, {
@@ -67,7 +67,7 @@ const Signup = ({ setAuthStatus }) => {
       <ThemeProvider theme={theme}>
         <div id="signup">
           <div id="signup-title">
-            <h1>Create your Grocerfy account</h1>
+            <h1>Create your account</h1>
           </div>
           <div id="signup-options">
             <form id="signup-form">
