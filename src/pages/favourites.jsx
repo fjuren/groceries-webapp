@@ -8,10 +8,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
 import { auth, db } from '../firebase.config';
-import { collection, getDocs, doc, getDoc, arrayUnion, query, where } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc, query, where } from 'firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
 import PublicActionAreaCard from '../components/PublicActionAreaCard';
 
-const Favourites = () => {
+const Favourites = ({ authStatus }) => {
   const navigation = useNavigate();
 
   const recipesCollection = collection(db, 'recipes');
@@ -19,8 +20,6 @@ const Favourites = () => {
   const [loadSpinner, setLoadSpinner] = useState(false);
   const [favouritesList, setFavouritesList] = useState([]);
   const [renderList, setRenderList] = useState(0);
-
-  // const [test, setTest] = useState([]);
 
   const viewRecipeDetails = (recipe_data) => {
     try {
@@ -33,15 +32,27 @@ const Favourites = () => {
   useEffect(() => {
     try {
       setLoadSpinner(true);
-      const getItems = async () => {
-        const q = query(recipesCollection, where('total_favourites', '>', 0));
-        const querySnapshot = await getDocs(q);
-        setFavouritesList(
-          querySnapshot.docs.map((document) => ({ ...document.data(), document_id: document.id }))
-        );
-        setLoadSpinner(false);
-      };
-      getItems();
+
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const getItems = async () => {
+            const uid = user.uid;
+            const docRef = doc(db, 'users', uid);
+            const docSnap = await getDoc(docRef);
+            const userFavourites = docSnap.data().favourited_recipes;
+            const userQuery = query(recipesCollection, where('title', 'in', userFavourites));
+            const querySnapshot = await getDocs(userQuery);
+            setFavouritesList(
+              querySnapshot.docs.map((document) => ({
+                ...document.data(),
+                document_id: document.id
+              }))
+            );
+            setLoadSpinner(false);
+          };
+          getItems();
+        }
+      });
     } catch (err) {
       setLoadSpinner(true);
       console.log('getFavourites from DB error => ' + err);
@@ -61,9 +72,12 @@ const Favourites = () => {
             </div>
           ) : favouritesList.length === 0 ? (
             <div>
-              <p> You have no favourites! Start finding recipes you want to save for later. </p>
+              <p>
+                You haven&apos;t favourited any recipes yet! Start finding recipes you want to save
+                for later.
+              </p>
             </div>
-          ) : (
+          ) : authStatus ? (
             <Stack spacing={2}>
               {favouritesList.map((recipe, index) => {
                 return (
@@ -73,7 +87,7 @@ const Favourites = () => {
                 );
               })}
             </Stack>
-          )}
+          ) : null}
         </div>
       </ThemeProvider>
     </div>

@@ -36,6 +36,7 @@ function App() {
     onAuthStateChanged(auth, (user) => {
       if (user && isAuthorized === true) {
         console.log('authorized');
+        console.log(user);
       } else {
         console.log('not autorized');
       }
