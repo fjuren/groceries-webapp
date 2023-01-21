@@ -40,6 +40,11 @@
     align-self: center;
 }
 
+.loader-container {
+    margin-right: 50%;
+    padding-top: 4rem;
+}
+
 .item-container {
     width: 22rem;
     align-self: center;

@@ -5,6 +5,8 @@ import '../assets/styles/grocerfylist.css';
 import { useNavigate } from 'react-router-dom';
 
 import ListCheckboxItems from '../components/ListCheckboxItems';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 import Input from '@mui/material/Input';
 import { TextField } from '@mui/material';
@@ -33,6 +35,7 @@ const Grocerfylist = ({ authStatus }) => {
   const [itemList, setItemList] = useState([]);
   const [item, setItem] = useState('');
   const [renderList, setRenderList] = useState(0);
+  const [loadSpinner, setLoadSpinner] = useState(false);
 
   const groceriesCollection = collection(db, 'groceries');
 
@@ -96,6 +99,7 @@ const Grocerfylist = ({ authStatus }) => {
   // READ (crud)
   useEffect(() => {
     try {
+      setLoadSpinner(true);
       const getItems = async () => {
         // const authoredItems = query(
         //   groceriesCollection,
@@ -106,6 +110,7 @@ const Grocerfylist = ({ authStatus }) => {
         setItemList(
           querySnapshot.docs.map((document) => ({ ...document.data(), item_id: document.id }))
         );
+        setLoadSpinner(false);
       };
       getItems();
     } catch (err) {
@@ -155,22 +160,30 @@ const Grocerfylist = ({ authStatus }) => {
               </div>
             </form>
           </div>
-          <div className="item-container">
-            {itemList.map((itemFromList, index) => {
-              return (
-                <div key={index}>
-                  {authStatus && itemFromList.author.id === auth.currentUser.uid ? (
-                    <ListCheckboxItems
-                      itemFromList={itemFromList}
-                      handleDeleteItem={handleDeleteItem}
-                      // checkmark={checkmark}
-                      handleCheckItem={handleCheckItem}
-                    />
-                  ) : null}
-                </div>
-              );
-            })}
-          </div>
+          {loadSpinner ? (
+            <div className="loader-container">
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <CircularProgress />
+              </Box>
+            </div>
+          ) : (
+            <div className="item-container">
+              {itemList.map((itemFromList, index) => {
+                return (
+                  <div key={index}>
+                    {authStatus && itemFromList.author.id === auth.currentUser.uid ? (
+                      <ListCheckboxItems
+                        itemFromList={itemFromList}
+                        handleDeleteItem={handleDeleteItem}
+                        // checkmark={checkmark}
+                        handleCheckItem={handleCheckItem}
+                      />
+                    ) : null}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </ThemeProvider>
     </div>

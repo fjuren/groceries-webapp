@@ -105,25 +105,27 @@ const ViewRecipe = ({ parentPage, parentPageName }) => {
                 );
               })}
             </div>
-            <div>
-              <div id="btn-add-to-list">
-                <Button
-                  sx={{ width: '18rem' }}
-                  variant="contained"
-                  startIcon={<AddIcon />}
-                  onClick={() => addItemsToList(state.data.items)}
-                  type="submit">
-                  Add ingredients to my grocery list
-                </Button>
-              </div>
-              {loadSpinner ? (
-                <div className="view-recipe-loader-container">
-                  <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <CircularProgress />
-                  </Box>
+            <div id="lower-container">
+              <div id="btn-container">
+                <div id="btn-add-to-list">
+                  <Button
+                    sx={{ width: '18rem' }}
+                    variant="contained"
+                    startIcon={<AddIcon />}
+                    onClick={() => addItemsToList(state.data.items)}
+                    type="submit">
+                    Add ingredients to my grocery list
+                  </Button>
                 </div>
-              ) : null}
-              <span id="btn-add-to-list-alert"></span>
+                {loadSpinner ? (
+                  <div className="view-recipe-loader-container">
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                      <CircularProgress />
+                    </Box>
+                  </div>
+                ) : null}
+                <span id="btn-add-to-list-alert"></span>
+              </div>
             </div>
           </div>
         </div>
