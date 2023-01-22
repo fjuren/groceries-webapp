@@ -1,3 +1,3 @@
 # Demo site (work in progress)
 
-https://fjuren.github.io/groceries-webapp/
+https://grocerfy-eca72.web.app/

@@ -35,10 +35,10 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user && isAuthorized === true) {
-        console.log('authorized');
-        console.log(user);
+        // console.log('authorized');
+        // console.log(user);
       } else {
-        console.log('not autorized');
+        // console.log('not autorized');
       }
     });
   }, [isAuthorized]);

@@ -34,7 +34,7 @@ const Signup = ({ setAuthStatus }) => {
           displayName: fname + ' ' + lname
         })
           .then(() => {
-            console.log('Name added!');
+            // console.log('Name added!');
           })
           .catch((error) => {
             console.log(error);
