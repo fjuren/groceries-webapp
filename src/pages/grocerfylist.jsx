@@ -96,10 +96,16 @@ const Grocerfylist = ({ authStatus }) => {
     }
   };
 
+  useEffect(() => {
+    setLoadSpinner(true);
+    setTimeout(() => {
+      setLoadSpinner(false);
+    }, 1200);
+  }, []);
+
   // READ (crud)
   useEffect(() => {
     try {
-      setLoadSpinner(true);
       const getItems = async () => {
         // const authoredItems = query(
         //   groceriesCollection,
@@ -110,7 +116,6 @@ const Grocerfylist = ({ authStatus }) => {
         setItemList(
           querySnapshot.docs.map((document) => ({ ...document.data(), item_id: document.id }))
         );
-        setLoadSpinner(false);
       };
       getItems();
     } catch (err) {
@@ -129,44 +134,44 @@ const Grocerfylist = ({ authStatus }) => {
       <ThemeProvider theme={theme}>
         <h1 className="title">My grocerfy List</h1>
         <p>Take this list with you to the grocery store!</p>
-        <div className="grocerfyList-container">
-          <div className="additems-container">
-            <form id="grocerfyList-form" onSubmit={(e) => addItem(e)}>
-              <div>
-                <TextField
-                  value={item}
-                  className="addItemField"
-                  label="Add item"
-                  inputProps={ariaLabel}
-                  variant="outlined"
-                  sx={{
-                    width: '30rem',
-                    '@media(max-width: 480px)': {
-                      width: '13rem'
-                    }
-                  }}
-                  onChange={(e) => handleItem(e)}
-                />
-              </div>
-              <div className="addItem-btn">
-                <Button
-                  sx={{ width: '7rem' }}
-                  variant="contained"
-                  startIcon={<AddIcon />}
-                  onClick={(e) => addItem(e)}
-                  type="submit">
-                  Add
-                </Button>
-              </div>
-            </form>
+        {loadSpinner ? (
+          <div className="loader-container">
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <CircularProgress />
+            </Box>
           </div>
-          {loadSpinner ? (
-            <div className="loader-container">
-              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                <CircularProgress />
-              </Box>
+        ) : (
+          <div className="grocerfyList-container">
+            <div className="additems-container">
+              <form id="grocerfyList-form" onSubmit={(e) => addItem(e)}>
+                <div>
+                  <TextField
+                    value={item}
+                    className="addItemField"
+                    label="Add item"
+                    inputProps={ariaLabel}
+                    variant="outlined"
+                    sx={{
+                      width: '30rem',
+                      '@media(max-width: 480px)': {
+                        width: '13rem'
+                      }
+                    }}
+                    onChange={(e) => handleItem(e)}
+                  />
+                </div>
+                <div className="addItem-btn">
+                  <Button
+                    sx={{ width: '7rem' }}
+                    variant="contained"
+                    startIcon={<AddIcon />}
+                    onClick={(e) => addItem(e)}
+                    type="submit">
+                    Add
+                  </Button>
+                </div>
+              </form>
             </div>
-          ) : (
             <div className="item-container">
               {itemList.map((itemFromList, index) => {
                 return (
@@ -183,8 +188,8 @@ const Grocerfylist = ({ authStatus }) => {
                 );
               })}
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </ThemeProvider>
     </div>
   );
