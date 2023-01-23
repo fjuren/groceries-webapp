@@ -31,8 +31,6 @@
         display: flex;
         flex-direction: column;
         box-sizing: border-box;
-        padding: 0px 8px 0px 8px;
-        /* width: 10rem; */
     }
     #container-recipes-page > div {
         display: block;

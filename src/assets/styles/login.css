@@ -1,7 +1,7 @@
-body{
+/* body{
     padding: 0%;
     margin: 0%;
-}
+} */
 
 #container-login-page {
     display: flex;
@@ -85,7 +85,7 @@ button {
     cursor: not-allowed;
   }
 
-  @media only screen and (max-width: 391px) {
+  @media only screen and (max-width: 480px) {
     #login {
       width: 329px;
     }

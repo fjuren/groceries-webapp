@@ -1,7 +1,7 @@
-body{
+/* body{
     padding: 0%;
     margin: 0%;
-}
+} */
 
 #container-signup-page {
     display: flex;
@@ -38,7 +38,7 @@ button {
     width: 100%;
 }
 
-@media only screen and (max-width: 391px) {
+@media only screen and (max-width: 480px) {
 #signup {
     width: 329px;
 }

@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase.config';
 
-const Authnavbarmenu = ({ expandHamburger, setExpandHamburger, authStatus }) => {
+const Authnavbarmenu = ({ expandHamburger, setExpandHamburger, setAuthStatus }) => {
   const navigation = useNavigate();
 
   const handleHome = () => {
@@ -39,7 +39,7 @@ const Authnavbarmenu = ({ expandHamburger, setExpandHamburger, authStatus }) => 
     signOut(auth)
       .then(() => {
         localStorage.clear();
-        authStatus(false);
+        setAuthStatus(false);
         navigation('/');
         setExpandHamburger(!expandHamburger);
       })

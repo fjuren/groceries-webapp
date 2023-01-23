@@ -11,10 +11,11 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db, auth } from '../../firebase.config';
+import { onAuthStateChanged } from 'firebase/auth';
 
 import ListBulletItemsNoDel from '../../components/ListBulletItemNoDel';
 
-const ViewRecipe = ({ parentPage, parentPageName }) => {
+const ViewRecipe = ({ authStatus, parentPage, parentPageName }) => {
   const { state } = useLocation();
   const [loadSpinner, setLoadSpinner] = useState(false);
 
@@ -26,10 +27,19 @@ const ViewRecipe = ({ parentPage, parentPageName }) => {
   };
 
   const failedSpinner = () => {
-    setLoadSpinner(false);
-    document.getElementById('btn-add-to-list-alert').style.color = 'red';
-    document.getElementById('btn-add-to-list-alert').innerHTML =
-      'Oh no! There was an issue adding ingredients to your groceryfy list. Try again later :(';
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setLoadSpinner(false);
+        document.getElementById('btn-add-to-list-alert').style.color = 'red';
+        document.getElementById('btn-add-to-list-alert').innerHTML =
+          'Oh no! There was an issue adding ingredients. Try again later :(';
+      } else {
+        setLoadSpinner(false);
+        document.getElementById('btn-add-to-list-alert').style.color = 'red';
+        document.getElementById('btn-add-to-list-alert').innerHTML =
+          'Oops! Please create an account.';
+      }
+    });
   };
 
   // const parent = '/recipes';

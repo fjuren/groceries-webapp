@@ -43,6 +43,10 @@ h3 {
     align-self: center;
 }
 
+#lower-container {
+    height: 7rem;
+}
+
 @media (max-width: 480px) {
     #lower-container {
         display: flex;

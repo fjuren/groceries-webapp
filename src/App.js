@@ -35,10 +35,10 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user && isAuthorized === true) {
-        // console.log('authorized');
+        console.log('authorized');
         // console.log(user);
       } else {
-        // console.log('not autorized');
+        console.log('not authorized');
       }
     });
   }, [isAuthorized]);
@@ -52,8 +52,8 @@ function App() {
         </div>
       ) : (
         <div>
-          <Authnavbar authStatus={setIsAuthorized} />
-          <AuthnavbarMobile authStatus={setIsAuthorized} />
+          <Authnavbar setAuthStatus={setIsAuthorized} />
+          <AuthnavbarMobile setAuthStatus={setIsAuthorized} />
         </div>
       )}
       <Routes>
@@ -68,7 +68,11 @@ function App() {
         <Route
           path="/recipes/view-recipe"
           element={
-            <ViewRecipe parentPage={myRecipeParentPath} parentPageName={myRecipeParentName} />
+            <ViewRecipe
+              authStatus={isAuthorized}
+              parentPage={myRecipeParentPath}
+              parentPageName={myRecipeParentName}
+            />
           }
         />
         <Route path="/favourites" element={<Favourites authStatus={isAuthorized} />} />

@@ -6,7 +6,7 @@ import Hamburger from './hamburger';
 import Authnavbarmenu from './authnavbarmenu';
 import logo from '../../src/assets/images/logo.png';
 
-const AuthnavbarMobile = ({ authStatus }) => {
+const AuthnavbarMobile = ({ setAuthStatus }) => {
   const [expandHamburger, setExpandHamburger] = useState(false);
 
   return (
@@ -20,7 +20,7 @@ const AuthnavbarMobile = ({ authStatus }) => {
           <Authnavbarmenu
             expandHamburger={expandHamburger}
             setExpandHamburger={setExpandHamburger}
-            authStatus={authStatus}
+            setAuthStatus={setAuthStatus}
           />
         </div>
       </header>

@@ -7,7 +7,7 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../firebase.config';
 import logo from '../../src/assets/images/logo.png';
 
-const Authnavbar = ({ authStatus }) => {
+const Authnavbar = ({ setAuthStatus }) => {
   const navigation = useNavigate();
 
   const handleHome = () => {
@@ -30,7 +30,7 @@ const Authnavbar = ({ authStatus }) => {
     signOut(auth)
       .then(() => {
         localStorage.clear();
-        authStatus(false);
+        setAuthStatus(false);
         navigation('/');
       })
       .catch((error) => {
