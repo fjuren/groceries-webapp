@@ -84,7 +84,7 @@ const ViewRecipe = ({ authStatus, parentPage, parentPageName }) => {
             />
           </div>
           <div id="border-view-recipe">
-            <div id="title">
+            <div id="recipe-title">
               <h2>{state.data.title}</h2>
             </div>
             <div id="container-view-chips">
@@ -101,7 +101,7 @@ const ViewRecipe = ({ authStatus, parentPage, parentPageName }) => {
               })}
             </div>
             <div>
-              <p>{state.data.description}</p>
+              <p id="recipe-description">{state.data.description}</p>
             </div>
             <div>
               <h3>Ingredients list</h3>

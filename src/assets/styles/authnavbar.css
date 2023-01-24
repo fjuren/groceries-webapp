@@ -25,6 +25,10 @@
     width: 21rem;
 }
 
+#user-firstName {
+    margin-left: 27rem;
+}
+
 #btn-logout {
     width: 329px;
      height: 50px;

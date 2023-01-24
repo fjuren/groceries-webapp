@@ -25,6 +25,10 @@
     gap: 0.5rem;
 }
 
+#recipe-description {
+    white-space: pre-line;
+}
+
 h3 {
     margin-block-end: 0;
 }

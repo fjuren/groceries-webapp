@@ -20,7 +20,6 @@ export default function ListCheckboxItems({ itemFromList, handleDeleteItem, hand
     handleCheckItem(!checkStatus, item_id);
   };
 
-  console.log(itemFromList.item_id);
   useEffect(() => {
     const getItems = async () => {
       const docRef = doc(db, 'groceries', itemFromList.item_id);
