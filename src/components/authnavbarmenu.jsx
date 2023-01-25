@@ -1,3 +1,4 @@
+import { React, useEffect } from 'react';
 import { ThemeProvider } from '@emotion/react';
 import '../assets/styles/navbar.css';
 import '../assets/styles/menudrawer.css';
@@ -5,7 +6,7 @@ import Button from '@mui/material/Button';
 import Collapse from '@mui/material/Collapse';
 import theme from '../theme';
 import { useNavigate } from 'react-router-dom';
-import { signOut } from 'firebase/auth';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase.config';
 
 const Authnavbarmenu = ({ expandHamburger, setExpandHamburger, setAuthStatus }) => {
@@ -48,12 +49,28 @@ const Authnavbarmenu = ({ expandHamburger, setExpandHamburger, setAuthStatus }) 
       });
   };
 
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       const firstName = user.displayName.split(' ')[0];
+  //       console.log(firstName);
+  //       // document.getElementById('user-firstName').style.color = 'yellow';
+  //       document.getElementById('user-firstName-mobile').textContent = 'Hi, ' + firstName + '!';
+  //       // ...
+  //     } else {
+  //       // User is signed out
+  //       // ...
+  //     }
+  //   });
+  // }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <div className="menu-drawer" id={expandHamburger ? 'active' : null}>
         <Collapse orientation="vertical" in={expandHamburger}>
           <nav className="menu">
             <ul>
+              {/* <span id="user-firstName-mobile"></span> */}
               <li>
                 <Button
                   variant="txt"

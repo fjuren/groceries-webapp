@@ -42,8 +42,6 @@ const Authnavbar = ({ setAuthStatus }) => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
         const firstName = user.displayName.split(' ')[0];
         console.log(firstName);
         document.getElementById('user-firstName').style.color = 'inherit';

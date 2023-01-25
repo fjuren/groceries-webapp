@@ -26,7 +26,11 @@
 }
 
 #user-firstName {
-    margin-left: 27rem;
+    margin-left: auto;
+}
+
+#user-firstName-mobile {
+    margin-left: 12rem;
 }
 
 #btn-logout {
