@@ -49,28 +49,12 @@ const Authnavbarmenu = ({ expandHamburger, setExpandHamburger, setAuthStatus }) 
       });
   };
 
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       const firstName = user.displayName.split(' ')[0];
-  //       console.log(firstName);
-  //       // document.getElementById('user-firstName').style.color = 'yellow';
-  //       document.getElementById('user-firstName-mobile').textContent = 'Hi, ' + firstName + '!';
-  //       // ...
-  //     } else {
-  //       // User is signed out
-  //       // ...
-  //     }
-  //   });
-  // }, []);
-
   return (
     <ThemeProvider theme={theme}>
       <div className="menu-drawer" id={expandHamburger ? 'active' : null}>
         <Collapse orientation="vertical" in={expandHamburger}>
           <nav className="menu">
             <ul>
-              {/* <span id="user-firstName-mobile"></span> */}
               <li>
                 <Button
                   variant="txt"
